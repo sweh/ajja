@@ -119,8 +119,7 @@ Customizing field widgets
 You can either customize widgets by their type (e.g. all fields rendered for
 strings) or customize single widgets by their name.
 
-Customization by field type
-+++++++++++++++++++++++++++
+*Customization by field type*
 
 You can overwrite the default templates by providing your own templates in the
 options dict passed during form initialization::
@@ -133,8 +132,7 @@ options dict passed during form initialization::
 For every string data, your input template would be rendered instead of the
 default input text field. Same for lists and boolean values.
 
-Customization by field name
-+++++++++++++++++++++++++++
+*Customization by field name*
 
 Imagine you want checkboxes instead of a select field::
 
