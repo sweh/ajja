@@ -1,0 +1,1 @@
+<input type="text" data-bind="value: {{name}}" name="{{name}}" class="form-control" value="" />

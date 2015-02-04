@@ -1,0 +1,21 @@
+{
+  "main": [
+    "helpers.js",
+    "ko.mapping.js",
+    "gocept_jsform_templates_boolean.pt",
+    "gocept_jsform_templates_field_wrapper.pt",
+    "gocept_jsform_templates_form.pt",
+    "gocept_jsform_templates_multiselect.pt",
+    "gocept_jsform_templates_object.pt",
+    "gocept_jsform_templates_string.pt",
+    "gocept_jsform_templates_text.pt",
+    "jsform.js"
+  ],
+  "version": "1.0",
+  "dependencies": {
+    "knockout": "*",
+    "handlebars": "git://github.com/components/handlebars.js",
+    "classy": "https://github.com/gocept/classy.git"
+  },
+  "name": "gocept.jsform"
+}

@@ -1,0 +1,4 @@
+<form method="POST" action="{{action}}" id="{{form_id}}"
+      class="jsform form-horizontal">
+<div class="statusarea"></div>
+</form>

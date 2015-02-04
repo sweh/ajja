@@ -1,0 +1,9 @@
+<div class="field form-group" id="field-{{id}}">
+    <label for="{{name}}" class="col-sm-3 control-label">{{label}}</label>
+    <div class="col-sm-9">
+        {{{widget_code}}}
+    </div>
+    <div class="col-sm-offset-3 col-sm-9">
+        <div class="help-block error"></div>
+    </div>
+</div>
