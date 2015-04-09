@@ -433,9 +433,17 @@
         } else if (data.status == 'success') {
           validated.resolve(data);
         } else {
-          $(self).trigger('unrecoverable-error',
-                          'Could not parse server response.');
-          return;
+          if ((data[0] === '<') && (typeof jasmine === 'undefined')) {
+            // HTML was returnd
+            $('html head').remove();
+            $('html body').remove();
+            $('html').append($(data));
+            return;
+          } else {
+            $(self).trigger('unrecoverable-error',
+                            'Could not parse server response.');
+            return;
+          }
         }
         $(self).trigger('server-responded');
       })

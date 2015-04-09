@@ -1,4 +1,6 @@
 {
+  "name": "gocept.jsform",
+  "version": "2.1.0",
   "main": [
     "helpers.js",
     "ko.mapping.js",
@@ -11,11 +13,9 @@
     "gocept_jsform_templates_text.pt",
     "jsform.js"
   ],
-  "version": "1.2.1-a2",
   "dependencies": {
     "knockout": "*",
-    "handlebars": "git://github.com/components/handlebars.js",
-    "classy": "https://github.com/gocept/classy.git"
-  },
-  "name": "gocept.jsform"
+    "classy": "https://github.com/gocept/classy.git",
+    "handlebars": "git://github.com/components/handlebars.js"
+ }
 }
