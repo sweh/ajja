@@ -309,6 +309,15 @@
       return self.node.find('#field-' + id);
     },
 
+    label: function(id) {
+      var self = this;
+      var label = self.options[id].label;
+      if (gocept.jsform.isUndefinedOrNull(label)) {
+        label = '';
+      }
+      return label;
+    },
+
     subscribe: function(id, real_id) {
       /* Subscribe to changes on one field of the model and propagate them to
        * the server.
@@ -449,7 +458,13 @@
       })
       .fail(function(jqxhr, text_status, error_thrown) {
         if (text_status == 'error' && error_thrown) {
-          $(self).trigger('unrecoverable-error', error_thrown);
+          if (gocept.jsform.isUndefinedOrNull(jqxhr) ||
+              gocept.jsform.isUndefinedOrNull(jqxhr.responseJSON) ||
+              gocept.jsform.isUndefinedOrNull(jqxhr.responseJSON.message)) {
+            $(self).trigger('unrecoverable-error', error_thrown);
+          } else {
+            $(self).trigger('unrecoverable-error', jqxhr.responseJSON.message);
+          }
           return;
         }
         $(self).one('retry', function() {
@@ -544,16 +559,20 @@
     notify_field_error: function(id, msg) {
       var self = this;
       self.clear_field_error(id);
-      var error_node = self.node.find('.error');
+      var error_node = self.field(id).find('.error');
       error_node.text(msg);
       self.highlight_field(id, 'danger');
+      var label = self.label(id);
+      if (label !== '') {
+        label = label + ': ';
+      }
       error_node.data(
-          'status_message', self.status_message(id + ': ' + msg, 'danger'));
+          'status_message', self.status_message(label + msg, 'danger'));
     },
 
     clear_field_error: function(id) {
       var self = this;
-      var error_node = self.node.find('.error');
+      var error_node = self.field(id).find('.error');
       error_node.text('');
       self.clear_status_message(error_node.data('status_message'));
       error_node.data('status_message', null);
@@ -577,7 +596,8 @@
     notify_saving: function(id) {
       var self = this;
       self.field(id).addClass('alert-saving');
-      return self.status_message(self.t('saving') + ' ' + id, 'info');
+      return self.status_message(
+          self.t('saving') + ' ' + self.label(id), 'info');
     },
 
     clear_saving: function(id, msg_node) {
