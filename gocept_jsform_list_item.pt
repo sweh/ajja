@@ -1,0 +1,6 @@
+<dl>
+  {{#each @root}}
+  <dt>{{@key}}</dt>
+  <dd>{{{this}}}</dd>
+  {{/each}}
+</dl>

@@ -1,9 +1,11 @@
 {
   "name": "gocept.jsform",
-  "version": "2.3.0",
+  "version": "2.5.0",
   "main": [
     "helpers.js",
     "ko.mapping.js",
+    "list.js",
+    "jsform.js",
     "gocept_jsform_templates_boolean.pt",
     "gocept_jsform_templates_field_wrapper.pt",
     "gocept_jsform_templates_form.pt",
@@ -11,11 +13,17 @@
     "gocept_jsform_templates_object.pt",
     "gocept_jsform_templates_string.pt",
     "gocept_jsform_templates_text.pt",
-    "jsform.js"
+    "gocept_jsform_list.pt",
+    "gocept_jsform_list_item.pt",
+    "gocept_jsform_list_item_action.pt",
+    "gocept_jsform_list_item_edit.pt",
+    "gocept_jsform_list_item_wrapper.pt"
   ],
   "dependencies": {
     "knockout": "*",
     "classy": "https://github.com/gocept/classy.git",
-    "handlebars": "git://github.com/components/handlebars.js"
+    "handlebars": "git://github.com/components/handlebars.js",
+    "bootstrap": "~3.3",
+    "jquery-ui": "~1.10"
  }
 }

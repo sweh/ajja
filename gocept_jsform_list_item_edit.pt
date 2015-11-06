@@ -1,0 +1,18 @@
+<div id="object-edit-form" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schlie&szlig;en</span></button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="object-edit">
+          <form id="object-jsform"></form>
+          <button type="button" data-dismiss="modal"
+                  id="close-object-edit-form" class="btn btn-primary"
+            >{{save_button_title}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

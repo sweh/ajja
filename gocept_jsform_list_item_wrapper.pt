@@ -1,0 +1,11 @@
+<li class="list-group-item" style="min-height: 50px;" id="item_{{id}}">
+  <span class="actions btn-group badge">
+    {{#each actions}}
+    <a data-action="{{css_class}}"
+       class="{{css_class}} btn btn-default btn-xs"
+       href="#">
+        <span class="glyphicon {{icon}}"></span> {{title}}</a>
+    {{/each}}
+  </span>
+  <span class="content" />
+</li>
