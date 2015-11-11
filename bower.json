@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "knockout": "*",
-    "knockout-mapping": "*",
+    "bower-knockout-mapping": "2.5.0",
     "classy": "https://github.com/gocept/classy.git",
     "handlebars": "git://github.com/components/handlebars.js",
     "bootstrap": "~3.3",
