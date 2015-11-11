@@ -51,7 +51,8 @@
             options = options || {};
 
             self.item_actions = self.default_item_actions.concat(
-                options.item_actions || []);
+                options.item_actions || []
+            );
             self.item_action_callbacks = {};
             $.each(self.item_actions, function (key, item) {
                 self.item_action_callbacks[item.css_class] = item.callback;
@@ -65,10 +66,14 @@
             self.list_container = node.find('#container');
             self.collection_url = node.data('collection-url');
             self.template = gocept.jsform.or(
-                node.data('template'), 'gocept_jsform_list_item');
+                node.data('template'),
+                'gocept_jsform_list_item'
+            );
             self.jsform_template = node.data('form-template');
             self.jsform_options = gocept.jsform.or(
-                node.data('form-options'), {});
+                node.data('form-options'),
+                {}
+            );
             self.render_form_actions();
         },
 
@@ -209,7 +214,7 @@
             });
             $.each(node.data('data'), function (key, value) {
                 // Only display data in form where a label exists.
-                if (key in self.jsform_options) {
+                if (self.jsform_options[key]) {
                     data[key] = value;
                 }
             });
