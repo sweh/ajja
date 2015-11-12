@@ -62,6 +62,7 @@
          * - action:           The url the form will submit to (if intended).
          *                     Will become the action attribute in form.
          * - language:         2-char language code. Default is en.
+         * - disabled:         Only render disabled fields in the whole form.
          */
             var self = this;
             self.id = id;
@@ -69,7 +70,7 @@
             self.initial_data = null;
             self.data = {};
             self.subscriptions = {};
-            self.options = {action: '', language: 'en'};
+            self.options = {action: '', language: 'en', disabled: false};
             $.extend(self.options, options);
             self.csrf_token_id = 'csrf_token';
             self.mapping = {};
@@ -147,6 +148,7 @@
              *     |- source: array of objects containing 'token' and 'title'
              *     |- multiple: for object selection, whether to do multi-select
              *     |- placeholder: placeholder to the empty dropdown option
+             *     |- disabled: true if field should be disabled
              * |- mapping:  An optional mapping for the <ko.mapping> plugin.
              */
             var self = this;
@@ -154,6 +156,9 @@
                 self.url = data_or_url;
             } else {
                 self.initial_data = data_or_url;
+            }
+            if (gocept.jsform.isUndefinedOrNull(options)) {
+                options = {};
             }
             $.extend(self.options, options);
             self.collect_sources();
@@ -258,6 +263,9 @@
                 value: self.data[id],
                 label: ''
             }, self.options[id]);
+            if (self.options.disabled) {
+                widget_options.disabled = true;
+            }
             if (!gocept.jsform.isUndefinedOrNull(widget_options.source) &&
                     gocept.jsform.isUndefinedOrNull(widget_options.placeholder)) {
                 widget_options.placeholder =

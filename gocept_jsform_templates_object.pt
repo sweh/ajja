@@ -1,4 +1,5 @@
 <select name="{{name}}"
+        {{#if disabled}} disabled="disabled" {{/if}}
         data-bind="value: {{name}},
                    options: __sources__.{{name}},
                    optionsText: 'title',

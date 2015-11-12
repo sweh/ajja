@@ -1,6 +1,6 @@
 {
   "name": "gocept.jsform",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "main": [
     "helpers.js",
     "list.js",
