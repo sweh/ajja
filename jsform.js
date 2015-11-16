@@ -219,21 +219,25 @@
                 dataType: "json",
                 url: self.url,
                 success: function (tokenized) {
-                    var data = {};
-                    $.each(tokenized, function (name, value) {
-                        data[name] = self.resolve_object_field(name, value);
-                    });
-                    cb(data);
+                    cb(tokenized);
                 },
                 error: function (e) { self.notify_server_error(e); }
             });
         },
 
-        finish_load: function (data) {
-            var self = this;
+        finish_load: function (tokenized) {
+            var self = this,
+                data = tokenized;
+            if (tokenized) {
+                $.each(tokenized, function (name, value) {
+                    data[name] = self.resolve_object_field(name, value);
+                });
+            }
             self.data = data;
             self.init_fields();
-            $(self).trigger('after-load');
+            setTimeout(function () {
+                $(self).trigger('after-load');
+            }, 0);
         },
 
         resolve_object_field: function (name, value) {
