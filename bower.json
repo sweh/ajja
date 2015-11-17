@@ -1,6 +1,6 @@
 {
   "name": "gocept.jsform",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "main": [
     "helpers.js",
     "list.js",
@@ -24,7 +24,7 @@
     "classy": "https://github.com/gocept/classy.git",
     "handlebars": "git://github.com/components/handlebars.js",
     "bootstrap": "~3.3",
-    "jquery": "~1.10",
-    "jquery-ui": "~1.10"
+    "jquery": "~1.11",
+    "jquery-ui": "~1.11"
  }
 }

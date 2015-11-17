@@ -123,7 +123,7 @@
                 self.expand_form();
             }
             self.node = $('#' + self.id);
-            self.node.data('form', self);
+            self.node.closest('form').data('form', self);
             self.statusarea = self.node.find('.statusarea');
         },
 
