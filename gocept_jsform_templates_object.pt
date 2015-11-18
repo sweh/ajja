@@ -5,8 +5,11 @@
                    optionsText: 'title',
                    optionsCaption: '{{placeholder}}',
                    optionsAfterRender: function(option, item) {
-                      if (! item) return;
-                      option.value = item.token;
+                     if (!item && {{required}}) {
+                       option.disabled = true;
+                     } else if (item) {
+                       option.value = item.token;
+                     }
                    },
                    allowValueUnset: true">
 </select>
