@@ -1,12 +1,12 @@
 {
   "name": "gocept.jsform",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "main": [
     "helpers.js",
     "list.js",
     "jsform.js",
     "gocept_jsform_templates_boolean.pt",
-    "gocept_jsform_templates_values.pt",
+    "gocept_jsform_templates_radio_list.pt",
     "gocept_jsform_templates_field_wrapper.pt",
     "gocept_jsform_templates_form.pt",
     "gocept_jsform_templates_multiselect.pt",

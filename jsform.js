@@ -183,7 +183,7 @@
             self.sources = {};
             self.item_maps = {};
             $.each(self.options, function (name, value) {
-                if (gocept.jsform.isUndefinedOrNull(value.source)) {
+                if (!self.is_object_field(name)) {
                     return;
                 }
                 self.sources[name] = ko.observableArray(value.source);
@@ -250,10 +250,21 @@
             }, 0);
         },
 
-        resolve_object_field: function (name, value) {
-            var self = this, item_map, resolved;
+        is_object_field: function (name) {
+            var self = this;
             if (gocept.jsform.isUndefinedOrNull(self.options[name]) ||
                     gocept.jsform.isUndefinedOrNull(self.options[name].source)) {
+                return false;
+            }
+            if (self.options[name].template === 'gocept_jsform_templates_radio_list') {
+                return false;
+            }
+            return true;
+        },
+
+        resolve_object_field: function (name, value) {
+            var self = this, item_map, resolved;
+            if (!self.is_object_field(name)) {
                 return value;
             }
             item_map = self.item_maps[name];
@@ -401,8 +412,6 @@
             }
             if (!gocept.jsform.isUndefinedOrNull(self.sources[id])) {
                 type = self.options[id].multiple ? 'multiselect' : 'object';
-            } else if (!gocept.jsform.isUndefinedOrNull(self.options[id].values)) {
-                type = 'values';
             } else if (value === null) {
                 type = 'string';
             } else {
