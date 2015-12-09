@@ -75,6 +75,11 @@
          * - disabled:         Only render disabled fields in the whole form.
          */
             var self = this;
+
+            if ($('#' + id).length === 0) {
+                throw "ID #" + id + " could not be found!";
+            }
+
             self.id = id;
             self.url = null;
             self.initial_data = null;

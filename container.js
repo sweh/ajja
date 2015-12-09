@@ -48,7 +48,11 @@
             self.node_selector = node_selector;
             self.node = node;
 
-            options = options || {};
+            if ($(node_selector).length === 0) {
+                throw "Selector " + node_selector + " did not match any node!";
+            }
+
+            self.options = options = options || {};
 
             self.item_actions = self.default_item_actions.concat(
                 options.item_actions || []
@@ -95,6 +99,7 @@
         },
 
         get_container_head: function (items) {
+            // Subclasses of ListWidget return non-empty content for container
             return '';
         },
 
@@ -172,16 +177,19 @@
         },
 
         add_item: function () {
-            // XXX Error handling!
             var self = this;
             $.ajax({
                 url: self.collection_url,
                 type: 'PUT',
                 dataType: 'json'
             }).done(function (item) {
+                if (item.resource === undefined || item.data === undefined) {
+                    throw "Response must contain resource URL and data.";
+                }
                 var node = self.render_item(item);
                 self.edit_item(node);
             });
+            // XXX Error handling!
         },
 
         edit_item: function (node) {
@@ -250,5 +258,108 @@
                 node.remove();
             });
         }
+    });
+
+    gocept.jsform.GroupListWidget = gocept.jsform.ListWidget.$extend({
+        /* Group items of a list by class written in data attributes.
+         *
+         * Each list item must provide
+         *   * data-{{self.group_by_key}}
+         *   * data-{{self.group_title_key}}
+         */
+
+        base_template: 'gocept_jsform_group',
+
+        __init__: function (node_selector, options) {
+            var self = this;
+            self.$super(node_selector, options);
+            if (self.options.group_by_key === undefined) {
+                throw "Required option group_by_key was not given!";
+            }
+            if (self.options.group_title_key === undefined) {
+                throw "Required option group_title_key was not given!";
+            }
+        },
+
+        get_container: function (item) {
+            /* Look up grouping container for this item or create if missing */
+            var self = this,
+                group_container = self.$super(item),
+                group_class = 'group_' + item.data[self.options.group_by_key],
+                group_title = item.data[self.options.group_title_key],
+                template = gocept.jsform.get_template(
+                    'gocept_jsform_group_item'
+                );
+            if (!group_container.find('.' + group_class).length) {
+                group_container.append(
+                    template({
+                        group_class: group_class,
+                        group_title: group_title
+                    })
+                );
+            }
+            return group_container.find(
+                '.' + group_class + ' ul.list-container'
+            );
+        }
+    });
+
+    gocept.jsform.TableWidget = gocept.jsform.ListWidget.$extend({
+
+        base_template: 'gocept_jsform_table',
+
+        __init__: function (node_selector, options) {
+            var self = this;
+            self.$super(node_selector, options);
+            self.omit = self.options.omit || [];
+        },
+
+        get_container_head: function (items) {
+            var self = this,
+                columns = {};
+            if (!items.length) {
+                return;
+            }
+            $.each(items[0].data, function (key, value) {
+                // Gather columns (that are not omitted) for table head
+                if (self.omit.indexOf(key) === -1) {
+                    columns[key] = self.jsform_options[key].label || key;
+                }
+            });
+            return gocept.jsform.get_template('gocept_jsform_table_head')(columns);
+        },
+
+        render_item: function (item) {
+            var self = this,
+                template = gocept.jsform.get_template('gocept_jsform_table_row'),
+                cell_data = {},
+                node = null;
+            $.each(item.data, function (key, value) {
+                if (self.omit.indexOf(key) === -1) {
+                    cell_data[key] = value;
+                }
+            });
+            node = $(template({actions: self.item_actions,
+                               data: cell_data}));
+            self.translate_boolean_cells(node);
+            self.get_container(item).append(node);
+            node.data('resource', item.resource);
+            node.data('data', item.data);
+            self.apply_item_actions(node);
+            return node;
+        },
+
+        translate_boolean_cells: function (node) {
+            // Translate the contents of boolean cells to icons
+            $.each(node.find('td'), function (idx, td) {
+                $(td).filter(function () {
+                    return this.innerHTML === 'true';
+                }).html('<span class="glyphicon glyphicon-ok"></span>');
+                $(td).filter(function () {
+                    return this.innerHTML === 'false';
+                }).html('<span class="glyphicon glyphicon-remove"></span>');
+            });
+        }
+
     });
 }(jQuery));

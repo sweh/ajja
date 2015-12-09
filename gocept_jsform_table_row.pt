@@ -1,0 +1,13 @@
+<tr>
+  {{#each data}}
+    <td class="{{@key}}">{{this}}</td>
+  {{/each}}
+  {{#each actions}}
+    <td class="actions">
+      <a data-action="{{css_class}}"
+         class="{{css_class}} btn btn-default btn-xs"
+         href="#">
+          <span class="glyphicon {{icon}}"></span> {{title}}</a>
+    </td>
+  {{/each}}
+</tr>
