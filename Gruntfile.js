@@ -17,7 +17,14 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     port: 8888,
-                    keepalive: true
+                    keepalive: true,
+                    base: {
+                        path: '.',
+                        options: {
+                            index: '_SpecRunner.html'
+                        }
+                    },
+                    open: true
                 }
             }
         },
