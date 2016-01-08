@@ -41,6 +41,8 @@
 
     gocept.jsform.Form = Class.$extend({
 
+        status_message_fade_out_time: 3000,
+
         __init__: function (id, options) {
         /* Exand the form under #id.
          *
@@ -709,7 +711,7 @@
             msg_node.addClass('alert-' + status);
             if (!gocept.jsform.isUndefinedOrNull(duration)) {
                 msg_node.delay(duration).fadeOut(
-                    3000,
+                    self.status_message_fade_out_time,
                     function () { msg_node.remove(); }
                 );
             }

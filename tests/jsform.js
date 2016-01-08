@@ -818,12 +818,13 @@ describe("Form Plugin", function () {
         });
 
         it("disappear after a given duration", function (done) {
+            form.status_message_fade_out_time = 100;
             form.status_message('foo', 'success', 100);
             expect($('#my_form .statusarea .alert-success').text()).toEqual('foo');
             setTimeout(function () {
                 expect($('#my_form .statusarea .alert-success').length).toEqual(0);
                 done();
-            }, 3500); /* fadeOut(3000) */
+            }, 250);
         });
 
         it("can be cleared by handle", function () {
