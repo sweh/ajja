@@ -2,11 +2,9 @@
 /*global waits, runs, waitsFor, afterEach, spyOn */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
-var alert = jasmine.createSpy();
-
 describe("Form Plugin", function () {
     "use strict";
-    var form, set_save_response, set_load_response;
+    var form, alert, set_save_response, set_load_response;
 
     set_save_response = function (response, trigger) {
         /*
@@ -40,6 +38,7 @@ describe("Form Plugin", function () {
     beforeEach(function () {
         $('body').append($('<div id="my_form"></div>'));
         form = new gocept.jsform.Form('my_form', {});
+        alert = spyOn(form, 'alert');
     });
 
     afterEach(function () {
@@ -274,7 +273,7 @@ describe("Form Plugin", function () {
     describe("Propagation to server", function () {
 
         beforeEach(function () {
-            spyOn(form, "_save").and.callThrough();
+            spyOn(form, "_save").and.returnValue($.Deferred());
         });
 
         afterEach(function () {

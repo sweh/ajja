@@ -3,17 +3,21 @@
 describe("Table Widget", function () {
     "use strict";
 
+    beforeEach(function () {
+        $('body').append($('<div id="my_form"></div>'));
+    });
+
+    afterEach(function () {
+        $('#my_form').remove();
+    });
+
     describe("Render", function () {
         var table;
 
         beforeEach(function () {
-            $('body').append($('<div id="my_form"></div>'));
             table = new gocept.jsform.TableWidget('#my_form');
         });
 
-        afterEach(function () {
-            $('#my_form').remove();
-        });
         it("displays added item as table", function () {
             spyOn($, 'ajax').and.callFake(function (options) {
                 var result, response;

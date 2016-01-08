@@ -91,7 +91,7 @@
             $(self).on('unrecoverable-error', function (event, msg) {
                 self.unrecoverable_error = true;
                 self.unrecoverable_error_msg = msg;
-                alert(self.t('unrecoverable_error_intro') + msg);
+                self.alert(self.t('unrecoverable_error_intro') + msg);
             });
             if (gocept.jsform.isUndefinedOrNull(self.options.field_wrapper_template)) {
                 self.field_wrapper_template = self.get_template('form_field_wrapper');
@@ -105,6 +105,10 @@
             $(self).bind('after-save', function (ev, data) {
                 self.update_sources(data);
             });
+        },
+
+        alert: function (msg) {
+            alert(msg);
         },
 
         t: function (msgid) {

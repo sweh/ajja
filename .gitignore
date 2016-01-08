@@ -3,3 +3,4 @@ bower_components/
 lib/
 node_modules/
 _SpecRunner.html
+report/

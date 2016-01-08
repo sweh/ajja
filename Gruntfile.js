@@ -15,6 +15,10 @@ module.exports = function (grunt) {
                     specs : 'tests/**/*.js',
                     vendor: 'lib/bower.js',
                     styles: 'bower_components/bootstrap/dist/css/bootstrap.css',
+                    junit: {
+                        path: 'report',
+                        consolidate: true
+                    }
                 },
             }
         },
@@ -79,10 +83,15 @@ module.exports = function (grunt) {
         'bower:dev',
         'bower_concat:all',
         'jshint:all',
-        'handlebars:compile'
+        'handlebars:compile',
+        'jasmine:jsform'
     ]);
     grunt.registerTask('test', [
         'jasmine:jsform:build',
         'connect',
     ]);
+    grunt.registerTask('phantomjs', [
+        'jasmine:jsform'
+    ]);
+
 };
