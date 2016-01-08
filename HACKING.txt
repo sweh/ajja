@@ -1,0 +1,25 @@
+Developing for gocept.jsform
+============================
+
+Installation::
+
+  $ npm install
+  $ grunt
+
+To run tests in a browser, run::
+
+  $ grunt test
+
+To run tests in phantomjs, run::
+
+  $ grunt phantomjs
+
+
+Releases
+========
+
+  * Update version in bower.js and package.json.
+  * Commit changes to github.
+  * Create a tag for the current version:
+        * git tag -a X.X.X -m "Version X.X.X"
+        * git push origin X.X.X
