@@ -7,11 +7,15 @@ describe("Table Widget", function () {
         var table;
 
         beforeEach(function () {
+            $('body').append($('<div id="my_form"></div>'));
             table = new gocept.jsform.TableWidget('#my_form');
         });
 
+        afterEach(function () {
+            $('#my_form').remove();
+        });
         it("displays added item as table", function () {
-            spyOn($, 'ajax').andCallFake(function (options) {
+            spyOn($, 'ajax').and.callFake(function (options) {
                 var result, response;
                 result = $.Deferred();
                 response = {
@@ -22,7 +26,7 @@ describe("Table Widget", function () {
                 return result.promise();
             });
             // XXX Don't actually run edit_item as it reloads the table.
-            var edit = spyOn(table, 'edit_item').andCallFake(
+            var edit = spyOn(table, 'edit_item').and.callFake(
                 function () { return; }
             );
 

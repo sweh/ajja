@@ -1,4 +1,4 @@
-/*global describe, beforeEach, gocept, it, spyOn, expect, $*/
+/*global describe, beforeEach, afterEach, gocept, it, spyOn, expect, $*/
 /*jslint nomen: true, unparam: true, bitwise: true*/
 describe("Group List Widget", function () {
     "use strict";
@@ -6,14 +6,19 @@ describe("Group List Widget", function () {
     var list;
 
     beforeEach(function () {
+        $('body').append($('<div id="my_form"></div>'));
         list = new gocept.jsform.GroupListWidget(
             '#my_form',
             {group_by_key: 'foo', group_title_key: 'foo'}
         );
     });
 
+    afterEach(function () {
+        //$('#my_form').remove();
+    });
+
     it("displays added item inside group", function () {
-        spyOn($, 'ajax').andCallFake(function (options) {
+        spyOn($, 'ajax').and.callFake(function (options) {
             var result, response;
             result = $.Deferred();
             response = {
@@ -24,7 +29,7 @@ describe("Group List Widget", function () {
             return result.promise();
         });
         // XXX Don't actually run edit_item as it reloads the list.
-        var edit = spyOn(list, 'edit_item').andCallFake(
+        var edit = spyOn(list, 'edit_item').and.callFake(
             function () { return; }
         );
 

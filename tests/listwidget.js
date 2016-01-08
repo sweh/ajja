@@ -1,4 +1,4 @@
-/*global describe, beforeEach, gocept, it, spyOn, expect, $*/
+/*global describe, beforeEach, afterEach, gocept, it, spyOn, expect, $*/
 /*jslint nomen: true, unparam: true, bitwise: true*/
 describe("List Widget", function () {
     "use strict";
@@ -6,11 +6,16 @@ describe("List Widget", function () {
     var list;
 
     beforeEach(function () {
+        $('body').append($('<div id="my_form"></div>'));
         list = new gocept.jsform.ListWidget('#my_form');
     });
 
+    afterEach(function () {
+        $('#my_form').remove();
+    });
+
     it("displays added item", function () {
-        spyOn($, 'ajax').andCallFake(function (options) {
+        spyOn($, 'ajax').and.callFake(function (options) {
             var result, response;
             result = $.Deferred();
             response = {
@@ -21,7 +26,7 @@ describe("List Widget", function () {
             return result.promise();
         });
         // XXX Don't actually run edit_item as it reloads the list.
-        var edit = spyOn(list, 'edit_item').andCallFake(
+        var edit = spyOn(list, 'edit_item').and.callFake(
             function () { return; }
         );
 
@@ -37,7 +42,7 @@ describe("List Widget", function () {
     });
 
     it("should throw an error when malformed response is returned on add", function () {
-        spyOn($, 'ajax').andCallFake(function (options) {
+        spyOn($, 'ajax').and.callFake(function (options) {
             var result, response;
             result = $.Deferred();
             response = {
@@ -46,7 +51,7 @@ describe("List Widget", function () {
             result.resolve(response);
             return result.promise();
         });
-        expect(list.add_item).toThrow(
+        expect(function () { list.add_item(); }).toThrow(
             "Response must contain resource URL and data."
         );
     });

@@ -6,7 +6,7 @@ var alert = jasmine.createSpy();
 
 describe("Form Plugin", function () {
     "use strict";
-    var form, set_save_response;
+    var form, set_save_response, set_load_response;
 
     set_save_response = function (response, trigger) {
         /*
@@ -29,8 +29,21 @@ describe("Form Plugin", function () {
         };
     };
 
+    set_load_response = function (response, trigger) {
+        form.reload_data = function (cb) {
+            form.finish_load({"firstname": "Sebastian",
+                "title": [],
+                "needs_glasses": false});
+        };
+    };
+
     beforeEach(function () {
+        $('body').append($('<div id="my_form"></div>'));
         form = new gocept.jsform.Form('my_form', {});
+    });
+
+    afterEach(function () {
+        $('#my_form').remove();
     });
 
     it("should throw an error when ID was not found", function () {
@@ -75,7 +88,7 @@ describe("Form Plugin", function () {
         expect($('#my_form select option').length).toEqual(3);
     });
 
-    it("should update field when after-save is called", function () {
+    it("should update field when after-save is called", function (done) {
         var source = [{token: 'mr', title: 'Mr.'},
                       {token: 'mrs', title: 'Mrs.'}];
         form.load({title: ''},
@@ -84,10 +97,10 @@ describe("Form Plugin", function () {
             'after-save',
             {'sources': {'title': [{token: 'foo', title: 'Foo'}]}}
         );
-        waits(100);
-        runs(function () {
+        setTimeout(function () {
             expect($('#my_form select option').get(1).value).toEqual('foo');
-        });
+            done();
+        }, 100);
     });
 
     it("should select all given options for a multi-select field", function () {
@@ -153,79 +166,54 @@ describe("Form Plugin", function () {
         expect($('#my_form input').get(0).type).toEqual('text');
     });
 
-    it("can get its data from a url", function () {
-        var loaded = false;
-        $(form).on('after-load', function () { loaded = true; });
-        runs(function () {
-            form.load(
-                '/fanstatic/gocept.jsform.tests/testdata.json',
-                {title: {source: [
-                    {token: 'mr', title: 'Mr.'},
-                    {token: 'mrs', title: 'Mrs.'}
-                ]}}
-            );
-        });
-        waitsFor(function () { return loaded; }, 'form to be loaded', 1000);
-        runs(function () {
+    it("can get its data from a url", function (done) {
+        set_load_response();
+        $(form).on('after-load', function () {
             expect($('#my_form select option').get(1).innerHTML).toEqual('Mr.');
+            done();
         });
-    });
-
-    it("should send an event after loading", function () {
-        var event_called = false;
-        $(form).on('after-load', function () { event_called = true; });
-        form.load({});
-        waitsFor(function () { return event_called; }, 'form to be loaded', 1000);
-        runs(function () {
-            expect(event_called).toEqual(true);
-        });
-    });
-
-    it("should provide a deferred to check whether loading is done", function () {
-        expect(form.loaded.state()).toEqual('pending');
-        form.load({});
-        waitsFor(
-            function () { return form.loaded.state() === 'resolved'; },
-            'form to be loaded',
-            1000
+        form.load(
+            '/fanstatic/gocept.jsform.tests/testdata.json',
+            {title: {source: [
+                {token: 'mr', title: 'Mr.'},
+                {token: 'mrs', title: 'Mrs.'}
+            ]}}
         );
-        runs(function () {
+    });
+
+    it("should send an event after loading", function (done) {
+        $(form).on('after-load', function (ev) {done(); });
+        form.load({});
+    });
+
+    it("should provide a deferred to check whether loading is done", function (done) {
+        expect(form.loaded.state()).toEqual('pending');
+        $(form).on('after-load', function () {
             expect(form.loaded.state()).toEqual('resolved');
+            done();
         });
+        form.load({});
     });
 
-    it("should send an event after saving", function () {
-        var event_called = false;
+    it("should send an event after saving", function (done) {
         set_save_response(function (save) { save.resolve({status: 'success'}); });
-        $(form).on('after-save', function () { event_called = true; });
+        $(form).on('after-save', function () { done(); });
         form.load({'foo': 'bar'});
-        runs(function () {
-            form.save('foo', null);
-        });
-        waits(100);
-        runs(function () {
-            expect(event_called).toEqual(true);
-        });
+        form.save('foo', null);
     });
 
-    it("should propagate the save message from server using a trigger", function () {
-        var event_options = null;
+    it("should propagate the save message from server using a trigger", function (done) {
         set_save_response(function (save) {
             save.resolve({status: 'success', validation: 'success'});
         });
         $(form).on('after-save', function (event, data) {
-            event_options = data;
-        });
-        form.load({foo: ''});
-        runs(function () {
-            form.start_save('foo', 'bar');
-        });
-        waits(100);
-        runs(function () {
-            expect(event_options).toEqual(
+            expect(data).toEqual(
                 {status: 'success', validation: 'success'}
             );
+            done();
         });
+        form.load({foo: ''});
+        form.start_save('foo', 'bar');
     });
 
     describe("Disabled field for", function () {
@@ -286,7 +274,7 @@ describe("Form Plugin", function () {
     describe("Propagation to server", function () {
 
         beforeEach(function () {
-            spyOn(form, "_save").andCallThrough();
+            spyOn(form, "_save").and.callThrough();
         });
 
         afterEach(function () {
@@ -298,7 +286,7 @@ describe("Form Plugin", function () {
             $('#my_form input').click();
         });
 
-        it("select box saves token", function () {
+        it("select box saves token", function (done) {
             var source = [{token: 'mr', title: 'Mr.'},
                           {token: 'mrs', title: 'Mrs.'}];
             form.load({title: 'mr'},
@@ -306,16 +294,18 @@ describe("Form Plugin", function () {
                                template: 'gocept_jsform_templates_object'}});
             $('#my_form select')[0].selectedIndex = 2;
             $('#my_form select').change();
-            waits(100);
-            expect(form._save).toHaveBeenCalledWith(
-                'title',
-                null,
-                'POST',
-                '{"title":"mrs"}'
-            );
+            setTimeout(function () {
+                expect(form._save).toHaveBeenCalledWith(
+                    'title',
+                    null,
+                    'POST',
+                    '{"title":"mrs"}'
+                );
+                done();
+            }, 100);
         });
 
-        it("multi-select box saves tokens", function () {
+        it("multi-select box saves tokens", function (done) {
             var source = [{token: 'mr', title: 'Mr.'},
                           {token: 'mrs', title: 'Mrs.'}];
             form.load({title: ['mr']},
@@ -323,28 +313,32 @@ describe("Form Plugin", function () {
                                multiple: true}});
             $('#my_form select option')[2].selected = true;
             $('#my_form select').change();
-            waits(100);
-            expect(form._save).toHaveBeenCalledWith(
-                'title',
-                null,
-                'POST',
-                '{"title":["mr","mrs"]}'
-            );
+            setTimeout(function () {
+                expect(form._save).toHaveBeenCalledWith(
+                    'title',
+                    null,
+                    'POST',
+                    '{"title":["mr","mrs"]}'
+                );
+                done();
+            }, 100);
         });
 
-        it("sends csrf token if available", function () {
+        it("sends csrf token if available", function (done) {
             form.load({needs_glasses: false});
             $('#my_form').append(
                 $('<input type="hidden" id="csrf_token" value="token" />')
             );
             $('#my_form input').click();
-            waits(100);
-            expect(form._save).toHaveBeenCalledWith(
-                'needs_glasses',
-                null,
-                'POST',
-                '{"needs_glasses":true,"csrf_token":"token"}'
-            );
+            setTimeout(function () {
+                expect(form._save).toHaveBeenCalledWith(
+                    'needs_glasses',
+                    null,
+                    'POST',
+                    '{"needs_glasses":true,"csrf_token":"token"}'
+                );
+                done();
+            }, 100);
         });
 
     });
@@ -415,145 +409,118 @@ describe("Form Plugin", function () {
             expect(form.notify_field_error).not.toHaveBeenCalled();
         });
 
-        it("required fields work just fine when filled in", function () {
+        it("required fields work just fine when filled in", function (done) {
             var saved_id, saved_value;
             set_save_response(function (save, id, value) {
                 saved_id = id;
                 saved_value = value;
             });
             form.load({name: ''}, {name: {required: true}});
-            runs(function () { $('#my_form input').val('John').change(); });
-            waitsFor(function () {
-                return saved_id === 'name' && saved_value === 'John';
+            $('#my_form input').val('John').change();
+            setTimeout(function () {
+                expect(saved_id).toBe('name');
+                expect(saved_value).toBe('John');
+                done();
             }, 100);
         });
 
-        it("required fields are not saved if blank", function () {
-            var save_finished = false;
-            spyOn(form, '_save').andCallThrough();
+        it("required fields are not saved if blank", function (done) {
+            spyOn(form, '_save').and.callThrough();
             form.load({name: 'John'}, {name: {required: true}});
-            runs(function () {
-                $('#my_form input').val('').change();
-                form.field('name').data('save').always(function () {
-                    save_finished = true;
-                });
-            });
-            waitsFor(function () { return save_finished; }, 100);
-            runs(function () {
+            $('#my_form input').val('').change();
+            form.field('name').data('save').always(function () {
                 expect(form.field('name').data('save').state()).toEqual('rejected');
                 expect(form._save).not.toHaveBeenCalled();
                 expect($('#my_form .error').text()).toEqual(
                     'This field is required but has no input.'
                 );
+                done();
             });
         });
 
     });
 
-    it("validation errors are displayed and cleared at the widget", function () {
+    it("validation errors are displayed and cleared at the widget", function (done) {
         set_save_response(function (save) {
             save.resolve({status: 'error', msg: 'Not a valid eMail address.'});
         });
         form.load({email: ''});
-        runs(function () {
-            $('#my_form input').val('max@mustermann').change();
-        });
-        waits(100);
-        runs(function () {
+        $('#my_form input').val('max@mustermann').change();
+        setTimeout(function () {
             expect($('#my_form .error').text()).toEqual(
                 'Not a valid eMail address.'
             );
-        });
-        runs(function () {
             set_save_response(function (save) {
                 save.resolve({status: 'success'});
             });
             $('#my_form input').val('max@mustermann.example').change();
-        });
-        waits(100);
-        runs(function () {
-            expect($('#my_form .error').text()).toEqual('');
-        });
+            setTimeout(function () {
+                expect($('#my_form .error').text()).toEqual('');
+                done();
+            }, 100);
+        }, 100);
     });
 
-    it("renders field's label in the status area on validation error", function () {
+    it("renders field's label in the status area on validation error", function (done) {
         set_save_response(function (save) {
             save.resolve({status: 'error', msg: 'Not a valid eMail address.'});
         });
         form.load({email: ''}, {email: {'label': 'Your Mail-Address'}});
-        runs(function () {
-            $('#my_form input').val('max@mustermann').change();
-        });
-        waits(100);
-        runs(function () {
+        $('#my_form input').val('max@mustermann').change();
+        setTimeout(function () {
             expect($('#my_form .statusarea .alert').text()).toEqual(
                 'Your Mail-Address: Not a valid eMail address.'
             );
-        });
+            done();
+        }, 100);
     });
 
-    it("renders no label in status area on validation error if not defined", function () {
+    it("renders no label in status area on validation error if not defined", function (done) {
         set_save_response(function (save) {
             save.resolve({status: 'error', msg: 'Not a valid eMail address.'});
         });
         form.load({email: ''});
-        runs(function () {
-            $('#my_form input').val('max@mustermann').change();
-        });
-        waits(100);
-        runs(function () {
+        $('#my_form input').val('max@mustermann').change();
+        setTimeout(function () {
             expect($('#my_form .statusarea .alert').text()).toEqual(
                 'Not a valid eMail address.'
             );
-        });
+            done();
+        }, 100);
     });
 
-    it("unrecoverable error on non-conformant HTTP OK response while saving", function () {
+    it("unrecoverable error on non-conformant HTTP OK response while saving", function (done) {
         set_save_response(function (save) { save.resolve(''); });
         form.load({email: ''});
 
-        var unrecoverable_error_triggered = false;
         $(form).on('unrecoverable-error', function () {
-            unrecoverable_error_triggered = true;
-        });
-
-        runs(function () {
-            $('#my_form input').val('max@mustermann').change();
-        });
-        waitsFor(function () { return unrecoverable_error_triggered; },
-                 'unrecoverable-error to be triggered', 100);
-        runs(function () {
             expect(form.start_save('foo', 'bar')).not.toBeDefined();
             expect(alert).toHaveBeenCalledWith(
                 'An unrecoverable error has occurred: ' +
                     'Could not parse server response.'
             );
+            done();
         });
+
+        $('#my_form input').val('max@mustermann').change();
     });
 
-    it("unrecoverable error on HTTP error response while saving", function () {
+    it("unrecoverable error on HTTP error response while saving", function (done) {
         set_save_response(function (save) { save.reject(null, 'error', 'fubar'); });
         form.load({email: ''});
 
-        var unrecoverable_error_triggered = false;
         $(form).on('unrecoverable-error', function () {
-            unrecoverable_error_triggered = true;
-        });
-
-        runs(function () {
-            $('#my_form input').val('max@mustermann').change();
-        });
-        waitsFor(function () { return unrecoverable_error_triggered; },
-                 'unrecoverable-error to be triggered', 100);
-        runs(function () {
             expect(form.start_save('foo', 'bar')).not.toBeDefined();
             expect(alert).toHaveBeenCalledWith(
                 'An unrecoverable error has occurred: fubar'
             );
+            done();
         });
+
+        $('#my_form input').val('max@mustermann').change();
     });
 
-    it("unrecoverable error displays message of response if present", function () {
+    it("unrecoverable error displays message of response if present", function (done) {
         set_save_response(function (save) {
             save.reject(
                 {'responseJSON': {'message': 'Custom Error Message'}},
@@ -563,42 +530,26 @@ describe("Form Plugin", function () {
         });
         form.load({email: ''});
 
-        var unrecoverable_error_triggered = false;
         $(form).on('unrecoverable-error', function () {
-            unrecoverable_error_triggered = true;
-        });
-
-        runs(function () {
-            $('#my_form input').val('max@mustermann').change();
-        });
-        waitsFor(function () { return unrecoverable_error_triggered; },
-                 'unrecoverable-error to be triggered', 100);
-        runs(function () {
             expect(form.start_save('foo', 'bar')).not.toBeDefined();
             expect(alert).toHaveBeenCalledWith(
                 'An unrecoverable error has occurred: Custom Error Message'
             );
+            done();
         });
+
+        $('#my_form input').val('max@mustermann').change();
     });
 
-    it("retry saving after failed connection to server", function () {
-        var trigger = $.Deferred(),
-            server_error_notified = false,
-            save_completed = false;
+    it("retry saving after failed connection to server", function (done) {
+        var trigger = $.Deferred();
         form.load({email: ''});
-        runs(function () {
-            set_save_response(function (save) { save.reject(); }, trigger);
-            $('#my_form input').val('max@mustermann.example').change();
-            form.field('email').data('save').progress(function () {
-                server_error_notified = true;
-            }).always(function () {
-                save_completed = true;
-            });
-            trigger.resolve();
-        });
-        waitsFor(function () { return server_error_notified; },
-                 'server error to be notified', 100);
-        runs(function () {
+
+        set_save_response(function (save) { save.reject(); }, trigger);
+        $('#my_form input').val('max@mustermann.example').change();
+        trigger.resolve();
+
+        setTimeout(function () {
             expect($('#my_form .error').text()).toEqual(
                 'This field contains unsaved changes.'
             );
@@ -608,48 +559,39 @@ describe("Form Plugin", function () {
             );
             set_save_response(function (save) { save.resolve({status: 'success'}); });
             form.retry();
-        });
-        waitsFor(function () { return save_completed; },
-                 'field "email" to be saved successfully when retried', 100);
-        runs(function () {
-            expect(form.field('email').data('save').state()).toEqual('resolved');
-            expect($('#my_form .error').text()).toEqual('');
-            expect($('#my_form .statusarea .alert-danger').length).toEqual(0);
-        });
+
+            setTimeout(function () {
+                expect(form.field('email').data('save').state()).toEqual('resolved');
+                expect($('#my_form .error').text()).toEqual('');
+                expect($('#my_form .statusarea .alert-danger').length).toEqual(0);
+                done();
+            }, 100);
+
+        }, 100);
+
     });
 
-    it("retry saving triggered by successful connection to server", function () {
-        var trigger = $.Deferred(),
-            server_error_notified = false,
-            save_completed = false;
+    it("retry saving triggered by successful connection to server", function (done) {
+        var trigger = $.Deferred();
 
         form.load({email: '', name: ''});
-        runs(function () {
-            set_save_response(function (save) { save.reject(); }, trigger);
-            $('#field-email input').val('max@mustermann.example').change();
-            form.field('email').data('save').progress(function () {
-                server_error_notified = true;
-            }).always(function () {
-                save_completed = true;
-            });
-            trigger.resolve();
-        });
-        waitsFor(function () { return server_error_notified; },
-                 'server error to be notified', 100);
-        runs(function () {
+
+        set_save_response(function (save) { save.reject(); }, trigger);
+        $('#field-email input').val('max@mustermann.example').change();
+        trigger.resolve();
+        setTimeout(function () {
             set_save_response(function (save) { save.resolve({status: 'success'}); });
             $('#field-name input').val('Max Mustermann').change();
-        });
-        waitsFor(function () { return save_completed; },
-                 'field "email" to be saved successfully when retried', 100);
-        runs(function () {
-            expect(form.field('email').data('save').state()).toEqual('resolved');
-        });
+            setTimeout(function () {
+                expect(form.field('email').data('save').state()).toEqual('resolved');
+                done();
+            }, 100);
+        }, 100);
     });
 
     describe("save_remaining behaviour", function () {
 
-        it("save_remaining saves fields that haven't been saved yet", function () {
+        it("save_remaining saves fields that haven't been saved yet", function (done) {
             var saved_id,
                 saved_value;
             set_save_response(function (save, id, value) {
@@ -658,80 +600,62 @@ describe("Form Plugin", function () {
                 save.resolve({status: 'success'});
             });
             form.load({email: 'max@mustermann.example'});
-            runs(function () {
-                form.save_remaining();
-            });
-            waitsFor(function () {
-                return (!gocept.jsform.isUndefinedOrNull(saved_id));
-            }, "the remaining field to have been saved", 100);
-            runs(function () {
+            form.save_remaining();
+            $(form).on('after-save', function () {
                 expect(saved_id).toEqual('email');
                 expect(saved_value).toEqual('max@mustermann.example');
+                done();
             });
         });
 
-        it("save_remaining skips fields that have been saved", function () {
-            var save_called = false;
+        it("save_remaining skips fields that have been saved", function (done) {
             set_save_response(function (save) { save.resolve({status: 'success'}); });
             form.load({email: ''});
-            $(form).on('after-save', function () { save_called = true; });
-            runs(function () {
-                $('#field-email input').val('max@mustermann.example').change();
-            });
-            waitsFor(function () { return save_called; },
-                     "the email field to have been saved", 100);
-            runs(function () {
+            $(form).on('after-save', function () {
                 form.save = jasmine.createSpy();
                 form.save_remaining();
                 expect(form.save).not.toHaveBeenCalled();
+                done();
             });
+
+            $('#field-email input').val('max@mustermann.example').change();
         });
 
-        it("Supresses info messages of saving fields when saving remaining", function () {
-            var saved_id;
+        it("Supresses info messages of saving fields when saving remaining", function (done) {
             set_save_response(function (save, id, value) {
-                saved_id = id;
                 save.resolve({status: 'success'});
             });
             form.load({email: 'max@mustermann.example'});
-            runs(function () {
-                form.save_remaining();
-            });
-            waitsFor(function () {
-                return (!gocept.jsform.isUndefinedOrNull(saved_id));
-            }, "the remaining field to have been saved", 100);
-            runs(function () {
+            $(form).on('after-save', function () {
                 expect($('#my_form .statusarea .alert-success').length).toEqual(0);
+                done();
             });
+            form.save_remaining();
         });
 
     });
 
     describe("when_saved behaviour", function () {
 
-        it("when_saved resolves if all fields are fine", function () {
+        it("when_saved resolves if all fields are fine", function (done) {
             var promise;
-            set_save_response(function (save) { save.resolve({status: 'success'}); });
-            form.load({email: '', name: ''});
-            runs(function () {
-                $('#field-email input').val('max@mustermann.example').change();
+            set_save_response(function (save) {
+                save.resolve({status: 'success'});
             });
-            waitsFor(function () {
-                return form.field('email').data('save').state() !== 'pending';
-            }, 'saving field "email"', 100);
-            runs(function () {
+            form.load({email: '', name: ''});
+            $('#field-email input').val('max@mustermann.example').change();
+            setTimeout(function () {
                 expect(form.field('email').data('save').state()).toEqual('resolved');
                 promise = form.when_saved();
-            });
-            waitsFor(function () {
-                return promise.state() !== 'pending';
-            }, 'promise returned by when_saved()', 100);
-            runs(function () {
-                expect(promise.state()).toEqual('resolved');
-            });
+
+                setTimeout(function () {
+                    expect(promise.state()).toEqual('resolved');
+                    done();
+                }, 100);
+            }, 100);
         });
 
-        it("when_saved resolves after pending saves succeeded", function () {
+        it("when_saved resolves after pending saves succeeded", function (done) {
             var trigger = $.Deferred(),
                 promise;
             set_save_response(
@@ -739,45 +663,36 @@ describe("Form Plugin", function () {
                 trigger
             );
             form.load({email: '', name: ''});
-            runs(function () {
-                $('#field-email input').val('max@mustermann.example').change();
-                expect(form.field('email').data('save').state()).toEqual('pending');
-                promise = form.when_saved();
-                expect(promise.state()).toEqual('pending');
-                trigger.resolve();
-            });
-            waitsFor(function () {
-                return promise.state() !== 'pending';
-            }, 'promise returned by when_saved()', 100);
-            runs(function () {
+            $('#field-email input').val('max@mustermann.example').change();
+            expect(form.field('email').data('save').state()).toEqual('pending');
+            promise = form.when_saved();
+            expect(promise.state()).toEqual('pending');
+            trigger.resolve();
+
+            setTimeout(function () {
                 expect(form.field('email').data('save').state()).toEqual('resolved');
                 expect(promise.state()).toEqual('resolved');
-            });
+                done();
+            }, 100);
         });
 
-        it("when_saved rejects if any field is not fine", function () {
+        it("when_saved rejects if any field is not fine", function (done) {
             var promise;
             set_save_response(function (save) { save.resolve({status: 'error'}); });
             form.load({email: '', name: ''});
-            runs(function () {
-                $('#field-email input').val('max@mustermann').change();
-            });
-            waitsFor(function () {
-                return form.field('email').data('save').state() !== 'pending';
-            }, 'saving field "email"', 100);
-            runs(function () {
+            $('#field-email input').val('max@mustermann').change();
+
+            setTimeout(function () {
                 expect(form.field('email').data('save').state()).toEqual('rejected');
                 promise = form.when_saved();
-            });
-            waitsFor(function () {
-                return promise.state() !== 'pending';
-            }, 'promise returned by when_saved()', 100);
-            runs(function () {
-                expect(promise.state()).toEqual('rejected');
-            });
+                setTimeout(function () {
+                    expect(promise.state()).toEqual('rejected');
+                    done();
+                }, 100);
+            }, 100);
         });
 
-        it("when_saved rejects after any pending save failed", function () {
+        it("when_saved rejects after any pending save failed", function (done) {
             var trigger = $.Deferred(),
                 promise;
             set_save_response(
@@ -785,20 +700,17 @@ describe("Form Plugin", function () {
                 trigger
             );
             form.load({email: '', name: ''});
-            runs(function () {
-                $('#field-email input').val('max@mustermann').change();
-                expect(form.field('email').data('save').state()).toEqual('pending');
-                promise = form.when_saved();
-                expect(promise.state()).toEqual('pending');
-                trigger.resolve();
-            });
-            waitsFor(function () {
-                return promise.state() !== 'pending';
-            }, 'promise returned by when_saved()', 100);
-            runs(function () {
+            $('#field-email input').val('max@mustermann').change();
+            expect(form.field('email').data('save').state()).toEqual('pending');
+            promise = form.when_saved();
+            expect(promise.state()).toEqual('pending');
+            trigger.resolve();
+
+            setTimeout(function () {
                 expect(form.field('email').data('save').state()).toEqual('rejected');
                 expect(promise.state()).toEqual('rejected');
-            });
+                done();
+            }, 100);
         });
 
         it("when_saved notifies server error if any field does", function () {
@@ -876,32 +788,26 @@ describe("Form Plugin", function () {
 
     describe("saving notification", function () {
 
-        it("disappears after saving", function () {
+        it("disappears after saving", function (done) {
             set_save_response(function (save) {
                 save.resolve({status: 'success'});
             });
             form.load({email: ''});
-            runs(function () {
-                $('#my_form input').val('max@mustermann').change();
-            });
-            waitsFor(
-                function () { return $('#my_form .success').length === 0; },
-                'saving notification to disappear after saving',
-                100
-            );
+            $('#my_form input').val('max@mustermann').change();
+            setTimeout(function () {
+                expect($('#my_form .success').length).toBe(0);
+                done();
+            }, 100);
         });
 
-        it("disappears on server error", function () {
+        it("disappears on server error", function (done) {
             set_save_response(function (save) { save.reject(); });
             form.load({email: ''});
-            runs(function () {
-                $('#my_form input').val('max@mustermann').change();
-            });
-            waitsFor(
-                function () { return $('#my_form .success').length === 0; },
-                'saving notification to disappear on server error',
-                100
-            );
+            $('#my_form input').val('max@mustermann').change();
+            setTimeout(function () {
+                expect($('#my_form .success').length).toBe(0);
+                done();
+            }, 100);
         });
     });
 
@@ -912,15 +818,13 @@ describe("Form Plugin", function () {
             expect($('#my_form .statusarea .alert-success').text()).toEqual('foo');
         });
 
-        it("disappear after a given duration", function () {
-            runs(function () {
-                form.status_message('foo', 'success', 100);
-                expect($('#my_form .statusarea .alert-success').text()).toEqual('foo');
-            });
-            waits(3500);  /* fadeOut(3000) */
-            runs(function () {
+        it("disappear after a given duration", function (done) {
+            form.status_message('foo', 'success', 100);
+            expect($('#my_form .statusarea .alert-success').text()).toEqual('foo');
+            setTimeout(function () {
                 expect($('#my_form .statusarea .alert-success').length).toEqual(0);
-            });
+                done();
+            }, 3500); /* fadeOut(3000) */
         });
 
         it("can be cleared by handle", function () {
@@ -950,23 +854,19 @@ describe("Form Plugin", function () {
             expect($('#my_form input').val()).toEqual('Sebastian');
         });
 
-        it("can reload the form from a url", function () {
-            var loaded = false;
-            $(form).on('after-load', function () { loaded = true; });
-            runs(function () {
-                form.load('/fanstatic/gocept.jsform.tests/testdata.json');
-            });
-            waitsFor(function () { return loaded; }, 'form to be loaded', 1000);
-            runs(function () {
+        it("can reload the form from a url", function (done) {
+            set_load_response();
+            form.load('/fanstatic/gocept.jsform.tests/testdata.json');
+
+            setTimeout(function () {
                 $('#my_form input').val('Bob');
                 expect($('#my_form input').get(0).value).toEqual('Bob');
-                loaded = false;
                 form.reload();
-            });
-            waitsFor(function () { return loaded; }, 'form to be reloaded', 1000);
-            runs(function () {
-                expect($('#my_form input').get(0).value).toEqual('Sebastian');
-            });
+                setTimeout(function () {
+                    expect($('#my_form input').get(0).value).toEqual('Sebastian');
+                    done();
+                }, 100);
+            }, 100);
         });
     });
 
@@ -1014,7 +914,7 @@ describe("Form Plugin", function () {
 
     describe("submit button", function () {
 
-        it("saves and then calls the callback on success", function () {
+        it("saves and then calls the callback on success", function (done) {
             var template, submitted, save_called;
             template = [
                 '<form method="POST" action="{{action}}" id="{{form_id}}">',
@@ -1035,15 +935,13 @@ describe("Form Plugin", function () {
             $(form).on('after-save', function () { save_called = true; });
 
             $('#field-name input').val('Bob');
-            runs(function () {
-                $('#mybutton').trigger('click');
-                expect(submitted).toEqual(false);
-            });
-            waitsFor(function () { return save_called; }, 'form to be saved', 100);
-            runs(function () {
+            $('#mybutton').trigger('click');
+            expect(submitted).toEqual(false);
+            setTimeout(function () {
                 expect(submitted).toEqual(true);
                 expect($('#field-name input').get(0).value).toEqual('Bob');
-            });
+                done();
+            }, 100);
         });
     });
 

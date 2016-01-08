@@ -1,3 +1,4 @@
-handlebars*.js
-ko.mapping.js
-ko.mapping.min.js
+.grunt/
+bower_components/
+lib/
+node_modules/
