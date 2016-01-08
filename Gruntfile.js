@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     grunt.config.init({
         jasmine : {
             jsform: {
-                src : ['src/helpers.js', 'src/jsform.js', 'src/container.js'],
+                src : ['src/helpers.js', 'src/templates.js', 'src/jsform.js', 'src/container.js'],
                 options : {
                     specs : 'tests/**/*.js',
                     vendor: 'lib/bower.js',
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'src/*.js']
+            all: ['Gruntfile.js', 'src/helpers.js', 'src/container.js', 'src/jsform.js'],
         },
         bower: {
             install: {
@@ -50,14 +50,28 @@ module.exports = function (grunt) {
                 dest: 'lib/bower.js'
             },
         },
+        handlebars: {
+            compile: {
+                options: {
+                    namespace: "gocept.jsform.templates",
+                    processName: function (filePath) {
+                        return filePath.split('/')[1].replace('.hbs', '');
+                    }
+                },
+                files: {
+                    "src/templates.js": "templates/*.hbs",
+                }
+            }
+        }
     });
     grunt.registerTask('default', [
         'bower:dev',
         'bower_concat:all',
         'jshint:all',
+        'handlebars:compile'
     ]);
     grunt.registerTask('test', [
-        //'jasmine:jsform:build',
+        'jasmine:jsform:build',
         'connect',
     ]);
 };

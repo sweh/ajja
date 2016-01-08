@@ -1,0 +1,300 @@
+============================
+Change log for gocept.jsform
+============================
+
+3.0.0 (unreleased)
+==================
+
+- Serve handlebars templates precompiled in src/templates.js to complete bower
+ integration. (#23)
+
+
+2.8.0 (2015-12-09)
+==================
+
+- Add group widget and table widget which use list widget to render items in
+  groups / as table. (#38)
+
+- Add new template to render numbers. (#15)
+
+- Throw an error during __init__ if selector for form node did not match. (#32)
+
+- Throw error when ListWidget.add_item receives malformed AJAX response. (#33)
+
+- Add `form-control` CSS class to textarea template.
+
+
+2.7.2 (2015-12-04)
+==================
+
+- Refactor radio button template to use the same source API as object templates.
+
+
+2.7.1 (2015-12-04)
+==================
+
+- Fixed syntax error.
+
+
+2.7.0 (2015-12-04)
+==================
+
+- Suppress success messages in UI when saving all remaining fields.
+
+- Add new template than renders a list of radio buttons.
+
+
+2.6.3 (2015-11-18)
+==================
+
+- Add some more translations.
+
+- Disable placeholder for select fields which are required.
+
+
+2.6.2 (2015-11-17)
+==================
+
+- Unify node where form data is saved to.
+
+
+2.6.1 (2015-11-16)
+==================
+
+- Fix initialization of sources if form data is provided directly instead of
+  retrieving it via load url.
+
+- Make sure that `after-load` always fires asynchonously.
+
+2.6.0 (2015-11-12)
+==================
+
+- Add option to switch one field or the whole form to readonly mode.
+
+
+2.5.1 (2015-11-11)
+==================
+
+- Use `bower-knockout-mapping` in bower package instead of serving mapping
+  plugin directly. (only effects bower package of `gocept.jsform`)
+
+
+2.5.0 (2015-11-06)
+==================
+
+- Add list widget which uses jsform to display edit form of list items.
+
+- Remove version pin of Handlebars, since error related to Handlebars 4 is
+  specific to the application that uses gocept.jsform.
+
+
+2.4.0 (2015-09-08)
+==================
+
+- Pin version of Handlebars to 3.0.3, since switching to a new major version
+  should be done on purpose, rather by chance.
+
+
+2.3.0 (2015-07-31)
+==================
+
+- Display status messages 3 seconds instead of 1 second. This hopefully will
+  fix test failures in Jenkins.
+
+- Introduced, that a save call to a widget can manipulate the source values of
+  another widget. This is usefull for dropdowns, where the list of available
+  values is dependend from the selected value of another dropdown.
+
+
+2.2.0 (2015-06-17)
+==================
+
+- Fix display of validation error messages.
+
+- Make it possible to display custom HTTP error messages when `message` was
+  provided in the JSON response.
+
+
+2.1.0 (2015-04-09)
+==================
+
+- If ajax result is HTML instead of JSON data, display HTML (which is in most
+  cases a 500 error or login page). (#11838)
+
+
+2.0.0 (2015-03-26)
+==================
+
+- Nothing changed yet.
+
+
+1.2.1a1+bower-1 (2015-02-03)
+============================
+
+- Render the token as the ``<option value>`` attribute, so we get the best of
+  both worlds: internally we deal with objects, but the DOM looks "normal" (and
+  other DOM-based libraries like select2 can interface with it).
+
+- Package the browser resources as a bower package.
+
+- Switch from json-template.js to Handbars.js for templating. (#13804)
+
+- Fixed a bug where using select fields with dynamic options (sources) triggered
+  a save request with empty value upon creation in the UI.
+
+
+1.2.0 (2014-10-22)
+==================
+
+- Improved handling of object and multiselect fields such that the values
+  loaded are actually just the values, with select options being passed as the
+  ``source`` field option. This is an important backwards-incompatible change.
+
+- Added a field option ``multiple`` that, when truthy and the selected type is
+  object, makes the field be considered a list of objects. When using the
+  default templates, this turns a select widget into multi-select.
+
+- When loading values into a form via the JS API rather than via HTTP as JSON,
+  assume full objects, not tokens to be contained.
+
+- Add textarea template.
+
+- Added the concept of required fields which cannot be saved when blank.
+
+- More Bootstrap 3 compatibility.
+
+- Simplified HTML mark-up of form elements.
+
+- Removed the package metadata's implicit dependency on the test extra.
+
+- Use `classy <https://github.com/mitsuhiko/classy>`_ classes.
+
+- Consider HTTP error responses unrecoverable errors. This distinguishes them
+  from time-outs and connection errors.
+
+- Add ``loaded`` property on Form, a Deferred so clients can check whether
+  loading has finished. This is mainly helpful for tests, e.g.::
+
+      selenium.waitForEval(
+          '$("#jsform").data("form") && '
+          '$("#jsform").data("form").loaded.state()', '"resolved"')
+
+- Expose the ``get_template`` function for reuse outside the Form class.
+
+- If an empty string is specified as ``form_template``, just use the existing
+  form DOM node without applying any template.
+
+- Add jQuery plugin ``$().jsform_submit_button(callback)`` that sets up a
+  button that saves the jsform and calls a function after the successful save.
+
+
+1.1 (2014-04-07)
+================
+
+- Propagate save message of server using ``after-save`` trigger.
+
+- Added infrastructure for displaying and clearing status messages, use it for
+  announcing HTTP faults during AJAX calls.
+
+- Display and clear field-related errors both at the widget and via status
+  messages.
+
+- When saving data, count anything but a JSON response with a status value of
+  "success" as an error. Give up completely after an incomprehensible
+  response, retry on connection errors either after the next successful server
+  access for any other field, or when requested by a call to ``retry()``.
+
+- Added an API method ``save_remaining()`` that causes any fields to be saved
+  that have not been modified so far. While this should only save the initial
+  values loaded from the server, it is useful to apply the same validation and
+  error handling to all fields.
+
+- Added an API method ``when_saved(retry)`` that returns a promise that
+  aggregates any pending and completed save calls, either propagating the
+  retry behaviour of single fields (the default) or failing on server errors.
+
+- Provide a visual clue and status message while saving a field.
+
+- Some refactoring to improve code readability.
+
+- Made code pass jshint check.
+
+- Made default and currently not overrideable status message behaviour
+  compatible to bootstrap 3
+
+- Properly unsubscribe change handlers when updating fields.
+
+- Added simple localization.
+
+
+1.0 (2013-12-13)
+================
+
+- Remove console calls as they are not understood by all browsers.
+
+
+0.8 (2013-12-10)
+================
+
+- Fixed: jsform did not render in IE8 if form template started with line break.
+
+
+0.7 (2013-12-03)
+================
+
+- Add ability to send a CSRF token with every request. This token must be
+  available via the id `csrf_token` (can be customized) in the DOM.
+
+- Added minified versions of javascript resources.
+
+
+0.6 (2013-09-06)
+================
+
+- Bugfix: Use ``indexOf`` instead of ``startsWith``, which is not available on
+  all browsers.
+
+
+0.5 (2013-09-06)
+================
+
+- Declare ``for`` attribute on form labels.
+
+- Store "save on change" subscriptions so they can be cancelled.
+
+- Ignore ``null`` values for data fields. (#1)
+
+
+0.4 (2013-08-27)
+================
+
+- Made it possible to define templates as template files on file system.
+
+
+0.3 (2013-08-27)
+================
+
+- Add events ``after-load`` and ``after-save``.
+
+- Fix ``JSON`` serialization to be able to handle Knockout observables.
+
+- Added ``reload`` functionality to the form class.
+
+
+0.2 (2013-08-26)
+================
+
+- Made it possible to preselect values in arrays when the form is rendered.
+
+- Changed form submit behaviour:
+
+  - Default submit type is not ``POST`` instead of ``GET``. (Change it with the
+    ``save_type`` option)
+
+  - Data is now submitted as ``JSON`` type.
+
+
+0.1 (2013-08-17)
+================
+
+initial release

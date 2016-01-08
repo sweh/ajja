@@ -5,7 +5,7 @@
 
     gocept.jsform.ListWidget = Class.$extend({
 
-        base_template: 'gocept_jsform_list',
+        base_template: 'list',
         default_item_actions: [
             {
                 css_class: 'edit',
@@ -71,7 +71,7 @@
             self.collection_url = node.data('collection-url');
             self.template = gocept.jsform.or(
                 node.data('template'),
-                'gocept_jsform_list_item'
+                'list_item'
             );
             self.jsform_template = node.data('form-template');
             self.jsform_options = gocept.jsform.or(
@@ -106,7 +106,7 @@
         render_form_actions: function () {
             var self = this,
                 template = gocept.jsform.get_template(
-                    'gocept_jsform_list_item_action'
+                    'list_item_action'
                 ),
                 form_actions = self.node.find('#form-actions');
             $.each(self.form_actions, function (id, action) {
@@ -135,7 +135,7 @@
         render_item: function (item) {
             var self = this,
                 template = gocept.jsform.get_template(
-                    'gocept_jsform_list_item_wrapper'
+                    'list_item_wrapper'
                 ),
                 node = self.get_container(item).append(
                     template({actions: self.item_actions, id: item.data.id})
@@ -195,7 +195,7 @@
         edit_item: function (node) {
             var self = this,
                 template = gocept.jsform.get_template(
-                    'gocept_jsform_list_item_edit'
+                    'list_item_edit'
                 ),
                 form_dialog,
                 data = {},
@@ -268,7 +268,7 @@
          *   * data-{{self.group_title_key}}
          */
 
-        base_template: 'gocept_jsform_group',
+        base_template: 'group',
 
         __init__: function (node_selector, options) {
             var self = this;
@@ -288,7 +288,7 @@
                 group_class = 'group_' + item.data[self.options.group_by_key],
                 group_title = item.data[self.options.group_title_key],
                 template = gocept.jsform.get_template(
-                    'gocept_jsform_group_item'
+                    'group_item'
                 );
             if (!group_container.find('.' + group_class).length) {
                 group_container.append(
@@ -306,7 +306,7 @@
 
     gocept.jsform.TableWidget = gocept.jsform.ListWidget.$extend({
 
-        base_template: 'gocept_jsform_table',
+        base_template: 'table',
 
         __init__: function (node_selector, options) {
             var self = this;
@@ -326,12 +326,12 @@
                     columns[key] = self.jsform_options[key].label || key;
                 }
             });
-            return gocept.jsform.get_template('gocept_jsform_table_head')(columns);
+            return gocept.jsform.get_template('table_head')(columns);
         },
 
         render_item: function (item) {
             var self = this,
-                template = gocept.jsform.get_template('gocept_jsform_table_row'),
+                template = gocept.jsform.get_template('table_row'),
                 cell_data = {},
                 node = null;
             $.each(item.data, function (key, value) {

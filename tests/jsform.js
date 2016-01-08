@@ -140,7 +140,7 @@ describe("Form Plugin", function () {
         form.load(
             {small_animal: 'mouse'},
             {small_animal: {source: source,
-                            template: 'gocept_jsform_templates_radio_list'}}
+                            template: 'form_radio_list'}}
         );
         expect($('#small_animal_dog').attr('type')).toEqual('radio');
         expect($('#small_animal_dog').prop('checked')).toEqual(false);
@@ -154,7 +154,7 @@ describe("Form Plugin", function () {
         form.load(
             {needs_glasses: 'false'},
             {needs_glasses: {source: source,
-                             template: 'gocept_jsform_templates_radio_list'}}
+                             template: 'form_radio_list'}}
         );
         expect($('#needs_glasses_true').prop('checked')).toEqual(false);
         expect($('#needs_glasses_false').prop('checked')).toEqual(true);
@@ -221,7 +221,7 @@ describe("Form Plugin", function () {
         it("all fields", function () {
             form = new gocept.jsform.Form('my_form', {disabled: true});
             form.load({firstname: 'Sebastian', text: 'asdf'},
-                      {text: {template: 'gocept_jsform_templates_text'}});
+                      {text: {template: 'form_text'}});
             expect($('#my_form input').attr('disabled')).toEqual('disabled');
             expect($('#my_form textarea').attr('disabled')).toEqual('disabled');
         });
@@ -247,7 +247,7 @@ describe("Form Plugin", function () {
         it("textarea field", function () {
             form.load({text: 'asdf'},
                       {text: {disabled: true,
-                              template: 'gocept_jsform_templates_text'}});
+                              template: 'form_text'}});
             expect($('#my_form textarea').attr('disabled')).toEqual('disabled');
         });
 
@@ -291,7 +291,7 @@ describe("Form Plugin", function () {
                           {token: 'mrs', title: 'Mrs.'}];
             form.load({title: 'mr'},
                       {title: {source: source,
-                               template: 'gocept_jsform_templates_object'}});
+                               template: 'form_object'}});
             $('#my_form select')[0].selectedIndex = 2;
             $('#my_form select').change();
             setTimeout(function () {

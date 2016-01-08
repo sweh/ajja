@@ -30,18 +30,13 @@
     };
 
     gocept.jsform.get_template = function (template) {
-        var html;
         if (template && (typeof template === "function")) {
             return template;
         }
         if (template.indexOf('>') !== -1) {
-            html = template;
-        } else if (template.indexOf('#') === 0) {
-            html = $(template).html();
-        } else {
-            html = $('#' + template).html();
+            return Handlebars.compile(template);
         }
-        return Handlebars.compile(html);
+        return gocept.jsform.templates[template];
     };
 
     gocept.jsform.Form = Class.$extend({
@@ -99,7 +94,7 @@
                 alert(self.t('unrecoverable_error_intro') + msg);
             });
             if (gocept.jsform.isUndefinedOrNull(self.options.field_wrapper_template)) {
-                self.field_wrapper_template = self.get_template('gocept_jsform_templates_field_wrapper');
+                self.field_wrapper_template = self.get_template('form_field_wrapper');
             } else {
                 self.field_wrapper_template = self.get_template(self.options.field_wrapper_template);
             }
@@ -122,7 +117,7 @@
             var self = this, form_template, form_options, form_code;
             form_template = self.get_template(gocept.jsform.or(
                 self.options.form_template,
-                'gocept_jsform_templates_form'
+                'form'
             ));
             form_options = $.extend({'form_id': self.id}, self.options);
             form_code = $(
@@ -261,7 +256,7 @@
                     gocept.jsform.isUndefinedOrNull(self.options[name].source)) {
                 return false;
             }
-            if (self.options[name].template === 'gocept_jsform_templates_radio_list') {
+            if (self.options[name].template === 'form_radio_list') {
                 return false;
             }
             return true;
@@ -422,8 +417,10 @@
             } else {
                 type = typeof value;
             }
-            return gocept.jsform.or(self.options[type + '_template'],
-                                    'gocept_jsform_templates_' + type);
+            return gocept.jsform.or(
+                self.options[type + '_template'],
+                'form_' + type
+            );
         },
 
         save: function (id, newValue, silent) {
