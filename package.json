@@ -1,0 +1,28 @@
+{
+  "name": "gocept.jsform",
+  "version": "2.5.1",
+  "description": "Next generation forms in javascript",
+  "main": "src/jsform.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gocept/gocept.jsform.git"
+  },
+  "keywords": [
+    "form",
+    "javascript",
+    "jquery",
+    "client"
+  ],
+  "author": "gocept gmbh & co. kg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gocept/gocept.jsform/issues"
+  },
+  "homepage": "https://github.com/gocept/gocept.jsform#readme"
+}
