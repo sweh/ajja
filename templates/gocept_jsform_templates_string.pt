@@ -1,1 +1,1 @@
-<input type="text" data-bind="value: {{name}}" name="{{name}}" class="form-control" value="" />
+<input type="text" data-bind="value: {{name}}" name="{{name}}" {{#if disabled}} disabled="disabled" {{/if}} class="form-control" value="" />

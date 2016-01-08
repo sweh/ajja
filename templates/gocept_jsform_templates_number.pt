@@ -1,0 +1,1 @@
+<input type="number" data-bind="value: {{name}}" name="{{name}}" {{#if disabled}} disabled="disabled" {{/if}} class="form-control" value="" />

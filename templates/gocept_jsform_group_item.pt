@@ -1,0 +1,15 @@
+<div class="panel panel-default group-item {{group_class}}">
+    <div class="panel-heading" role="tab" id="heading-{{group_class}}">
+      <h4 class="panel-title">
+        <a data-toggle="collapse"
+           data-parent="#container"
+           href="#{{group_class}}"
+           aria-expanded="true"
+           aria-controls="{{group_class}}"
+           class="group-title">{{group_title}}</a>
+      </h4>
+    </div>
+    <div id="{{group_class}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{group_class}}">
+      <ul class="list-group list-container" data-group-id="{{group_class}}"></ul>
+  </div>
+</div>
