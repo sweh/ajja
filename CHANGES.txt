@@ -6,7 +6,11 @@ Change log for gocept.jsform
 ==================
 
 - Serve handlebars templates precompiled in src/templates.js to complete bower
- integration. (#23)
+  integration. (#23)
+
+  Rename template source files. They are now accessible via
+  `gocept.jsform.templates` variable in the application. This is an backwards
+  incompatible change.
 
 
 2.8.0 (2015-12-09)

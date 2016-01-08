@@ -38,7 +38,7 @@ describe("List Widget", function () {
     });
 
     it("should throw an error when selector was not found", function () {
-        expect(function () {new gocept.jsform.ListWidget('#foobar',  {})}).toThrow();
+        expect(function () { new gocept.jsform.ListWidget('#foobar',  {}); }).toThrow();
     });
 
     it("should throw an error when malformed response is returned on add", function () {

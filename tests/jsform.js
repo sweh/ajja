@@ -47,7 +47,7 @@ describe("Form Plugin", function () {
     });
 
     it("should throw an error when ID was not found", function () {
-        expect(function () {new gocept.jsform.Form('foobar',  {})}).toThrow();
+        expect(function () { new gocept.jsform.Form('foobar',  {}); }).toThrow();
     });
 
     it("should inject a form tag into html", function () {

@@ -5,7 +5,12 @@ module.exports = function (grunt) {
     grunt.config.init({
         jasmine : {
             jsform: {
-                src : ['src/helpers.js', 'src/templates.js', 'src/jsform.js', 'src/container.js'],
+                src : [
+                    'src/helpers.js',
+                    'src/templates.js',
+                    'src/jsform.js',
+                    'src/container.js'
+                ],
                 options : {
                     specs : 'tests/**/*.js',
                     vendor: 'lib/bower.js',
@@ -29,7 +34,13 @@ module.exports = function (grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'src/helpers.js', 'src/container.js', 'src/jsform.js'],
+            all: [
+                'Gruntfile.js',
+                'src/helpers.js',
+                'src/container.js',
+                'src/jsform.js',
+                'tests/*.js'
+            ],
         },
         bower: {
             install: {
