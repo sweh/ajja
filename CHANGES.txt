@@ -12,6 +12,13 @@ Change log for gocept.jsform
   `gocept.jsform.templates` variable in the application. This is an backwards
   incompatible change.
 
+- Update version pinnings.
+
+  Depending on concrete pinnings for jquery(-ui) is not necessary as
+  gocept.jsform supports jquery 1.x and 2.x. Also add explicit version pinnings
+  for knockout and knockout-mapping as updating there by accident may break
+  gocept.jsforms model behaviour.
+
 
 2.8.0 (2015-12-09)
 ==================

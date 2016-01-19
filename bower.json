@@ -8,12 +8,12 @@
     "src/jsform.js"
   ],
   "dependencies": {
-    "knockout": "*",
-    "bower-knockout-mapping": "*",
+    "knockout": "3.3.0",
+    "bower-knockout-mapping": "2.5.0",
     "classy": "https://github.com/gocept/classy.git",
     "handlebars": "4.0.5",
     "bootstrap": "~3.3",
-    "jquery": "~1.11",
-    "jquery-ui": "~1.11"
+    "jquery": "*",
+    "jquery-ui": "*"
  }
 }
