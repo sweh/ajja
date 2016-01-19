@@ -1,6 +1,6 @@
 {
   "name": "gocept.jsform",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "main": [
     "helpers.js",
     "container.js",
@@ -26,12 +26,12 @@
     "gocept_jsform_templates_text.pt"
   ],
   "dependencies": {
-    "knockout": "*",
-    "bower-knockout-mapping": "*",
+    "knockout": "3.3.0",
+    "bower-knockout-mapping": "2.5.0",
     "classy": "https://github.com/gocept/classy.git",
     "handlebars": "git://github.com/components/handlebars.js",
     "bootstrap": "~3.3",
-    "jquery": "~1.11",
-    "jquery-ui": "~1.11"
+    "jquery": "*",
+    "jquery-ui": "*"
  }
 }
