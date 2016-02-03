@@ -915,7 +915,7 @@ describe("Form Plugin", function () {
     describe("submit button", function () {
 
         it("saves and then calls the callback on success", function (done) {
-            var template, submitted, save_called;
+            var template, submitted;
             template = Handlebars.compile([
                 '<form method="POST" action="{{action}}" id="{{form_id}}">',
                 '  <span id="field-name" />',
@@ -930,10 +930,7 @@ describe("Form Plugin", function () {
                 submitted = true;
             });
 
-            save_called = false;
             set_save_response(function (save) { save.resolve({status: 'success'}); });
-            $(form).on('after-save', function () { save_called = true; });
-
             $('#field-name input').val('Bob');
             $('#mybutton').trigger('click');
             expect(submitted).toEqual(false);
