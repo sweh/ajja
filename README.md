@@ -10,29 +10,6 @@ Uses *knockout* for data-binding, *handlebars* for templating and *jquery*
 for DOM manipulation and ajax calls.
 
 
-Package contents
-================
-
-The package contains the following files, which you should include by hand if
-you are *not* using bower:
-
-* *ko.mapping.js*
-* *helpers.js*
-* *jsform.js*
-
-Also, there are some widget templates, named ``gocept_jsform_templates_*.pt``.
-You'll have to include those you need as scripts of type ``text/html`` with an
-appropriate id, for example::
-
-    <script type="text/html" id="gocept_jsform_templates_form">
-      <form method="POST" action="{{action}}" id="{{form_id}}">
-      </form>
-    </script>
-
-where the lines between the ``script`` tags are the content of the respective
-template file.
-
-
 Usage
 =====
 
@@ -100,13 +77,16 @@ you would like to customize the order of your fields or just need another
 boilerplate for you form, you can use a custom form template with containers
 for all or just some of the fields::
 
-    var template = 
+    var template =
       ['<form method="POST" action="{{action}}" id="{{form_id}}">',
        '<table><tr><td class="firstname"><span id="firstname" /></td>',
        '<td class="lastname"><span id="lastname" /></td></tr></table>',
        '</form>'].join('');
 
-    var form = new gocept.jsform.Form('my_form', {form_template: template});
+    var form = new gocept.jsform.Form(
+      'my_form',
+      {form_template: Handlebars.compile(template)}
+    );
     form.load({firstname: 'Max', lastname: 'Mustermann'});
 
 This will replace the ``span`` containers with id ``firstname`` and
@@ -125,9 +105,13 @@ You can overwrite the default templates by providing your own templates in the
 options dict passed during form initialization::
 
     var form = new gocept.jsform.Form(
-      'my_form', {string_template: my_input_template,
-                  object_template: my_select_template,
-                  boolean_template: my_checkbox_template});
+      'my_form',
+      {
+        string_template: my_precomliled_input_template,
+        object_template: my_precomliled_select_template,
+        boolean_template: my_precomliled_checkbox_template
+      }
+    );
 
 For every string data, your input template would be rendered instead of the
 default input text field. Same for lists and boolean values.
@@ -149,7 +133,7 @@ Imagine you want checkboxes instead of a select field::
     var form = new gocept.jsform.Form('my_form');
     form.load({title: [{id: 'mr', value: 'Mr.'},
                        {id: 'mrs', value: 'Mrs.'}]},
-              {title: {template: template}});
+              {title: {template: Handlebars.compile(template)}});
 
 You can pass the *load* method a JS object containing customizations for each
 field. One of these customization options is template, which results in
@@ -164,6 +148,20 @@ You can also specify a label or other options for the fields::
 
     var form = new gocept.jsform.Form('my_form');
     form.load({firstname: 'Sebastian'},
-              {firstname: {template: template,
+              {firstname: {template: Handlebars.compile(template),
                            label: 'First name',
                            default: 'Max'}});
+
+
+Migration to 3.0.0
+==================
+
+``gocept.jsform`` now only accepts *precompiled* templates generated via
+``Handlebars.compile()``. So if you have custom templates that you used with
+``gocept.jsform``, you now must wrap them into a ``Handlbars.compile()`` call.
+
+Furthermore, to overwrite the standard templates, just add your compiled
+templates to ``gocept.jsform.templates[<name_of_the_template>]``.
+
+The templates were renamed. The ``gocept_jsform_templates`` namespace was
+removed. Have a look in the *templates* folder for the new names.
