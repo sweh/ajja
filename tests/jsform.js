@@ -1,5 +1,5 @@
 /*global describe, document, $, gocept, jasmine, beforeEach, it, expect */
-/*global waits, runs, waitsFor, afterEach, spyOn */
+/*global waits, runs, waitsFor, afterEach, spyOn, Handlebars */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 describe("Form Plugin", function () {
@@ -346,13 +346,13 @@ describe("Form Plugin", function () {
 
         it("for the form", function () {
             var template;
-            template = [
+            template = Handlebars.compile([
                 '<form method="POST" action="{{action}}" id="{{form_id}}">',
                 '  <table><tr><td class="firstname">',
                 '    <span id="field-firstname" />',
                 '  </td><td class="lastname">',
                 '    <span id="field-lastname" />',
-                '</td></tr></table></form>'].join('');
+                '</td></tr></table></form>'].join(''));
 
             form = new gocept.jsform.Form('my_form', {form_template: template});
             form.load({firstname: 'Max', lastname: 'Mustermann'});
@@ -362,11 +362,11 @@ describe("Form Plugin", function () {
 
         it("for a field type", function () {
             var template;
-            template = [
+            template = Handlebars.compile([
                 '<div class="label">{{label}}</div>',
                 '<div class="field">',
                 '  <input type="radio" name="{{name}}" data-bind="checked: {{name}}" />',
-                '</div>'].join('');
+                '</div>'].join(''));
 
             form = new gocept.jsform.Form(
                 'my_form',
@@ -379,14 +379,14 @@ describe("Form Plugin", function () {
 
         it("for a field explicitly", function () {
             var template, source;
-            template = [
+            template = Handlebars.compile([
                 '<div class="title">Titel: ',
                 '  <div data-bind="foreach: __sources__.{{name}}">',
                 '    <input type="radio" name="{{name}}"',
                 '           data-bind="checked: $parent.{{name}}, text: $data.title,',
                 '                      attr: {value: $data.token, class: $data.token}" />',
                 '  </div>',
-                '</div>'].join('');
+                '</div>'].join(''));
 
             source = [{token: 'mr', title: 'Mr.'},
                       {token: 'mrs', title: 'Mrs.'}];
@@ -916,11 +916,11 @@ describe("Form Plugin", function () {
 
         it("saves and then calls the callback on success", function (done) {
             var template, submitted, save_called;
-            template = [
+            template = Handlebars.compile([
                 '<form method="POST" action="{{action}}" id="{{form_id}}">',
                 '  <span id="field-name" />',
                 '  <button id="mybutton"/>',
-                '</form>'].join('');
+                '</form>'].join(''));
 
             form = new gocept.jsform.Form('my_form', {form_template: template});
             form.load({name: 'Max'});
