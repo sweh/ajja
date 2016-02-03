@@ -33,9 +33,6 @@
         if (template && (typeof template === "function")) {
             return template;
         }
-        if (template.indexOf('>') !== -1) {
-            return Handlebars.compile(template);
-        }
         return gocept.jsform.templates[template];
     };
 
