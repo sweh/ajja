@@ -77,6 +77,19 @@ module.exports = function (grunt) {
                     "src/templates.js": "templates/*.hbs",
                 }
             }
+        },
+        bump: {
+            options: {
+                files: ['bower.json', 'package.json'],
+                updateConfigs: [],
+                commit: false,
+                push: false,
+                createTag: false,
+                globalReplace: false,
+                prereleaseName: 'dev',
+                metadata: '',
+                regExp: false
+            }
         }
     });
     grunt.registerTask('default', [
@@ -93,5 +106,4 @@ module.exports = function (grunt) {
     grunt.registerTask('phantomjs', [
         'jasmine:jsform'
     ]);
-
 };

@@ -18,7 +18,7 @@ To run tests in phantomjs, run::
 Releases
 ========
 
-  * Update version in bower.js and package.json.
+  * Run `grunt bump` or `grunt bump:major` to increase version.
   * Commit changes to github.
   * Create a tag for the current version:
         * git tag -a X.X.X -m "Version X.X.X"
