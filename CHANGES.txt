@@ -2,7 +2,7 @@
 Change log for gocept.jsform
 ============================
 
-3.0.0 (unreleased)
+3.0.0 (2016-02-03)
 ==================
 
 - Serve handlebars templates precompiled in src/templates.js to complete bower
