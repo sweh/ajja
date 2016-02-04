@@ -1,9 +1,9 @@
-/*global jQuery, gocept, Class, confirm */
+/*global jQuery, gocept, confirm */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 (function ($) {
     "use strict";
 
-    gocept.jsform.ListWidget = Class.$extend({
+    gocept.jsform.ListWidget = gocept.jsform.TemplateHandler.$extend({
 
         base_template: 'list',
         default_item_actions: [
@@ -44,7 +44,7 @@
              */
             var self = this,
                 node = $(node_selector),
-                template = gocept.jsform.get_template(self.base_template);
+                template = self.get_template(self.base_template);
             self.node_selector = node_selector;
             self.node = node;
 
@@ -105,9 +105,7 @@
 
         render_form_actions: function () {
             var self = this,
-                template = gocept.jsform.get_template(
-                    'list_item_action'
-                ),
+                template = self.get_template('list_item_action'),
                 form_actions = self.node.find('#form-actions');
             $.each(self.form_actions, function (id, action) {
                 form_actions.append(template(action));
@@ -134,9 +132,7 @@
 
         render_item: function (item) {
             var self = this,
-                template = gocept.jsform.get_template(
-                    'list_item_wrapper'
-                ),
+                template = self.get_template('list_item_wrapper'),
                 node = self.get_container(item).append(
                     template({actions: self.item_actions, id: item.data.id})
                 ).children().last();
@@ -161,7 +157,7 @@
             if (!self.template) {
                 return;
             }
-            template = gocept.jsform.get_template(self.template);
+            template = self.get_template(self.template);
             content = node.find('.content');
             content.html('');
             // XXX This template should be rendered once, employing knockout and
@@ -194,9 +190,7 @@
 
         edit_item: function (node) {
             var self = this,
-                template = gocept.jsform.get_template(
-                    'list_item_edit'
-                ),
+                template = self.get_template('list_item_edit'),
                 form_dialog,
                 data = {},
                 object_form;
@@ -287,9 +281,7 @@
                 group_container = self.$super(item),
                 group_class = 'group_' + item.data[self.options.group_by_key],
                 group_title = item.data[self.options.group_title_key],
-                template = gocept.jsform.get_template(
-                    'group_item'
-                );
+                template = self.get_template('group_item');
             if (!group_container.find('.' + group_class).length) {
                 group_container.append(
                     template({
@@ -326,12 +318,12 @@
                     columns[key] = self.jsform_options[key].label || key;
                 }
             });
-            return gocept.jsform.get_template('table_head')(columns);
+            return self.get_template('table_head')(columns);
         },
 
         render_item: function (item) {
             var self = this,
-                template = gocept.jsform.get_template('table_row'),
+                template = self.get_template('table_row'),
                 cell_data = {},
                 node = null;
             $.each(item.data, function (key, value) {

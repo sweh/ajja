@@ -4,7 +4,8 @@
 
 describe("Form Plugin", function () {
     "use strict";
-    var form, alert, set_save_response, set_load_response;
+    var form, alert, set_save_response, set_load_response,
+        default_templates = $.extend({}, gocept.jsform.templates);
 
     set_save_response = function (response, trigger) {
         /*
@@ -43,6 +44,7 @@ describe("Form Plugin", function () {
 
     afterEach(function () {
         $('#my_form').remove();
+        $.extend(gocept.jsform.templates, default_templates);
     });
 
     it("should throw an error when ID was not found", function () {
@@ -345,16 +347,15 @@ describe("Form Plugin", function () {
     describe("customized templates", function () {
 
         it("for the form", function () {
-            var template;
-            template = Handlebars.compile([
+            var template = Handlebars.compile([
                 '<form method="POST" action="{{action}}" id="{{form_id}}">',
                 '  <table><tr><td class="firstname">',
                 '    <span id="field-firstname" />',
                 '  </td><td class="lastname">',
                 '    <span id="field-lastname" />',
                 '</td></tr></table></form>'].join(''));
-
-            form = new gocept.jsform.Form('my_form', {form_template: template});
+            gocept.jsform.register_template('form', template);
+            form = new gocept.jsform.Form('my_form');
             form.load({firstname: 'Max', lastname: 'Mustermann'});
             expect($('#my_form .firstname input').val()).toEqual('Max');
             expect($('#my_form .lastname input').val()).toEqual('Mustermann');
@@ -368,10 +369,8 @@ describe("Form Plugin", function () {
                 '  <input type="radio" name="{{name}}" data-bind="checked: {{name}}" />',
                 '</div>'].join(''));
 
-            form = new gocept.jsform.Form(
-                'my_form',
-                {boolean_template: template}
-            );
+            form = new gocept.jsform.Form('my_form');
+            form.register_template('form_boolean', template);
             form.load({needs_glasses: false});
             expect($('#my_form input[type=checkbox]').length).toEqual(0);
             expect($('#my_form input[type=radio]').length).toEqual(1);
@@ -390,8 +389,13 @@ describe("Form Plugin", function () {
 
             source = [{token: 'mr', title: 'Mr.'},
                       {token: 'mrs', title: 'Mrs.'}];
-            form.load({title: 'mr'},
-                      {title: {template: template, source: source}});
+            form.register_template('my_special_field_template', template);
+            form.load({special_title: 'mr'},
+                      {special_title: {
+                    template: 'my_special_field_template',
+                    source: source
+                }});
+
             spyOn(form, "save");
             $('#my_form .mrs').click().click();  // Not sure why one needs to
                                                  // trigger click twice here
@@ -922,7 +926,8 @@ describe("Form Plugin", function () {
                 '  <button id="mybutton"/>',
                 '</form>'].join(''));
 
-            form = new gocept.jsform.Form('my_form', {form_template: template});
+            gocept.jsform.register_template('form', template);
+            form = new gocept.jsform.Form('my_form');
             form.load({name: 'Max'});
 
             submitted = false;

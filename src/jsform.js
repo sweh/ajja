@@ -29,14 +29,81 @@
         submit_fail: 'Einige Felder konnten nicht gespeichert werden. Bitte beheben Sie die Fehler und versuchen Sie es erneut.'
     };
 
-    gocept.jsform.get_template = function (template) {
-        if (template && (typeof template === "function")) {
-            return template;
-        }
-        return gocept.jsform.templates[template];
+    gocept.jsform.template_descriptions = {
+        form: 'The base `gocept.jsform.Form` template',
+        form_field_wrapper: 'Wrapper template for each widget. Should contain block for rendering error messages for the widget.',
+        form_boolean: 'Template for widgets rendering boolean input fields.',
+        form_multiselect: 'Template for widgets rendering multiselect fields',
+        form_number: 'Template for widgets rendering number input fields',
+        form_object: 'Template for widgets rendering select fields',
+        form_radio_list: 'Template for widgets rendering radio list fields',
+        form_string: 'Template for widgets rendering text input fields',
+        form_text: 'Template for widgets rendering textarea fields.',
+        group: 'Template for `gocept.jsform.GroupWidget`.',
+        group_item: 'Template for an item in a `gocept.jsform.GroupWidget`.',
+        list: 'Template for `gocept.jsform.ListWidget`.',
+        list_item_wrapper: 'Wrapper template for each item in a `gocept.jsform.ListWidget`.',
+        list_item: 'Template for the content of an item in a `gocept.jsform.ListWidget`.',
+        list_item_action: 'Template for an item action in a `gocept.jsform.ListWidget`.',
+        list_item_edit: 'Template for edit form (modal dialog) of an item in `gocept.jsform.ListWidget`.',
+        table: 'Template for `gocept.jsform.TableWidget`.',
+        table_head: 'Template for head part of a `gocept.jsform.TableWidget`.',
+        table_row: 'Template for a row of a `gocept.jsform.TableWidget`.'
     };
 
-    gocept.jsform.Form = Class.$extend({
+    gocept.jsform.register_template = function (id, template, description) {
+        // Make this available as a global function as some templates must be
+        // registered before initializing the form (e.g. the form template).
+        var html;
+        if (typeof template !== "function") {
+            if (template.indexOf('>') !== -1) {
+                html = template;
+            } else if (template.indexOf('#') === 0) {
+                html = $(template).html();
+            } else if ($('#' + template).length === 1) {
+                html = $('#' + template).html();
+            } else {
+                throw (
+                    "Can not register template with id '" + id + "'. " +
+                    "Don't know how to handle content '" + html + "'."
+                );
+            }
+            template = Handlebars.compile(html);
+        }
+        if (description) {
+            gocept.jsform.template_descriptions[id] = description;
+        }
+        gocept.jsform.templates[id] = template;
+    };
+
+    gocept.jsform.TemplateHandler = Class.$extend({
+
+        get_template: function (id) {
+            if (!gocept.jsform.templates[id]) {
+                throw (
+                    "No template found for '" + id + "'. Did you call " +
+                    "`form.register_template()`?"
+                );
+            }
+            return gocept.jsform.templates[id];
+        },
+
+        register_template: gocept.jsform.register_template,
+
+        list_templates: function () {
+            var result = [];
+            $.each(gocept.jsform.templates, function (id, template) {
+                result.push({
+                    'id': id,
+                    'description': gocept.jsform.template_descriptions[id],
+                    'template': template
+                });
+            });
+            return result;
+        }
+    });
+
+    gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
 
         status_message_fade_out_time: 3000,
 
@@ -280,8 +347,6 @@
             }
             return item_map[value];
         },
-
-        get_template: gocept.jsform.get_template,
 
         render_widget: function (id) {
             var self = this, widget, widget_options, widget_code,

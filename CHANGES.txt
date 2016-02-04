@@ -5,7 +5,14 @@ Change log for gocept.jsform
 3.0.1 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Introduce new API for template handling.
+
+  - `get_template(id)` returns the compiled version of the template.
+  - `register_template(id, template, description)
+    - allows you to register a template under the given id
+    - can handle precompiled templates, plain html or an id selector to a dom
+      node containing html
+  - `list_templates()` returns a list of templates with id and description
 
 
 3.0.0 (2016-02-03)
