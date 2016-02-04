@@ -111,21 +111,6 @@
         /* Exand the form under #id.
          *
          * Options can be:
-         *
-         * - form_template:    An alternative template for the form. It may
-         *                     contain ids for the fields to render them on
-         *                     custom places.
-         * - field_wrapper_template:
-         *                     An alternative template for wrapping the
-         *                     fields. This has to be compatible to the used
-         *                     form template, i.e. the element with ids of the
-         *                     fields must match the used form_template. The
-         *                     template gets expanded with 2 variables:
-         *                        * id (id of the field)
-         *                        * widget (actual widget code)
-         * - string_template:  An alternative template for text based fields.
-         * - object_template:  An alternative template for input based fields.
-         * - boolean_template: An alternative template for boolean based fields.
          * - save_url:         The url where data changes are propagated to.
          *                     Should return a dict with either {"status":
          *                     "success"} or {"status": "error", "msg":
@@ -159,11 +144,7 @@
                 self.unrecoverable_error_msg = msg;
                 self.alert(self.t('unrecoverable_error_intro') + msg);
             });
-            if (gocept.jsform.isUndefinedOrNull(self.options.field_wrapper_template)) {
-                self.field_wrapper_template = self.get_template('form_field_wrapper');
-            } else {
-                self.field_wrapper_template = self.get_template(self.options.field_wrapper_template);
-            }
+            self.field_wrapper_template = self.get_template('form_field_wrapper');
             self.loaded = $.Deferred();
             $(self).bind('after-load', function () {
                 self.loaded.resolve();
@@ -185,10 +166,7 @@
         expand_form: function () {
             /* Expands the form_template into the DOM */
             var self = this, form_template, form_options, form_code;
-            form_template = self.get_template(gocept.jsform.or(
-                self.options.form_template,
-                'form'
-            ));
+            form_template = self.get_template('form');
             form_options = $.extend({'form_id': self.id}, self.options);
             form_code = $(
                 form_template(form_options).replace(/^\s+|\s+$/g, '')
@@ -199,9 +177,7 @@
         create_form: function () {
             /* wires the form DOM node and object */
             var self = this;
-            if (self.options.form_template !== '') {
-                self.expand_form();
-            }
+            self.expand_form();
             self.node = $('#' + self.id);
             self.node.closest('form').data('form', self);
             self.statusarea = self.node.find('.statusarea');
@@ -223,7 +199,7 @@
              * |- options: Options for each data field:
              *   |- <field_name>: Foreach field in data you can add some options:
              *     |- label: The label of the field.
-             *     |- template: A custom template for this field.
+             *     |- template: The id of a custom template for this field.
              *     |- required: boolean, whether this is a required field
              *     |- source: array of objects containing 'token' and 'title'
              *     |- multiple: for object selection, whether to do multi-select
