@@ -102,7 +102,7 @@ describe("Template handler", function () {
             expect(
                 function () { handler.register_template('html', 'template'); }
             ).toThrow(
-                "Can not register template with id 'html'. Don't know how to handle content 'undefined'."
+                "Can not register template with id 'html'. Don't know how to handle content 'template'."
             );
         });
     });

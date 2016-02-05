@@ -65,7 +65,7 @@
             } else {
                 throw (
                     "Can not register template with id '" + id + "'. " +
-                    "Don't know how to handle content '" + html + "'."
+                    "Don't know how to handle content '" + template + "'."
                 );
             }
             template = Handlebars.compile(html);
@@ -93,9 +93,10 @@
         list_templates: function () {
             var result = [];
             $.each(gocept.jsform.templates, function (id, template) {
+                var desc = gocept.jsform.template_descriptions[id] || '';
                 result.push({
                     'id': id,
-                    'description': gocept.jsform.template_descriptions[id],
+                    'description': desc,
                     'template': template
                 });
             });

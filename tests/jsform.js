@@ -390,8 +390,8 @@ describe("Form Plugin", function () {
             source = [{token: 'mr', title: 'Mr.'},
                       {token: 'mrs', title: 'Mrs.'}];
             form.register_template('my_special_field_template', template);
-            form.load({special_title: 'mr'},
-                      {special_title: {
+            form.load({title: 'mr'},
+                      {title: {
                     template: 'my_special_field_template',
                     source: source
                 }});
