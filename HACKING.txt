@@ -15,6 +15,25 @@ To run tests in phantomjs, run::
   $ grunt phantomjs
 
 
+Documentation
+=============
+
+The documentation is written in Sphinx and located under doc. There is a
+Makefile that helps you generate the documentation from the sources. You'll
+need to install sphinx globally or adjust the path inside the Makefile to your
+needs.
+
+Build the documentation with::
+
+    $ cd docs && make html
+    $ open index.html
+
+You can install the Sphinx package in your site packages or virtual environment
+using pip::
+
+    $ pip install sphinx
+
+
 Releases
 ========
 
