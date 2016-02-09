@@ -4,3 +4,4 @@ lib/
 node_modules/
 _SpecRunner.html
 report/
+docs/_build
