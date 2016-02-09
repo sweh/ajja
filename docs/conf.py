@@ -11,7 +11,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys, os, json
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -48,7 +48,7 @@ copyright = u'2014-2016, gocept gmbh & co. kg'
 # built documents.
 #
 # The short X.Y version.
-version = '3.0.1-dev.0'
+version = json.loads(open('../bower.json').read())['version']
 # The full version, including alpha/beta/rc tags.
 #release = '3.0.1-dev.0'
 

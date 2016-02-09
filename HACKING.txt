@@ -38,7 +38,11 @@ Releases
 ========
 
   * Run `grunt bump` or `grunt bump:major` to increase version.
+  * Update Changelog (e.g. remove "unreleased").
+  * Run `grunt run:docs` to build documentation for this new release.
+  * Upload to readthedocs. (XXX How???)
   * Commit changes to github.
   * Create a tag for the current version:
         * git tag -a X.X.X -m "Version X.X.X"
         * git push origin X.X.X
+  * Run `grunt bump:prerelase`.
