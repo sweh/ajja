@@ -3,6 +3,15 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.config.init({
+        watch: {
+            scripts: {
+                files: ['src/**/*.js', 'test/**/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    spawn: false,
+                },
+            },
+        },
         jasmine : {
             jsform: {
                 src : [
