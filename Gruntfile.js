@@ -11,6 +11,22 @@ module.exports = function (grunt) {
                     spawn: false,
                 },
             },
+            docs: {
+                files: ['docs/**/*.rst'],
+                tasks: ['run:docs'],
+                options: {
+                    spawn: false,
+                },
+            },
+        },
+        run: {
+            options: {
+                cwd: 'docs',
+            },
+            docs: {
+                cmd: 'make',
+                args: ['html'],
+            }
         },
         jasmine : {
             jsform: {
