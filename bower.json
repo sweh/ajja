@@ -15,5 +15,16 @@
     "bootstrap": "~3.3",
     "jquery": "*",
     "jquery-ui": "*"
- }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gocept/gocept.jsform.git"
+  },
+  "authors": [
+    {"name": "Sebastian Wehrmann", "email": "sw@gocept.com"},
+    {"name": "Florian Pilz", "email": "fp@gocept.com"},
+    {"name": "Thomas Lotze", "email": "tl@gocept.com"},
+    {"name": "Maik Derstappen", "email": "md@derico.de"}
+  ],
+  "homepage": "http://goceptjsform.readthedocs.org/"
 }
