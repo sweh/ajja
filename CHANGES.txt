@@ -1,6 +1,6 @@
-============================
-Change log for gocept.jsform
-============================
+=======
+Changes
+=======
 
 3.0.1 (unreleased)
 ==================
@@ -8,7 +8,8 @@ Change log for gocept.jsform
 - Introduce new API for template handling.
 
   - `get_template(id)` returns the compiled version of the template.
-  - `register_template(id, template, description)
+  - `register_template(id, template, description)`
+
     - allows you to register a template under the given id
     - can handle precompiled templates, plain html or an id selector to a dom
       node containing html
@@ -148,12 +149,6 @@ Change log for gocept.jsform
 
 2.0.0 (2015-03-26)
 ==================
-
-- Nothing changed yet.
-
-
-1.2.1a1+bower-1 (2015-02-03)
-============================
 
 - Render the token as the ``<option value>`` attribute, so we get the best of
   both worlds: internally we deal with objects, but the DOM looks "normal" (and
