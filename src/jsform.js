@@ -825,6 +825,12 @@
 
 
     $.fn.jsform_submit_button = function (action) {
+        /*"""
+        .. js:function:: $.jsform_submit_button()
+
+            Make a form submit button an ajax submit button. This makes sure
+            that when clicking submit, all fields are saved via ajax.
+        */
         return this.each(function () {
             $(this).on('click', function (event) {
                 var button = this, jsform;
