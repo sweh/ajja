@@ -32,6 +32,7 @@ module.exports = function (grunt) {
             jsform: {
                 src : [
                     'src/helpers.js',
+                    'src/localizations/*.js',
                     'src/templates.js',
                     'src/template.js',
                     'src/jsform.js',
@@ -67,6 +68,7 @@ module.exports = function (grunt) {
             all: [
                 'Gruntfile.js',
                 'src/helpers.js',
+                'src/localization/*.js',
                 'src/template.js',
                 'src/collection.js',
                 'src/jsform.js',

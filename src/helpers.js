@@ -18,6 +18,7 @@
     };
 
     declare_namespace('gocept.jsform');
+    gocept.jsform.locales = {};
     gocept.jsform.declare_namespace = declare_namespace;
     gocept.jsform.isUndefinedOrNull = isUndefinedOrNull;
 

@@ -3,6 +3,8 @@
   "version": "3.0.1-dev.0",
   "main": [
     "src/helpers.js",
+    "src/localizations/en.js",
+    "src/localizations/de.js",
     "src/templates.js",
     "src/template.js",
     "src/collection.js",
