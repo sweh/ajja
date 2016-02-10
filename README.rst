@@ -38,7 +38,7 @@ To obtain support, please write an email to `mail@gocept.com <mailto:mail@gocept
 Developing and Contributing
 ===========================
 
-See `HACKING.txt <https://github.com/gocept/gocept.jsform/blob/master/LICENSE.txt>`_
+See `HACKING.txt <https://github.com/gocept/gocept.jsform/blob/master/HACKING.txt>`_
 and `Contribution guide <http://goceptjsform.readthedocs.org/en/stable/src/contributing/guide.html>`_
 for guidelines on running tests, adding features and updating documentation
 when developing in or contributing to gocept.jsform.
