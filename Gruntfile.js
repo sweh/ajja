@@ -34,7 +34,7 @@ module.exports = function (grunt) {
                     'src/helpers.js',
                     'src/templates.js',
                     'src/jsform.js',
-                    'src/container.js'
+                    'src/collection.js'
                 ],
                 options : {
                     specs : 'tests/**/*.js',
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
             all: [
                 'Gruntfile.js',
                 'src/helpers.js',
-                'src/container.js',
+                'src/collection.js',
                 'src/jsform.js',
                 'tests/*.js'
             ],

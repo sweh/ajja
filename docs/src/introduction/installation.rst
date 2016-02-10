@@ -27,7 +27,7 @@ the files in the correct order. You can copy & paste the following snipped.
 
     <script type="text/javascript" src="src/helpers.js"></script>
     <script type="text/javascript" src="src/templates.js"></script>
-    <script type="text/javascript" src="src/container.js"></script>
+    <script type="text/javascript" src="src/collection.js"></script>
     <script type="text/javascript" src="src/jsform.js"></script>
 
 You will also need to include the libaries needed by `gocept.jsform`. Have a
