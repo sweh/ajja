@@ -29,7 +29,7 @@ describe("Form Plugin", function () {
     };
 
     set_load_response = function (response, trigger) {
-        form.reload_data = function (cb) {
+        form.reload = function () {
             form.finish_load({"firstname": "Sebastian",
                 "title": [],
                 "needs_glasses": false});
@@ -850,28 +850,6 @@ describe("Form Plugin", function () {
             expect($('#my_form select option').get(2).selected).toEqual(true);
         });
 
-        it("can reload the form", function () {
-            form.load({firstname: 'Sebastian'});
-            $('#my_form input').val('Bob');
-            expect($('#my_form input').val()).toEqual('Bob');
-            form.reload();
-            expect($('#my_form input').val()).toEqual('Sebastian');
-        });
-
-        it("can reload the form from a url", function (done) {
-            set_load_response();
-            form.load('/fanstatic/gocept.jsform.tests/testdata.json');
-
-            setTimeout(function () {
-                $('#my_form input').val('Bob');
-                expect($('#my_form input').get(0).value).toEqual('Bob');
-                form.reload();
-                setTimeout(function () {
-                    expect($('#my_form input').get(0).value).toEqual('Sebastian');
-                    done();
-                }, 100);
-            }, 100);
-        });
     });
 
     describe("object template", function () {

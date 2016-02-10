@@ -56,16 +56,21 @@
     Templates
     *********
 
-    The function :js:func:`gocept.jsform.register_template()` allows you to register
-    your templates or change the default templates.
     */
 
     gocept.jsform.register_template = function (id, template, description) {
         /*"""
         .. js:function:: gocept.jsform.register_template(id, template[, description])
 
+            Allows you to register your templates or change the default templates.
+
             :param string id: The id of the template.
-            :param string template: The template or a reference to the template.
+            :param template: The template. Will be saved as a compiled
+                Handlebars template. Can be a precompiled Handlebars template,
+                the template as raw HTML or the id of a DOM node containing
+                the HTML of the template.
+            :type template: function or string
+            :param string description: A description for the template.
         */
         var html;
         if (typeof template !== "function") {
@@ -92,9 +97,20 @@
     gocept.jsform.TemplateHandler = Class.$extend({
     /*"""
     .. js:class:: gocept.jsform.TemplateHandler()
+
+        Helper class for handling templates within `gocept.jsform`.
     */
 
         get_template: function (id) {
+            /*"""
+                .. js:function:: get_template(id)
+
+                    Get the template for the given `id`.
+
+                    :param string id: The id of the template.
+                    :throws Exception: If no template was found for `id`.
+                    :returns: The template as precompiled Handlebars template.
+            */
             if (!gocept.jsform.templates[id]) {
                 throw (
                     "No template found for '" + id + "'. Did you call " +
@@ -105,8 +121,21 @@
         },
 
         register_template: gocept.jsform.register_template,
+            /*"""
+                .. js:function:: register_template(id, template[, description])
+
+                    Calls :js:func:`gocept.jsform.register_template()`.
+            */
 
         list_templates: function () {
+            /*"""
+                .. js:function:: list_templates()
+
+                    List all registered templates.
+
+                    :returns: A list of objects containing the id, description
+                        and compiled template.
+            */
             var result = [];
             $.each(gocept.jsform.templates, function (id, template) {
                 var desc = gocept.jsform.template_descriptions[id] || '';
@@ -120,26 +149,32 @@
         }
     });
 
+    /*"""
+    Form
+    ****
 
+    */
     gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
     /*"""
     .. js:class:: gocept.jsform.Form(id[, options])
 
-        extends :js:class:`gocept.jsform.TemplateHandler()`
+        The form class. Extends :js:class:`gocept.jsform.TemplateHandler()`.
 
         :param string id: The id of the DOM node where the form should be rendered.
         :param object options: An object containing options like:
 
-            - save_url: The url where data changes are propagated to. Should return a dict with either ``{"status": "success"}`` or ``{"status": "error", "msg": "Not an eMail address."}``.
-
-            - action: The url the form will submit to (if intended). Will become the action attribute in form.
-
-            - language: 2-char language code. Default is `en`.
-
-            - disabled: Only render disabled fields in the whole form.
+            - **save_url**: The url where data changes are propagated to. Should return a dict with either ``{"status": "success"}`` or ``{"status": "error", "msg": "Not an eMail address."}``.
+            - **action**: The url the form will submit to (if intended). Will become the action attribute in form.
+            - **language**: 2-char language code. Default is `en`.
+            - **disabled**: Only render disabled fields in the whole form.
     */
 
         status_message_fade_out_time: 3000,
+        /*"""
+            .. js:attribute:: status_message_fade_out_time
+
+                Time in milliseconds the status popup will be displayed (default: 3000)
+        */
 
         __init__: function (id, options) {
             var self = this;
@@ -181,6 +216,7 @@
         },
 
         t: function (msgid) {
+            /* Translate msgid into the selected language. */
             var self = this;
             return self.texts[msgid];
         },
@@ -205,32 +241,25 @@
             self.statusarea = self.node.find('.statusarea');
         },
 
-        reload: function () {
-            var self = this;
-            self.create_form();
-            self.start_load();
-        },
-
         load: function (data_or_url, options, mapping) {
-            /*""" Invokes data retrieval and form field initialization.
+            /*"""
+                .. js:function:: load(data_or_url, options, mapping)
 
-               .. js:function:: load(data_or_url, options, mapping)
-            */
-            /*
-             * Takes the following parameters:
-             * |
-             * |- data_or_url: The url to a JSON View returning the data for the
-             * |               form or the data itself.
-             * |- options: Options for each data field:
-             *   |- <field_name>: Foreach field in data you can add some options:
-             *     |- label: The label of the field.
-             *     |- template: The id of a custom template for this field.
-             *     |- required: boolean, whether this is a required field
-             *     |- source: array of objects containing 'token' and 'title'
-             *     |- multiple: for object selection, whether to do multi-select
-             *     |- placeholder: placeholder to the empty dropdown option
-             *     |- disabled: true if field should be disabled
-             * |- mapping:  An optional mapping for the <ko.mapping> plugin.
+                    Invokes data retrieval and form field initialization.
+
+                    :param string data_or_url: The url to a JSON View returning the data for the form or the data itself.
+                    :param object options: Options for each data field:
+
+                        - **field_name**: Foreach field in data you can add some options:
+
+                            - **label**: The label of the field.
+                            - **template**: The id of a custom template for this field.
+                            - **required**: boolean, whether this is a required field
+                            - **source**: array of objects containing 'token' and 'title'
+                            - **multiple**: for object selection, whether to do multi-select
+                            - **placeholder**: placeholder to the empty dropdown option
+                            - **disabled**: true if field should be disabled
+                        - **mapping**:  An optional mapping for the <ko.mapping> plugin.
              */
             var self = this;
             if (typeof data_or_url === 'string') {
@@ -287,20 +316,24 @@
             var self = this;
             self.loaded = $.Deferred();  // replace to represent a new load cycle
             if (self.url !== null) {
-                self.reload_data(function (data) { self.finish_load(data); });
+                self.reload();
             } else {
                 self.finish_load(self.initial_data);
             }
         },
 
-        reload_data: function (cb) {
-            //Only reload data and call cb with it.
+        reload: function () {
+            /*"""
+                .. js:function:: reload()
+
+                    Invokes data retrieval from server and reloads the form.
+            */
             var self = this;
             $.ajax({
                 dataType: "json",
                 url: self.url,
                 success: function (tokenized) {
-                    cb(tokenized);
+                    self.finish_load(tokenized);
                 },
                 error: function (e) { self.notify_server_error(e); }
             });
