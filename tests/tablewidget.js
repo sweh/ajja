@@ -44,27 +44,27 @@ describe("Table Widget", function () {
 
     describe("should transform boolean values", function () {
         beforeEach(function () {
-            this.container = $('<tr><td></td></tr>');
+            this.collection = $('<tr><td></td></tr>');
         });
 
         afterEach(function () {
-            this.container.remove();
+            this.collection.remove();
         });
 
         it("from true into ok icon.", function () {
-            this.container.find('td').text('true');
+            this.collection.find('td').text('true');
             var tablewidget = new gocept.jsform.TableWidget('#my_form');
-            tablewidget.translate_boolean_cells(this.container);
-            expect(this.container.find('td').html()).toBe(
+            tablewidget.translate_boolean_cells(this.collection);
+            expect(this.collection.find('td').html()).toBe(
                 '<span class="glyphicon glyphicon-ok"></span>'
             );
         });
 
         it("from false into remove icon.", function () {
-            this.container.find('td').text('false');
+            this.collection.find('td').text('false');
             var tablewidget = new gocept.jsform.TableWidget('#my_form');
-            tablewidget.translate_boolean_cells(this.container);
-            expect(this.container.find('td').html()).toBe(
+            tablewidget.translate_boolean_cells(this.collection);
+            expect(this.collection.find('td').html()).toBe(
                 '<span class="glyphicon glyphicon-remove"></span>'
             );
         });

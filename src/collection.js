@@ -3,9 +3,37 @@
 (function ($) {
     "use strict";
 
-    gocept.jsform.ListWidget = gocept.jsform.TemplateHandler.$extend({
+    /*"""
+    Collections
+    ***********
 
+    `gocept.jsform` can render items in a collection with add and edit forms.
+    */
+
+    gocept.jsform.ListWidget = gocept.jsform.TemplateHandler.$extend({
+    /*"""
+    .. js:class:: gocept.jsform.ListWidget(node_selector[, options])
+
+        Turn any DOM elements matched by node_selector into ListWidgets.
+        Extends :js:class:`gocept.jsform.TemplateHandler()`.
+
+        :param string node_selector: The selector of the DOM node where the widget should be rendered.
+        :param object options: An object containing options like:
+
+            - **item_actions**: additional item_actions besides edit and del
+            - **default_item_actions**: set to an empty list to hide edit and del
+            - **form_actions**: additional form_actions besides add
+            - **default_form_actions**: set to an empty list to hide add
+        :throws Exception: if the node_selector does not match any DOM node.
+    */
+        /*"""
+            .. js:attribute:: base_template
+
+                Change this to a template of your choise. (default: 'list')
+        */
         base_template: 'list',
+
+        /* The default item actions. */
         default_item_actions: [
             {
                 css_class: 'edit',
@@ -24,6 +52,8 @@
                 }
             },
         ],
+
+        /* The default form actions. */
         default_form_actions: [
             {
                 css_class: 'add',
@@ -34,14 +64,7 @@
         ],
 
         __init__: function (node_selector, options) {
-            /* Turn any DOM elements matched by node_selector into ListWidgets.
-             *
-             * Options:
-             *
-             * item_actions: additional item_actions besides edit and del
-             * form_actions: additional form_actions besides add
-             * default_form_actions: set to an empty list to hide add
-             */
+            /* Initialize the widget. For more information see class docs. */
             var self = this,
                 node = $(node_selector),
                 template = self.get_template(self.base_template);
@@ -67,7 +90,7 @@
                 .concat(options.form_actions || []);
 
             node.append(template({}));
-            self.list_container = node.find('#container');
+            self.list_collection = node.find('#collection');
             self.collection_url = node.data('collection-url');
             self.template = gocept.jsform.or(
                 node.data('template'),
@@ -81,15 +104,20 @@
             self.render_form_actions();
         },
 
-        load: function () {
+        reload: function () {
+            /*"""
+                .. js:function:: reload()
+
+                    Reload the widget.
+             */
             var self = this;
-            $('#container').empty();
+            $('#collection').empty();
             $.ajax({
                 url: self.collection_url,
                 type: 'GET',
                 dataType: 'json'
             }).done(function (items) {
-                $('#container').html(self.get_container_head(items));
+                $('#collection').html(self.get_collection_head(items));
                 $.each(items, function (index, item) {
                     self.render_item(item);
                 });
@@ -98,8 +126,8 @@
             return self;
         },
 
-        get_container_head: function (items) {
-            // Subclasses of ListWidget return non-empty content for container
+        get_collection_head: function (items) {
+            // Subclasses of ListWidget return non-empty content for collection
             return '';
         },
 
@@ -133,7 +161,7 @@
         render_item: function (item) {
             var self = this,
                 template = self.get_template('list_item_wrapper'),
-                node = self.get_container(item).append(
+                node = self.get_collection(item).append(
                     template({actions: self.item_actions, id: item.data.id})
                 ).children().last();
             node.data('resource', item.resource);
@@ -143,10 +171,10 @@
             return node;
         },
 
-        get_container: function (item) {
+        get_collection: function (item) {
             var self = this;
             // item is used in subclasses of ListWidget
-            return self.list_container;
+            return self.list_collection;
         },
 
         render_item_content: function (node) {
@@ -211,7 +239,7 @@
                 self.close_object_edit_form(ev, object_form, form_dialog);
             });
             form_dialog.bind('hidden.bs.modal', function () {
-                self.load();
+                self.reload();
                 form_dialog.remove();
             });
             $.each(node.data('data'), function (key, value) {
@@ -275,23 +303,23 @@
             }
         },
 
-        get_container: function (item) {
-            /* Look up grouping container for this item or create if missing */
+        get_collection: function (item) {
+            /* Look up grouping collection for this item or create if missing */
             var self = this,
-                group_container = self.$super(item),
+                group_collection = self.$super(item),
                 group_class = 'group_' + item.data[self.options.group_by_key],
                 group_title = item.data[self.options.group_title_key],
                 template = self.get_template('group_item');
-            if (!group_container.find('.' + group_class).length) {
-                group_container.append(
+            if (!group_collection.find('.' + group_class).length) {
+                group_collection.append(
                     template({
                         group_class: group_class,
                         group_title: group_title
                     })
                 );
             }
-            return group_container.find(
-                '.' + group_class + ' ul.list-container'
+            return group_collection.find(
+                '.' + group_class + ' ul.list-collection'
             );
         }
     });
@@ -306,7 +334,7 @@
             self.omit = self.options.omit || [];
         },
 
-        get_container_head: function (items) {
+        get_collection_head: function (items) {
             var self = this,
                 columns = {};
             if (!items.length) {
@@ -334,7 +362,7 @@
             node = $(template({actions: self.item_actions,
                                data: cell_data}));
             self.translate_boolean_cells(node);
-            self.get_container(item).append(node);
+            self.get_collection(item).append(node);
             node.data('resource', item.resource);
             node.data('data', item.data);
             self.apply_item_actions(node);

@@ -155,7 +155,7 @@ this["gocept"]["jsform"]["templates"]["form_text"] = Handlebars.template({"1":fu
 },"useData":true});
 
 this["gocept"]["jsform"]["templates"]["group"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"panel-group\" id=\"container\" role=\"tablist\" aria-multiselectable=\"true\">\n</div>\n<div id=\"form-actions\"></div>\n";
+    return "<div class=\"panel-group\" id=\"collection\" role=\"tablist\" aria-multiselectable=\"true\">\n</div>\n<div id=\"form-actions\"></div>\n";
 },"useData":true});
 
 this["gocept"]["jsform"]["templates"]["group_item"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -165,7 +165,7 @@ this["gocept"]["jsform"]["templates"]["group_item"] = Handlebars.template({"comp
     + alias4(((helper = (helper = helpers.group_class || (depth0 != null ? depth0.group_class : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group_class","hash":{},"data":data}) : helper)))
     + "\">\n    <div class=\"panel-heading\" role=\"tab\" id=\"heading-"
     + alias4(((helper = (helper = helpers.group_class || (depth0 != null ? depth0.group_class : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group_class","hash":{},"data":data}) : helper)))
-    + "\">\n      <h4 class=\"panel-title\">\n        <a data-toggle=\"collapse\"\n           data-parent=\"#container\"\n           href=\"#"
+    + "\">\n      <h4 class=\"panel-title\">\n        <a data-toggle=\"collapse\"\n           data-parent=\"#collection\"\n           href=\"#"
     + alias4(((helper = (helper = helpers.group_class || (depth0 != null ? depth0.group_class : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group_class","hash":{},"data":data}) : helper)))
     + "\"\n           aria-expanded=\"true\"\n           aria-controls=\""
     + alias4(((helper = (helper = helpers.group_class || (depth0 != null ? depth0.group_class : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group_class","hash":{},"data":data}) : helper)))
@@ -175,13 +175,13 @@ this["gocept"]["jsform"]["templates"]["group_item"] = Handlebars.template({"comp
     + alias4(((helper = (helper = helpers.group_class || (depth0 != null ? depth0.group_class : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group_class","hash":{},"data":data}) : helper)))
     + "\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading-"
     + alias4(((helper = (helper = helpers.group_class || (depth0 != null ? depth0.group_class : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group_class","hash":{},"data":data}) : helper)))
-    + "\">\n      <ul class=\"list-group list-container\" data-group-id=\""
+    + "\">\n      <ul class=\"list-group list-collection\" data-group-id=\""
     + alias4(((helper = (helper = helpers.group_class || (depth0 != null ? depth0.group_class : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"group_class","hash":{},"data":data}) : helper)))
     + "\"></ul>\n  </div>\n</div>\n";
 },"useData":true});
 
 this["gocept"]["jsform"]["templates"]["list"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div><ul class=\"list-group list-container nav nav-stacked\" id=\"container\"></ul></div>\n<div id=\"form-actions\"></div>\n";
+    return "<div><ul class=\"list-group list-collection nav nav-stacked\" id=\"collection\"></ul></div>\n<div id=\"form-actions\"></div>\n";
 },"useData":true});
 
 this["gocept"]["jsform"]["templates"]["list_item"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -245,7 +245,7 @@ this["gocept"]["jsform"]["templates"]["list_item_wrapper"] = Handlebars.template
 },"useData":true});
 
 this["gocept"]["jsform"]["templates"]["table"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div>\n    <table id=\"container\"></table>\n</div>\n<div id=\"form-actions\"></div>\n";
+    return "<div>\n    <table id=\"collection\"></table>\n</div>\n<div id=\"form-actions\"></div>\n";
 },"useData":true});
 
 this["gocept"]["jsform"]["templates"]["table_head"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
