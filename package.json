@@ -20,7 +20,7 @@
     "client"
   ],
   "author": "gocept gmbh & co. kg",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/gocept/gocept.jsform/issues"
   },
