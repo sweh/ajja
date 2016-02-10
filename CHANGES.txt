@@ -15,6 +15,8 @@ Changes
       node containing html
   - `list_templates()` returns a list of templates with id and description
 
+- Massively improved documentation.
+
 
 3.0.0 (2016-02-03)
 ==================
