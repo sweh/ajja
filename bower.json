@@ -4,6 +4,7 @@
   "main": [
     "src/helpers.js",
     "src/templates.js",
+    "src/template.js",
     "src/collection.js",
     "src/jsform.js"
   ],

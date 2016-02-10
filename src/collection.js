@@ -3,12 +3,6 @@
 (function ($) {
     "use strict";
 
-    /*"""
-    Collections
-    ***********
-
-    `gocept.jsform` can render items in a collection with add and edit forms.
-    */
 
     gocept.jsform.ListWidget = gocept.jsform.TemplateHandler.$extend({
     /*"""
