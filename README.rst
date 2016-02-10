@@ -31,22 +31,22 @@ for DOM manipulation and ajax calls.
 Support and Documentation
 =========================
 
-Documentation is available on `readthedocs <http://goceptjsform.readthedocs.org/en/latest>`_.
-Bugs and Feature Requests are tracked in the `GitHub Issue Tracker<https://github.com/gocept/gocept.jsform/issues>`_.
-To obtain support, please write an email to `mail@gocept.com<mailto:mail@gocept.com>`_.
+Documentation is available on `readthedocs <http://goceptjsform.readthedocs.org/en/stable>`_.
+Bugs and Feature Requests are tracked in the `GitHub Issue Tracker <https://github.com/gocept/gocept.jsform/issues>`_.
+To obtain support, please write an email to `mail@gocept.com <mailto:mail@gocept.com>`_.
 
 Developing and Contributing
 ===========================
 
-See `HACKING.txt<https://github.com/gocept/gocept.jsform/blob/master/LICENSE.txt>`_
-and `Contribution guide<http://goceptjsform.readthedocs.org/en/latest/src/contributing/guide.html>`_
+See `HACKING.txt <https://github.com/gocept/gocept.jsform/blob/master/HACKING.txt>`_
+and `Contribution guide <http://goceptjsform.readthedocs.org/en/stable/src/contributing/guide.html>`_
 for guidelines on running tests, adding features and updating documentation
 when developing in or contributing to gocept.jsform.
 
 License
 =======
 
-gocept.jsform is offered under the `MIT license<https://github.com/gocept/gocept.jsform/blob/master/LICENSE.txt>`_.
+gocept.jsform is offered under the `MIT license <https://github.com/gocept/gocept.jsform/blob/master/LICENSE.txt>`_.
 
 Authors
 =======
