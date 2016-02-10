@@ -53,6 +53,7 @@
         */
 
         __init__: function (id, options) {
+            /* Initialize the forn. For more information see class docs. */
             var self = this;
 
             if ($('#' + id).length === 0) {
@@ -88,6 +89,7 @@
         },
 
         alert: function (msg) {
+            /* Show msg to user. */
             alert(msg);
         },
 
@@ -155,6 +157,7 @@
         },
 
         collect_sources: function () {
+            /* Collect sources from options and make them ovservable. */
             var self = this;
             self.sources = {};
             self.item_maps = {};
@@ -172,6 +175,7 @@
         },
 
         update_sources: function (data) {
+            /* Update sources from data. Called on form reload. */
             var self = this;
             if (!data || !data.sources) {
                 return;
@@ -216,6 +220,7 @@
         },
 
         finish_load: function (tokenized) {
+            /* After load handler. Save data retrieved from server on model. */
             var self = this,
                 data = tokenized;
             if (tokenized) {
@@ -231,6 +236,10 @@
         },
 
         is_object_field: function (name) {
+            /* Check weather field is an object field.
+
+               Object fields are either select boxes or radio lists.
+            */
             var self = this;
             if (gocept.jsform.isUndefinedOrNull(self.options[name]) ||
                     gocept.jsform.isUndefinedOrNull(self.options[name].source)) {
@@ -243,6 +252,7 @@
         },
 
         resolve_object_field: function (name, value) {
+            /* Save tokens from value in object fields. */
             var self = this, item_map, resolved;
             if (!self.is_object_field(name)) {
                 return value;
@@ -259,6 +269,7 @@
         },
 
         render_widget: function (id) {
+            /* Render one form widget (e.g. an input field). */
             var self = this, widget, widget_options, widget_code,
                 wrapper_options, template_name = self.get_widget(id);
             widget = self.get_template(template_name);
@@ -301,24 +312,22 @@
 
         init_fields: function () {
             /* Initialize field from self.data.
-             *
-             * Guess the type of data for each field and render the correct field
-             * template into the DOM. Invoke the knockout databinding via
-             * auto-mapping data into a model (thanks to ko.mapping plugin) and
-             * invoke observing the model for changes to propagate these to the
-             * server.
-             *
-             * Appends fields into the form if no DOM element with id name like
-             * field is found.
+
+               Guess the type of data for each field and render the correct field
+               template into the DOM. Invoke the knockout databinding via
+               auto-mapping data into a model (thanks to ko.mapping plugin) and
+               invoke observing the model for changes to propagate these to the
+               server.
+               Appends fields into the form if no DOM element with id name like
+               field is found.
              */
             var self = this;
             if (gocept.jsform.isUndefinedOrNull(self.data)) {
                 return;
             }
             $.each(self.data, function (id, value) {
-                /* XXX option defaults should not be applied here but until fields
-                 * have a class of their own, this is a convenient place
-                 */
+                // XXX option defaults should not be applied here but until
+                // fields have a class of their own, this is a convenient place
                 self.options[id] = $.extend({required: false}, self.options[id]);
                 self.render_widget(id);
             });
@@ -326,6 +335,12 @@
         },
 
         update_bindings: function () {
+            /* Add or update knockout bindings to the data.
+
+               This is where all the magic starts. Adding bindings to our model
+               and observing model changes allows us to trigger automatic updates
+               to the server when form fields are submitted.
+            */
             var self = this;
             self.create_model();
             ko.applyBindings(self.model, self.node.get(0));
@@ -333,6 +348,10 @@
         },
 
         create_model: function () {
+            /* Create a knockout model from self.data.
+
+               Needed for bindings and oberservation.
+            */
             var self = this;
             self.model = ko.mapping.fromJS(self.data, self.mapping);
             self.model.__sources__ = self.sources;
@@ -345,11 +364,13 @@
         },
 
         field: function (id) {
+            /* Get the DOM node for the field under id. */
             var self = this;
             return self.node.find('#field-' + id);
         },
 
         label: function (id) {
+            /* Return the label for the given id. */
             var self = this,
                 label = self.options[id].label;
             if (gocept.jsform.isUndefinedOrNull(label)) {
@@ -359,8 +380,8 @@
         },
 
         subscribe: function (id, real_id) {
-            /* Subscribe to changes on one field of the model and propagate them to
-             * the server.
+            /* Subscribe to changes on one field of the model and propagate
+               them to the server.
              */
             var self = this;
             if (!gocept.jsform.isUndefinedOrNull(self.subscriptions[id])) {
@@ -405,8 +426,8 @@
             /* Schedule saving one field's value to the server via ajax. */
             var self = this, deferred_save;
             deferred_save = $.when(self.field(id).data('save')).then(
-                /* For the time being, simply chain the new save after the last, no
-                   compression of queued save calls yet. */
+                // For the time being, simply chain the new save after the
+                // last, no compression of queued save calls yet.
                 function () { return self.start_save(id, newValue, silent); },
                 function () { return self.start_save(id, newValue, silent); }
             );
@@ -414,8 +435,11 @@
         },
 
         start_save: function (id, newValue, silent) {
-            /* Actual work of preparing and making the ajax call. May be deferred in
-               order to serialise saving subsequent values of each field. */
+            /* Actual work of preparing and making the ajax call.
+
+               May be deferred in order to serialise saving subsequent
+               values of each field.
+            */
             var self = this, saving_msg_node;
 
             if (self.unrecoverable_error) {
@@ -452,6 +476,7 @@
         },
 
         save_and_validate: function (id, newValue) {
+            /* Validation of the field and newValue */
             var self = this,
                 validated = $.Deferred(),
                 result = validated.promise(),
@@ -543,6 +568,7 @@
         },
 
         tokenize_object_fields: function (id, value) {
+            /*  */
             var self = this, tokens;
             if (gocept.jsform.isUndefinedOrNull(self.sources[id])) {
                 return value;
