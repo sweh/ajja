@@ -4,7 +4,7 @@ Getting started
 
 All you need to start creating forms is::
 
-    $(body).append('<div id="replace_this_with_my_form"></div>');
+    $('body').append('<div id="replace_this_with_my_form"></div>');
 
     var my_form = new gocept.jsform.Form('replace_this_with_my_form');
     my_form.load('/form_data.json');

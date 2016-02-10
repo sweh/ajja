@@ -1,7 +1,11 @@
+.Python
 .grunt/
+_SpecRunner.html
+bin/
 bower_components/
+docs/_build
+include/
 lib/
 node_modules/
-_SpecRunner.html
+pip-selfcheck.json
 report/
-docs/_build
