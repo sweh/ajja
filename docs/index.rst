@@ -18,39 +18,10 @@ Introduction
 ############
 
 .. toctree::
-    :maxdepth: 1
-
-    src/introduction/why.rst
-    src/introduction/installation.rst
-    src/introduction/migrations.rst
-    CHANGES.rst
-
-
-###########
-Usage guide
-###########
-
-.. toctree::
     :maxdepth: 2
 
+    introduction.rst
     src/usage/index.rst
-
-
-#################
-gocept.jsform API
-#################
-
-.. toctree::
-    :maxdepth: 2
-
-    src/api/index.rst
-
-
-############
-Contributing
-############
-
-.. toctree::
-    :maxdepth: 2
-
-    src/contributing/guide.rst
+    api.rst
+    contributing.rst
+    CHANGES.rst
