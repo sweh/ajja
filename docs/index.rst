@@ -13,9 +13,9 @@ gocept.jsform: Advanced forms in JavaScript
 The latest stable version is |release| - https://github.com/gocept/gocept.jsform
 
 
-############
-Introduction
-############
+########
+Contents
+########
 
 .. toctree::
     :maxdepth: 2
