@@ -6,3 +6,4 @@ Usage guide
     :maxdepth: 1
 
     getting_started.rst
+    customization.rst
