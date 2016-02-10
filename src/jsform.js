@@ -567,13 +567,13 @@
             });
         },
 
-        tokenize_object_fields: function (id, value) {
-            /*  */
+        tokenize_object_fields: function (name, value) {
+            /* Get tokens from value in object fields. */
             var self = this, tokens;
-            if (gocept.jsform.isUndefinedOrNull(self.sources[id])) {
+            if (!self.is_object_field(name)) {
                 return value;
             }
-            if (self.options[id].multiple) {
+            if (self.options[name].multiple) {
                 tokens = [];
                 $.each(value, function (index, item) {
                     tokens.push(item.token);
@@ -587,6 +587,7 @@
         },
 
         when_saved: function (retry) {
+            /* Handle save retries if connection to server is flaky or broken. */
             var self = this,
                 deferred_saves = [],
                 aggregate,
@@ -624,11 +625,13 @@
         },
 
         retry: function () {
+            /* Trigger retry handler. */
             var self = this;
             $(self).triggerHandler('retry');
         },
 
         save_remaining: function () {
+            /* Save all remaining fields. */
             var self = this;
             $.each(self.data, function (id, value) {
                 if (gocept.jsform.isUndefinedOrNull(self.field(id).data('save'))) {
@@ -638,6 +641,7 @@
         },
 
         notify_field_error: function (id, msg) {
+            /* Announce error during save of field. */
             var self = this, error_node, label;
             self.clear_field_error(id);
             error_node = self.field(id).find('.error');
@@ -654,6 +658,7 @@
         },
 
         clear_field_error: function (id) {
+            /* Clear announcement of an field error during save. */
             var self = this,
                 error_node = self.field(id).find('.error');
             error_node.text('');
@@ -679,6 +684,7 @@
         },
 
         notify_saving: function (id) {
+            /* Announce that save of a field is in progress. */
             var self = this;
             self.field(id).addClass('alert-saving');
             return self.status_message(
@@ -688,12 +694,14 @@
         },
 
         clear_saving: function (id, msg_node) {
+            /* Clear announcement of save progress for a given field. */
             var self = this;
             self.field(id).removeClass('alert-saving');
             self.clear_status_message(msg_node);
         },
 
         highlight_field: function (id, status) {
+            /* Highlight field with status. */
             var self = this,
                 field = self.field(id);
             field.addClass('alert-' + status);
@@ -704,6 +712,7 @@
         },
 
         status_message: function (message, status, duration) {
+            /* Create a status message for the given duration. */
             var self = this,
                 msg_node = $('<div class="alert"></div>').text(message);
             msg_node.addClass('alert-' + status);
@@ -719,6 +728,7 @@
         },
 
         clear_status_message: function (msg_node) {
+            /* Clear given status message. */
             if (!gocept.jsform.isUndefinedOrNull(msg_node)) {
                 msg_node.remove();
             }
