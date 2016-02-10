@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                 },
             },
             docs: {
-                files: ['docs/**/*.rst'],
+                files: ['docs/**/*.rst', 'src/**/*.js'],
                 tasks: ['run:docs'],
                 options: {
                     spawn: false,

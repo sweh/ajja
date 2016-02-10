@@ -30,6 +30,9 @@ the files in the correct order. You can copy & paste the following snipped.
     <script type="text/javascript" src="src/container.js"></script>
     <script type="text/javascript" src="src/jsform.js"></script>
 
+You will also need to include the libaries needed by `gocept.jsform`. Have a
+look at the depencencies section in `bower.json` for details.
+
 
 Installation via Fanstatic
 **************************

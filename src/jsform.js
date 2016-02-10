@@ -51,9 +51,22 @@
         table_row: 'Template for a row of a `gocept.jsform.TableWidget`.'
     };
 
+
+    /*"""
+    Templates
+    *********
+
+    The function :js:func:`gocept.jsform.register_template()` allows you to register
+    your templates or change the default templates.
+    */
+
     gocept.jsform.register_template = function (id, template, description) {
-        // Make this available as a global function as some templates must be
-        // registered before initializing the form (e.g. the form template).
+        /*"""
+        .. js:function:: gocept.jsform.register_template(id, template[, description])
+
+            :param string id: The id of the template.
+            :param string template: The template or a reference to the template.
+        */
         var html;
         if (typeof template !== "function") {
             if (template.indexOf('>') !== -1) {
@@ -77,6 +90,9 @@
     };
 
     gocept.jsform.TemplateHandler = Class.$extend({
+    /*"""
+    .. js:class:: gocept.jsform.TemplateHandler()
+    */
 
         get_template: function (id) {
             if (!gocept.jsform.templates[id]) {
@@ -104,23 +120,28 @@
         }
     });
 
+
     gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
+    /*"""
+    .. js:class:: gocept.jsform.Form(id[, options])
+
+        extends :js:class:`gocept.jsform.TemplateHandler()`
+
+        :param string id: The id of the DOM node where the form should be rendered.
+        :param object options: An object containing options like:
+
+            - save_url: The url where data changes are propagated to. Should return a dict with either ``{"status": "success"}`` or ``{"status": "error", "msg": "Not an eMail address."}``.
+
+            - action: The url the form will submit to (if intended). Will become the action attribute in form.
+
+            - language: 2-char language code. Default is `en`.
+
+            - disabled: Only render disabled fields in the whole form.
+    */
 
         status_message_fade_out_time: 3000,
 
         __init__: function (id, options) {
-        /* Exand the form under #id.
-         *
-         * Options can be:
-         * - save_url:         The url where data changes are propagated to.
-         *                     Should return a dict with either {"status":
-         *                     "success"} or {"status": "error", "msg":
-         *                     "Not an eMail address."}.
-         * - action:           The url the form will submit to (if intended).
-         *                     Will become the action attribute in form.
-         * - language:         2-char language code. Default is en.
-         * - disabled:         Only render disabled fields in the whole form.
-         */
             var self = this;
 
             if ($('#' + id).length === 0) {
@@ -191,8 +212,11 @@
         },
 
         load: function (data_or_url, options, mapping) {
-            /* Invokes data retrieval and form field initialization.
-             *
+            /*""" Invokes data retrieval and form field initialization.
+
+               .. js:function:: load(data_or_url, options, mapping)
+            */
+            /*
              * Takes the following parameters:
              * |
              * |- data_or_url: The url to a JSON View returning the data for the
