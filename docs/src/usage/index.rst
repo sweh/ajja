@@ -7,3 +7,5 @@ Usage
 
     quickstart.rst
     customization.rst
+    translation.rst
+    connection.rst
