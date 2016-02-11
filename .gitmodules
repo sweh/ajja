@@ -1,0 +1,3 @@
+[submodule "jsdoc-rst-template"]
+	path = jsdoc-rst-template
+	url = https://github.com/gocept/jsdoc-rst-template

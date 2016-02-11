@@ -1,33 +1,68 @@
 /*global Class, gocept, Handlebars, ko, alert, jasmine, jQuery */
 /*jslint nomen: true, unparam: true, bitwise: true*/
+
+/**
+ * The gocept.jsform Module
+ * @module gocept.jsform
+ */
+
+/**
+ *
+ * @typedef {Object} FormOptions
+ * @memberOf gocept.jsform
+ * @property {string} save_url The url where data changes are propagated to. Should return a dict with either ``{"status": "success"}`` or ``{"status": "error", "msg": "Not an eMail address."}``.
+ * @property {string} action The url the form will submit to (if intended). Will become the action attribute in form.
+ * @property {string} language 2-char language code. Default is `en`.
+ * @property {boolean} disabled Only render disabled fields in the whole form if true.
+ *
+ * @typedef {Object} FieldOptions
+ * @property {string} label The label of the field.
+ * @property {string} template The id of a custom template for this field.
+ * @property {boolean} required Whether this is a required field or not.
+ * @property {Array} source The source for a select field. Contains objects with 'token' and 'title'.
+ * @property {boolean} multiple For object selection, whether to do multi-select.
+ * @property {string} placeholder Placeholder to the empty dropdown option.
+ * @property {boolean} disabled true if field should be disabled.
+ *
+ * @typedef {Object} LoadOptions
+ * @property {FieldOptions} field_name The name of the field.
+ *
+*/
 (function ($) {
     "use strict";
 
-
+    /**
+     * @class
+     * @extends gocept.jsform.TemplateHandler
+     * @memberOf gocept.jsform
+     * @name Form
+     * @param {string} id The id of the DOM node where the form should be rendered.
+     * @param {FormOptions} [options] An object containing options for the form.
+     * @returns {Object} The form instance.
+     *
+     * @example
+     * $(body).append('<div id="my_form"></div>');
+     * var form = gocept.jsform.Form('my_form');
+     */
     gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
-    /*"""
-    .. js:class:: gocept.jsform.Form(id[, options])
 
-        The form class. Extends :js:class:`gocept.jsform.TemplateHandler()`.
-
-        :param string id: The id of the DOM node where the form should be rendered.
-        :param object options: An object containing options like:
-
-            - **save_url**: The url where data changes are propagated to. Should return a dict with either ``{"status": "success"}`` or ``{"status": "error", "msg": "Not an eMail address."}``.
-            - **action**: The url the form will submit to (if intended). Will become the action attribute in form.
-            - **language**: 2-char language code. Default is `en`.
-            - **disabled**: Only render disabled fields in the whole form.
-    */
-
+        /**
+         * Time in milliseconds the status popup will be displayed
+         * @var
+         * @type {Number}
+         * @memberOf gocept.jsform.Form
+         * @default 3000
+         */
         status_message_fade_out_time: 3000,
-        /*"""
-            .. js:attribute:: status_message_fade_out_time
 
-                Time in milliseconds the status popup will be displayed (default: 3000)
-        */
-
+        /**
+         * Initialize the form. Called upon form initialization.
+         * @method
+         * @param {string} id The id of the DOM node where the form should be rendered.
+         * @param {FormOptions} [options] An object containing options for the form.
+         * @memberOf gocept.jsform.Form
+         */
         __init__: function (id, options) {
-            /* Initialize the forn. For more information see class docs. */
             var self = this;
 
             if ($('#' + id).length === 0) {
@@ -62,19 +97,34 @@
             });
         },
 
+        /**
+         * Show a message to the user. (Alert box)
+         * @method
+         * @param {string} msg The message to display.
+         * @memberOf gocept.jsform.Form
+         */
         alert: function (msg) {
-            /* Show msg to user. */
             alert(msg);
         },
 
+        /**
+         * Translate a message into the language selected upon form initialization.
+         * @method
+         * @param {string} msgid The message id from the localization dict.
+         * @memberOf gocept.jsform.Form
+         * @returns {string} The translated message.
+         */
         t: function (msgid) {
-            /* Translate msgid into the selected language. */
             var self = this;
             return self.texts[msgid];
         },
 
+        /**
+         * Expands the form_template into the DOM.
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         expand_form: function () {
-            /* Expands the form_template into the DOM */
             var self = this, form_template, form_options, form_code;
             form_template = self.get_template('form');
             form_options = $.extend({'form_id': self.id}, self.options);
@@ -84,8 +134,12 @@
             $('#' + self.id).replaceWith(form_code);
         },
 
+        /**
+         * Wires the form DOM node and object.
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         create_form: function () {
-            /* wires the form DOM node and object */
             var self = this;
             self.expand_form();
             self.node = $('#' + self.id);
@@ -93,26 +147,21 @@
             self.statusarea = self.node.find('.statusarea');
         },
 
+        /**
+         * Invokes data retrieval and form field initialization.
+         * @method
+         * @memberOf gocept.jsform.Form
+         * @name load
+         * @param {string} data_or_url The url to a JSON View returning the data for the form or the data itself.
+         * @param {LoadOptions} [options] Options for each data field.
+         * @param {Object} [mapping] An optional mapping for the <ko.mapping> plugin.
+         *
+         * @example
+         * form.load({'firstname': 'Robert', 'is_baby': true});
+         * form.load('/data.json', {is_baby: {label: 'Is it a baby?'}});
+         */
         load: function (data_or_url, options, mapping) {
-            /*"""
-                .. js:function:: load(data_or_url, options, mapping)
 
-                    Invokes data retrieval and form field initialization.
-
-                    :param string data_or_url: The url to a JSON View returning the data for the form or the data itself.
-                    :param object options: Options for each data field:
-
-                        - **field_name**: Foreach field in data you can add some options:
-
-                            - **label**: The label of the field.
-                            - **template**: The id of a custom template for this field.
-                            - **required**: boolean, whether this is a required field
-                            - **source**: array of objects containing 'token' and 'title'
-                            - **multiple**: for object selection, whether to do multi-select
-                            - **placeholder**: placeholder to the empty dropdown option
-                            - **disabled**: true if field should be disabled
-                        - **mapping**:  An optional mapping for the <ko.mapping> plugin.
-             */
             var self = this;
             if (typeof data_or_url === 'string') {
                 self.url = data_or_url;
@@ -130,8 +179,12 @@
             self.start_load();
         },
 
+        /**
+         * Collect sources from options and make them ovservable.
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         collect_sources: function () {
-            /* Collect sources from options and make them ovservable. */
             var self = this;
             self.sources = {};
             self.item_maps = {};
@@ -148,6 +201,12 @@
             });
         },
 
+        /**
+         * Update sources from data. Called on form reload.
+         * @method
+         * @param {Object} data The data returned from the ajax server request.
+         * @memberOf gocept.jsform.Form
+         */
         update_sources: function (data) {
             /* Update sources from data. Called on form reload. */
             var self = this;
@@ -162,11 +221,16 @@
             });
         },
 
+        /**
+         * Invokes data retrieval if needed.
+         *
+         * .. note ::
+         *     After retrieval (which may be asynchronous), self.data is initialized.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         start_load: function () {
-            /* Invokes data retrieval if needed.
-             *
-             * After retrieval (which may be asynchronous), self.data is initialized.
-             */
             var self = this;
             self.loaded = $.Deferred();  // replace to represent a new load cycle
             if (self.url !== null) {
@@ -176,12 +240,12 @@
             }
         },
 
+        /**
+         * Invokes data retrieval from server and reloads the form.
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         reload: function () {
-            /*"""
-                .. js:function:: reload()
-
-                    Invokes data retrieval from server and reloads the form.
-            */
             var self = this;
             $.ajax({
                 dataType: "json",
@@ -193,8 +257,13 @@
             });
         },
 
+        /**
+         * After load handler. Save data retrieved from server on model.
+         * @method
+         * @param {Object} tokenized The data returned from the ajax server request.
+         * @memberOf gocept.jsform.Form
+         */
         finish_load: function (tokenized) {
-            /* After load handler. Save data retrieved from server on model. */
             var self = this,
                 data = tokenized;
             if (tokenized) {
@@ -209,11 +278,18 @@
             }, 0);
         },
 
+        /**
+         * Check weather field is an object field.
+         *
+         * .. note ::
+         *     Object fields are either select boxes or radio lists.
+         *
+         * @method
+         * @param {string} name The name of the field to check.
+         * @memberOf gocept.jsform.Form
+         * @returns {boolean}
+         */
         is_object_field: function (name) {
-            /* Check weather field is an object field.
-
-               Object fields are either select boxes or radio lists.
-            */
             var self = this;
             if (gocept.jsform.isUndefinedOrNull(self.options[name]) ||
                     gocept.jsform.isUndefinedOrNull(self.options[name].source)) {
@@ -225,8 +301,16 @@
             return true;
         },
 
+        /**
+         * Save tokens from value in object fields.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {Array|string} value Tokens from object field if multiple of one token.
+         * @memberOf gocept.jsform.Form
+         * @returns {Array|Object} Returns either an array of source objects if field is multiple or exactly one source object.
+         */
         resolve_object_field: function (name, value) {
-            /* Save tokens from value in object fields. */
             var self = this, item_map, resolved;
             if (!self.is_object_field(name)) {
                 return value;
@@ -242,8 +326,14 @@
             return item_map[value];
         },
 
+       /**
+         * Render one form widget (e.g. an input field).
+         *
+         * @method
+         * @param {string} id The name of the field.
+         * @memberOf gocept.jsform.Form
+         */
         render_widget: function (id) {
-            /* Render one form widget (e.g. an input field). */
             var self = this, widget, widget_options, widget_code,
                 wrapper_options, template_name = self.get_widget(id);
             widget = self.get_template(template_name);
@@ -284,17 +374,22 @@
             }
         },
 
+        /**
+         * Initialize fields from self.data.
+         *
+         * .. note ::
+         *     Guess the type of data for each field and render the correct field
+         *     template into the DOM. Invoke the knockout databinding via
+         *     auto-mapping data into a model (thanks to ko.mapping plugin) and
+         *     invoke observing the model for changes to propagate these to the
+         *     server.
+         *     Appends fields into the form if no DOM element with id name like
+         *     field is found.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         init_fields: function () {
-            /* Initialize field from self.data.
-
-               Guess the type of data for each field and render the correct field
-               template into the DOM. Invoke the knockout databinding via
-               auto-mapping data into a model (thanks to ko.mapping plugin) and
-               invoke observing the model for changes to propagate these to the
-               server.
-               Appends fields into the form if no DOM element with id name like
-               field is found.
-             */
             var self = this;
             if (gocept.jsform.isUndefinedOrNull(self.data)) {
                 return;
@@ -308,24 +403,34 @@
             self.update_bindings();
         },
 
+        /**
+         * Add or update knockout bindings to the data.
+         *
+         * .. note ::
+         *     This is where all the magic starts. Adding bindings to our model
+         *     and observing model changes allows us to trigger automatic updates
+         *     to the server when form fields are submitted.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         update_bindings: function () {
-            /* Add or update knockout bindings to the data.
-
-               This is where all the magic starts. Adding bindings to our model
-               and observing model changes allows us to trigger automatic updates
-               to the server when form fields are submitted.
-            */
             var self = this;
             self.create_model();
             ko.applyBindings(self.model, self.node.get(0));
             self.observe_model_changes();
         },
 
+        /**
+         * Create a knockout model from self.data.
+         *
+         * .. note ::
+         *     Needed for bindings and oberservation.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         create_model: function () {
-            /* Create a knockout model from self.data.
-
-               Needed for bindings and oberservation.
-            */
             var self = this;
             self.model = ko.mapping.fromJS(self.data, self.mapping);
             self.model.__sources__ = self.sources;
@@ -337,35 +442,61 @@
             });
         },
 
-        field: function (id) {
-            /* Get the DOM node for the field under id. */
+        /**
+         * Get the DOM node for a field.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @memberOf gocept.jsform.Form
+         * @returns {Object} The DOM node of the field as a jQuery object.
+         */
+        field: function (name) {
             var self = this;
-            return self.node.find('#field-' + id);
+            return self.node.find('#field-' + name);
         },
 
-        label: function (id) {
-            /* Return the label for the given id. */
+        /**
+         * Return the label for a field.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @memberOf gocept.jsform.Form
+         * @returns {string} The label of the field.
+         */
+        label: function (name) {
             var self = this,
-                label = self.options[id].label;
+                label = self.options[name].label;
             if (gocept.jsform.isUndefinedOrNull(label)) {
                 label = '';
             }
             return label;
         },
 
-        subscribe: function (id, real_id) {
-            /* Subscribe to changes on one field of the model and propagate
-               them to the server.
-             */
+        /**
+         * Subscribe to changes on one field of the model and propagate them to the server.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @memberOf gocept.jsform.Form
+         */
+        subscribe: function (name) {
             var self = this;
-            if (!gocept.jsform.isUndefinedOrNull(self.subscriptions[id])) {
-                self.subscriptions[id].dispose();
+            if (!gocept.jsform.isUndefinedOrNull(self.subscriptions[name])) {
+                self.subscriptions[name].dispose();
             }
-            self.subscriptions[id] = self.model[id].subscribe(function (newValue) {
-                self.save(gocept.jsform.or(real_id, id), newValue);
-            });
+            self.subscriptions[name] = self.model[name].subscribe(
+                function (newValue) {
+                    self.save(name, newValue);
+                }
+            );
         },
 
+        /**
+         * Observe changes on all fields on model.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         observe_model_changes: function () {
             /* Observe changes on all fields on model. */
             var self = this;
@@ -374,17 +505,23 @@
             });
         },
 
-        get_widget: function (id) {
-            /* Retrieve the widget for a field. */
+        /**
+         * Retrieve the widget for a field.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @memberOf gocept.jsform.Form
+         */
+        get_widget: function (name) {
             var self = this,
                 type,
-                value = self.data[id];
-            if (!gocept.jsform.isUndefinedOrNull(self.options[id]) &&
-                    !gocept.jsform.isUndefinedOrNull(self.options[id].template)) {
-                return self.options[id].template;
+                value = self.data[name];
+            if (!gocept.jsform.isUndefinedOrNull(self.options[name]) &&
+                    !gocept.jsform.isUndefinedOrNull(self.options[name].template)) {
+                return self.options[name].template;
             }
-            if (!gocept.jsform.isUndefinedOrNull(self.sources[id])) {
-                type = self.options[id].multiple ? 'multiselect' : 'object';
+            if (!gocept.jsform.isUndefinedOrNull(self.sources[name])) {
+                type = self.options[name].multiple ? 'multiselect' : 'object';
             } else if (value === null) {
                 type = 'string';
             } else {
@@ -396,40 +533,57 @@
             );
         },
 
-        save: function (id, newValue, silent) {
-            /* Schedule saving one field's value to the server via ajax. */
+        /**
+         * Schedule saving one field's value to the server via ajax.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {string} newValue The new value of the field.
+         * @param {boolean} [silent] Do not notify the user about saving field.
+         * @memberOf gocept.jsform.Form
+         */
+        save: function (name, newValue, silent) {
             var self = this, deferred_save;
-            deferred_save = $.when(self.field(id).data('save')).then(
+            deferred_save = $.when(self.field(name).data('save')).then(
                 // For the time being, simply chain the new save after the
                 // last, no compression of queued save calls yet.
-                function () { return self.start_save(id, newValue, silent); },
-                function () { return self.start_save(id, newValue, silent); }
+                function () { return self.start_save(name, newValue, silent); },
+                function () { return self.start_save(name, newValue, silent); }
             );
-            self.field(id).data('save', deferred_save);
+            self.field(name).data('save', deferred_save);
         },
 
-        start_save: function (id, newValue, silent) {
-            /* Actual work of preparing and making the ajax call.
-
-               May be deferred in order to serialise saving subsequent
-               values of each field.
-            */
+        /**
+         * Actual work of preparing and making the ajax call.
+         *
+         * .. note ::
+         *     May be deferred in order to serialise saving subsequent
+         *     values of each field.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {string} newValue The new value of the field.
+         * @param {boolean} [silent] Do not notify the user about saving field.
+         * @memberOf gocept.jsform.Form
+         * @returns {Object} A jQuery promise.
+         */
+        start_save: function (name, newValue, silent) {
             var self = this, saving_msg_node;
 
             if (self.unrecoverable_error) {
                 return;
             }
             if (!silent) {
-                saving_msg_node = self.notify_saving(id);
+                saving_msg_node = self.notify_saving(name);
             }
-            return self.save_and_validate(id, newValue)
+            return self.save_and_validate(name, newValue)
                 .always(function () {
-                    self.clear_saving(id, saving_msg_node);
-                    self.clear_field_error(id);
+                    self.clear_saving(name, saving_msg_node);
+                    self.clear_field_error(name);
                 })
                 .done(function () {
                     if (!silent) {
-                        self.highlight_field(id, 'success');
+                        self.highlight_field(name, 'success');
                         self.status_message(
                             self.t('successfully_saved_value'),
                             'success',
@@ -438,19 +592,27 @@
                     }
                 })
                 .progress(function () {
-                    self.clear_saving(id, saving_msg_node);
-                    self.notify_field_error(id, self.t('field_contains_unsaved_changes'));
+                    self.clear_saving(name, saving_msg_node);
+                    self.notify_field_error(name, self.t('field_contains_unsaved_changes'));
                 })
                 .fail(function (data) {
-                    self.notify_field_error(id, data.msg);
+                    self.notify_field_error(name, data.msg);
                 })
                 .always(function (data) {
                     $(self).trigger('after-save', data);
                 });
         },
 
-        save_and_validate: function (id, newValue) {
-            /* Validation of the field and newValue */
+        /**
+         * Validation of the field and newValue
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {string} newValue The new value of the field.
+         * @memberOf gocept.jsform.Form
+         * @returns {Object} A jQuery promise.
+         */
+        save_and_validate: function (name, newValue) {
             var self = this,
                 validated = $.Deferred(),
                 result = validated.promise(),
@@ -458,12 +620,12 @@
                 save_type,
                 data;
 
-            if (self.options[id].required && !newValue) {
+            if (self.options[name].required && !newValue) {
                 validated.reject({msg: self.t('required_field_left_blank')});
                 return result;
             }
 
-            self.data[id] = newValue;
+            self.data[name] = newValue;
 
             save_url = self.options.save_url;
             if (!save_url) {
@@ -474,15 +636,15 @@
                 save_type = "POST";
             }
 
-            newValue = self.tokenize_object_fields(id, newValue);
+            newValue = self.tokenize_object_fields(name, newValue);
 
             data = {};
-            data[id] = newValue;
+            data[name] = newValue;
             if ($('#' + self.csrf_token_id).length) {
                 data[self.csrf_token_id] = $('#' + self.csrf_token_id).val();
             }
 
-            self._save(id, save_url, save_type, ko.toJSON(data))
+            self._save(name, save_url, save_type, ko.toJSON(data))
                 .always(function () {
                     self.clear_server_error();
                 })
@@ -519,7 +681,7 @@
                         return;
                     }
                     $(self).one('retry', function () {
-                        self.start_save(id, newValue)
+                        self.start_save(name, newValue)
                             .done(validated.resolve)
                             .fail(validated.reject)
                             .progress(validated.notify);
@@ -530,9 +692,8 @@
 
             return result;
         },
-
+        /* Method that takes ajax parameters, factored out for testability. */
         _save: function (id, save_url, save_type, data) {
-            /* Method that takes ajax parameters, factored out for testability. */
             return $.ajax({
                 url: save_url,
                 type: save_type,
@@ -541,8 +702,16 @@
             });
         },
 
+        /**
+         * Get tokens from value in object fields.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {Array|string} value The selected values if field is multiple else the selected value.
+         * @memberOf gocept.jsform.Form
+         * @returns {Array|string} The selected tokens if field is multiple else the selected token.
+         */
         tokenize_object_fields: function (name, value) {
-            /* Get tokens from value in object fields. */
             var self = this, tokens;
             if (!self.is_object_field(name)) {
                 return value;
@@ -560,8 +729,15 @@
             return value.token;
         },
 
+        /**
+         * Handle save retries if connection to server is flaky or broken.
+         *
+         * @method
+         * @param {boolean} retry Chain retries? (default: true)
+         * @memberOf gocept.jsform.Form
+         * @returns {Object} A jQuery promise.
+         */
         when_saved: function (retry) {
-            /* Handle save retries if connection to server is flaky or broken. */
             var self = this,
                 deferred_saves = [],
                 aggregate,
@@ -598,14 +774,27 @@
             return result.promise();
         },
 
+        /**
+         * Retry saving the form.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         retry: function () {
-            /* Trigger retry handler. */
             var self = this;
             $(self).triggerHandler('retry');
         },
 
+        /**
+         * Save all fields that were not saved before.
+         *
+         * .. note ::
+         *     Fields are saved silently.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         save_remaining: function () {
-            /* Save all remaining fields. */
             var self = this;
             $.each(self.data, function (id, value) {
                 if (gocept.jsform.isUndefinedOrNull(self.field(id).data('save'))) {
@@ -614,14 +803,21 @@
             });
         },
 
-        notify_field_error: function (id, msg) {
-            /* Announce error during save of field. */
+        /**
+         * Announce error during save of field.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {string} msg The message to announce.
+         * @memberOf gocept.jsform.Form
+         */
+        notify_field_error: function (name, msg) {
             var self = this, error_node, label;
-            self.clear_field_error(id);
-            error_node = self.field(id).find('.error');
+            self.clear_field_error(name);
+            error_node = self.field(name).find('.error');
             error_node.text(msg);
-            self.highlight_field(id, 'danger');
-            label = self.label(id);
+            self.highlight_field(name, 'danger');
+            label = self.label(name);
             if (label !== '') {
                 label = label + ': ';
             }
@@ -631,17 +827,28 @@
             );
         },
 
-        clear_field_error: function (id) {
-            /* Clear announcement of an field error during save. */
+        /**
+         * Clear announcement of an field error during save.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @memberOf gocept.jsform.Form
+         */
+        clear_field_error: function (name) {
             var self = this,
-                error_node = self.field(id).find('.error');
+                error_node = self.field(name).find('.error');
             error_node.text('');
             self.clear_status_message(error_node.data('status_message'));
             error_node.data('status_message', null);
         },
 
+        /**
+         * Announce HTTP faults during ajax calls.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         notify_server_error: function () {
-            /* Announce HTTP faults during ajax calls. */
             var self = this;
             self.clear_server_error();
             self.server_error_status_message = self.status_message(
@@ -650,34 +857,60 @@
             );
         },
 
+        /**
+         * Clear any announcement of an HTTP fault during an ajax call.
+         *
+         * @method
+         * @memberOf gocept.jsform.Form
+         */
         clear_server_error: function () {
-            /* Clear any announcement of an HTTP fault during an ajax call. */
             var self = this;
             self.clear_status_message(self.server_error_status_message);
             self.server_error_status_message = null;
         },
 
-        notify_saving: function (id) {
-            /* Announce that save of a field is in progress. */
+        /**
+         * Announce that save of a field is in progress.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @memberOf gocept.jsform.Form
+         */
+        notify_saving: function (name) {
             var self = this;
-            self.field(id).addClass('alert-saving');
+            self.field(name).addClass('alert-saving');
             return self.status_message(
-                self.t('saving') + ' ' + self.label(id),
+                self.t('saving') + ' ' + self.label(name),
                 'info'
             );
         },
 
-        clear_saving: function (id, msg_node) {
-            /* Clear announcement of save progress for a given field. */
+        /**
+         * Clear announcement of save progress for a given field.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {string} msg_node The node where a saving progess message is displayed.
+         * @memberOf gocept.jsform.Form
+         */
+        clear_saving: function (name, msg_node) {
             var self = this;
-            self.field(id).removeClass('alert-saving');
+            self.field(name).removeClass('alert-saving');
             self.clear_status_message(msg_node);
         },
 
-        highlight_field: function (id, status) {
+        /**
+         * Highlight field with status.
+         *
+         * @method
+         * @param {string} name The name of the field.
+         * @param {string} status The status to display. Should be one of 'success', 'info', 'warning' or 'danger'.
+         * @memberOf gocept.jsform.Form
+         */
+        highlight_field: function (name, status) {
             /* Highlight field with status. */
             var self = this,
-                field = self.field(id);
+                field = self.field(name);
             field.addClass('alert-' + status);
             field.delay(300);
             field.queue(function () {
@@ -685,8 +918,17 @@
             });
         },
 
+        /**
+         * Create a status message for the given duration.
+         *
+         * @method
+         * @param {string} message The message to display.
+         * @param {string} status The status to display. Should be one of 'success', 'info', 'warning' or 'danger'.
+         * @param {number} duration How long should the message be displayed (in milliseconds)
+         * @memberOf gocept.jsform.Form
+         * @returns {Object} The created message as jQuery DOM node.
+         */
         status_message: function (message, status, duration) {
-            /* Create a status message for the given duration. */
             var self = this,
                 msg_node = $('<div class="alert"></div>').text(message);
             msg_node.addClass('alert-' + status);
@@ -701,22 +943,31 @@
             return msg_node;
         },
 
+        /**
+         * Clear given status message.
+         *
+         * @method
+         * @param {Object} msg_node DOM Node as returned by `status.message`.
+         * @memberOf gocept.jsform.Form
+         */
         clear_status_message: function (msg_node) {
-            /* Clear given status message. */
             if (!gocept.jsform.isUndefinedOrNull(msg_node)) {
                 msg_node.remove();
             }
         }
     });
 
-
+    /**
+     * Make a form submit button an ajax submit button. This makes sure that when clicking submit, all fields are saved via ajax.
+     *
+     * @function
+     * @memberOf gocept.jsform
+     *
+     * @example
+     * $('#my_form input[type=submit]').jsform_submit_button()
+     *
+     */
     $.fn.jsform_submit_button = function (action) {
-        /*"""
-        .. js:function:: $.jsform_submit_button()
-
-            Make a form submit button an ajax submit button. This makes sure
-            that when clicking submit, all fields are saved via ajax.
-        */
         return this.each(function () {
             $(this).on('click', function (event) {
                 var button = this, jsform;
