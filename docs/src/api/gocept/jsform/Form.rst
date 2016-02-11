@@ -26,7 +26,7 @@ Form
     .. code-block:: js
     
         $(body).append('<div id="my_form"></div>');
-        var form = gocept.jsform.Form('my_form');
+        var form = new gocept.jsform.Form('my_form');
 
     .. method:: __init__(id[, options])
     

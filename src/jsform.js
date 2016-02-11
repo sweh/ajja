@@ -41,7 +41,7 @@
      *
      * @example
      * $(body).append('<div id="my_form"></div>');
-     * var form = gocept.jsform.Form('my_form');
+     * var form = new gocept.jsform.Form('my_form');
      */
     gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
 

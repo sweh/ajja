@@ -6,13 +6,6 @@
  * @module gocept.jsform.Template
  */
 
-    /**
-     * Template descriptions
-     * @var
-     * @type {Object}
-     * @memberOf gocept.jsform.Template
-     * @default 3000
-     */
     gocept.jsform.template_descriptions = {
         form: 'The base `gocept.jsform.Form` template',
         form_field_wrapper: 'Wrapper template for each widget. Should contain block for rendering error messages for the widget.',
@@ -35,21 +28,26 @@
         table_row: 'Template for a row of a `gocept.jsform.TableWidget`.'
     };
 
-
+    /**
+     * Allows you to register your templates or change the default templates.
+     *
+     * @function
+     * @memberOf gocept.jsform.Template
+     * @param {string} id The id of the template.
+     * @param {string|function} template The template. Will be saved as a compiled Handlebars template. Can be a precompiled Handlebars template, the template as raw HTML or the id of a DOM node containing the HTML of the template.
+     * @param {string} description A description for the template.
+     * @throws {Exception} If no template could be handled for argument template.
+     *
+     * @example
+     * gocept.jsform.register_template('my_template', '<p>{{name}}</p>');
+     *
+     * $(body).append('<script type="text/html" id="reference"><p>{{name}}</p></script>')
+     * gocept.jsform.register_template('my_template', '#reference');
+     *
+     * var compiled = Handlebars.compile('<p>{{name}}</p>');
+     * gocept.jsform.register_template('my_template', compiled);
+     */
     gocept.jsform.register_template = function (id, template, description) {
-        /*"""
-        .. js:function:: gocept.jsform.register_template(id, template[, description])
-
-            Allows you to register your templates or change the default templates.
-
-            :param string id: The id of the template.
-            :param template: The template. Will be saved as a compiled
-                Handlebars template. Can be a precompiled Handlebars template,
-                the template as raw HTML or the id of a DOM node containing
-                the HTML of the template.
-            :type template: function or string
-            :param string description: A description for the template.
-        */
         var html;
         if (typeof template !== "function") {
             if (template.indexOf('>') !== -1) {
@@ -72,23 +70,33 @@
         gocept.jsform.templates[id] = template;
     };
 
+   /**
+     * Helper class for handling templates within `gocept.jsform`.
+     *
+     * @class
+     * @memberOf gocept.jsform.Template
+     * @name TemplateHandler
+     * @borrows gocept.jsform.register_template as register_template
+     *
+     * @example
+     * var handler = new gocept.jsform.TemplateHandler();
+     */
     gocept.jsform.TemplateHandler = Class.$extend({
-    /*"""
-    .. js:class:: gocept.jsform.TemplateHandler()
 
-        Helper class for handling templates within `gocept.jsform`.
-    */
-
+        /**
+         * Get the template for the given `id`.
+         * @method
+         * @memberOf gocept.jsform.Template.TemplateHandler
+         * @param {string} id The id of the template.
+         * @throws {Exception} If no template was found for `id`.
+         * @returns {function} The template as precompiled Handlebars template.
+         *
+         * @example
+         * handler.get_template('form_boolean')({name: 'asdf'})
+         * '<input type="checkbox" name="asdf" data-bind="checked: asdf" />'
+         *
+         */
         get_template: function (id) {
-            /*"""
-                .. js:function:: get_template(id)
-
-                    Get the template for the given `id`.
-
-                    :param string id: The id of the template.
-                    :throws Exception: If no template was found for `id`.
-                    :returns: The template as precompiled Handlebars template.
-            */
             if (!gocept.jsform.templates[id]) {
                 throw (
                     "No template found for '" + id + "'. Did you call " +
@@ -98,22 +106,21 @@
             return gocept.jsform.templates[id];
         },
 
+
         register_template: gocept.jsform.register_template,
-            /*"""
-                .. js:function:: register_template(id, template[, description])
 
-                    Calls :js:func:`gocept.jsform.register_template()`.
-            */
-
+        /**
+         * List all registered templates.
+         * @method
+         * @memberOf gocept.jsform.Template.TemplateHandler
+         * @returns {Array} A list of objects containing the id, description and compiled template.
+         *
+         * @example
+         * handler.list_template()[0]
+         * {id: 'form', description: 'The base `gocept.jsform.Form` template', template: function}
+         *
+         */
         list_templates: function () {
-            /*"""
-                .. js:function:: list_templates()
-
-                    List all registered templates.
-
-                    :returns: A list of objects containing the id, description
-                        and compiled template.
-            */
             var result = [];
             $.each(gocept.jsform.templates, function (id, template) {
                 var desc = gocept.jsform.template_descriptions[id] || '';
