@@ -2,14 +2,13 @@
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 /**
- * The gocept.jsform Module
- * @module gocept.jsform
+ * @module gocept.jsform.Form
  */
 
 /**
  *
  * @typedef {Object} FormOptions
- * @memberOf gocept.jsform
+ * @memberOf gocept.jsform.Form
  * @property {string} save_url The url where data changes are propagated to. Should return a dict with either ``{"status": "success"}`` or ``{"status": "error", "msg": "Not an eMail address."}``.
  * @property {string} action The url the form will submit to (if intended). Will become the action attribute in form.
  * @property {string} language 2-char language code. Default is `en`.
@@ -34,7 +33,7 @@
     /**
      * @class
      * @extends gocept.jsform.TemplateHandler
-     * @memberOf gocept.jsform
+     * @memberOf gocept.jsform.Form
      * @name Form
      * @param {string} id The id of the DOM node where the form should be rendered.
      * @param {FormOptions} [options] An object containing options for the form.
@@ -46,13 +45,6 @@
      */
     gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
 
-        /**
-         * Time in milliseconds the status popup will be displayed
-         * @var
-         * @type {Number}
-         * @memberOf gocept.jsform.Form
-         * @default 3000
-         */
         status_message_fade_out_time: 3000,
 
         /**
@@ -60,7 +52,7 @@
          * @method
          * @param {string} id The id of the DOM node where the form should be rendered.
          * @param {FormOptions} [options] An object containing options for the form.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         __init__: function (id, options) {
             var self = this;
@@ -101,7 +93,7 @@
          * Show a message to the user. (Alert box)
          * @method
          * @param {string} msg The message to display.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         alert: function (msg) {
             alert(msg);
@@ -111,7 +103,7 @@
          * Translate a message into the language selected upon form initialization.
          * @method
          * @param {string} msgid The message id from the localization dict.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {string} The translated message.
          */
         t: function (msgid) {
@@ -122,7 +114,7 @@
         /**
          * Expands the form_template into the DOM.
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         expand_form: function () {
             var self = this, form_template, form_options, form_code;
@@ -137,7 +129,7 @@
         /**
          * Wires the form DOM node and object.
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         create_form: function () {
             var self = this;
@@ -150,7 +142,7 @@
         /**
          * Invokes data retrieval and form field initialization.
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @name load
          * @param {string} data_or_url The url to a JSON View returning the data for the form or the data itself.
          * @param {LoadOptions} [options] Options for each data field.
@@ -182,7 +174,7 @@
         /**
          * Collect sources from options and make them ovservable.
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         collect_sources: function () {
             var self = this;
@@ -205,7 +197,7 @@
          * Update sources from data. Called on form reload.
          * @method
          * @param {Object} data The data returned from the ajax server request.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         update_sources: function (data) {
             /* Update sources from data. Called on form reload. */
@@ -228,7 +220,7 @@
          *     After retrieval (which may be asynchronous), self.data is initialized.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         start_load: function () {
             var self = this;
@@ -243,7 +235,7 @@
         /**
          * Invokes data retrieval from server and reloads the form.
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         reload: function () {
             var self = this;
@@ -261,7 +253,7 @@
          * After load handler. Save data retrieved from server on model.
          * @method
          * @param {Object} tokenized The data returned from the ajax server request.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         finish_load: function (tokenized) {
             var self = this,
@@ -286,7 +278,7 @@
          *
          * @method
          * @param {string} name The name of the field to check.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {boolean}
          */
         is_object_field: function (name) {
@@ -307,7 +299,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {Array|string} value Tokens from object field if multiple of one token.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {Array|Object} Returns either an array of source objects if field is multiple or exactly one source object.
          */
         resolve_object_field: function (name, value) {
@@ -331,7 +323,7 @@
          *
          * @method
          * @param {string} id The name of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         render_widget: function (id) {
             var self = this, widget, widget_options, widget_code,
@@ -387,7 +379,7 @@
          *     field is found.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         init_fields: function () {
             var self = this;
@@ -412,7 +404,7 @@
          *     to the server when form fields are submitted.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         update_bindings: function () {
             var self = this;
@@ -428,7 +420,7 @@
          *     Needed for bindings and oberservation.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         create_model: function () {
             var self = this;
@@ -447,7 +439,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {Object} The DOM node of the field as a jQuery object.
          */
         field: function (name) {
@@ -460,7 +452,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {string} The label of the field.
          */
         label: function (name) {
@@ -477,7 +469,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         subscribe: function (name) {
             var self = this;
@@ -495,7 +487,7 @@
          * Observe changes on all fields on model.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         observe_model_changes: function () {
             /* Observe changes on all fields on model. */
@@ -510,7 +502,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         get_widget: function (name) {
             var self = this,
@@ -540,7 +532,7 @@
          * @param {string} name The name of the field.
          * @param {string} newValue The new value of the field.
          * @param {boolean} [silent] Do not notify the user about saving field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         save: function (name, newValue, silent) {
             var self = this, deferred_save;
@@ -564,7 +556,7 @@
          * @param {string} name The name of the field.
          * @param {string} newValue The new value of the field.
          * @param {boolean} [silent] Do not notify the user about saving field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {Object} A jQuery promise.
          */
         start_save: function (name, newValue, silent) {
@@ -609,7 +601,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} newValue The new value of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {Object} A jQuery promise.
          */
         save_and_validate: function (name, newValue) {
@@ -708,7 +700,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {Array|string} value The selected values if field is multiple else the selected value.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {Array|string} The selected tokens if field is multiple else the selected token.
          */
         tokenize_object_fields: function (name, value) {
@@ -734,7 +726,7 @@
          *
          * @method
          * @param {boolean} retry Chain retries? (default: true)
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {Object} A jQuery promise.
          */
         when_saved: function (retry) {
@@ -778,7 +770,7 @@
          * Retry saving the form.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         retry: function () {
             var self = this;
@@ -792,7 +784,7 @@
          *     Fields are saved silently.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         save_remaining: function () {
             var self = this;
@@ -809,7 +801,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} msg The message to announce.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         notify_field_error: function (name, msg) {
             var self = this, error_node, label;
@@ -832,7 +824,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         clear_field_error: function (name) {
             var self = this,
@@ -846,7 +838,7 @@
          * Announce HTTP faults during ajax calls.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         notify_server_error: function () {
             var self = this;
@@ -861,7 +853,7 @@
          * Clear any announcement of an HTTP fault during an ajax call.
          *
          * @method
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         clear_server_error: function () {
             var self = this;
@@ -874,7 +866,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         notify_saving: function (name) {
             var self = this;
@@ -891,7 +883,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} msg_node The node where a saving progess message is displayed.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         clear_saving: function (name, msg_node) {
             var self = this;
@@ -905,7 +897,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} status The status to display. Should be one of 'success', 'info', 'warning' or 'danger'.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         highlight_field: function (name, status) {
             /* Highlight field with status. */
@@ -925,7 +917,7 @@
          * @param {string} message The message to display.
          * @param {string} status The status to display. Should be one of 'success', 'info', 'warning' or 'danger'.
          * @param {number} duration How long should the message be displayed (in milliseconds)
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          * @returns {Object} The created message as jQuery DOM node.
          */
         status_message: function (message, status, duration) {
@@ -948,7 +940,7 @@
          *
          * @method
          * @param {Object} msg_node DOM Node as returned by `status.message`.
-         * @memberOf gocept.jsform.Form
+         * @memberOf gocept.jsform.Form.Form
          */
         clear_status_message: function (msg_node) {
             if (!gocept.jsform.isUndefinedOrNull(msg_node)) {
@@ -961,7 +953,7 @@
      * Make a form submit button an ajax submit button. This makes sure that when clicking submit, all fields are saved via ajax.
      *
      * @function
-     * @memberOf gocept.jsform
+     * @memberOf gocept.jsform.Form
      *
      * @example
      * $('#my_form input[type=submit]').jsform_submit_button()

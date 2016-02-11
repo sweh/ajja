@@ -1,7 +1,8 @@
-gocept
+jsform
 ====================================================
 
 .. toctree::
     :maxdepth: 2
 
-    jsform/__index__
+    Form
+    Template

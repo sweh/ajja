@@ -21,6 +21,6 @@ Contents
 
     introduction.rst
     src/usage/index.rst
-    src/api/index.rst
+    api.rst
     contributing.rst
     CHANGES.rst

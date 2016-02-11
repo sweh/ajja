@@ -1,11 +1,7 @@
 
 
-jsform
-======
-
-The gocept.jsform Module
-
-
+Form
+====
 
 .. currentmodule:: gocept.jsform
 
@@ -32,12 +28,6 @@ The gocept.jsform Module
         $(body).append('<div id="my_form"></div>');
         var form = gocept.jsform.Form('my_form');
 
-    .. attribute:: gocept.jsform.Form.status_message_fade_out_time
-    
-        Time in milliseconds the status popup will be displayed
-    
-        :type: Number
-        :default: 3000
     .. method:: __init__(id[, options])
     
         Initialize the form. Called upon form initialization.

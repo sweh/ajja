@@ -2,7 +2,17 @@
 /*jslint nomen: true, unparam: true, bitwise: true*/
 (function ($) {
     "use strict";
+/**
+ * @module gocept.jsform.Template
+ */
 
+    /**
+     * Template descriptions
+     * @var
+     * @type {Object}
+     * @memberOf gocept.jsform.Template
+     * @default 3000
+     */
     gocept.jsform.template_descriptions = {
         form: 'The base `gocept.jsform.Form` template',
         form_field_wrapper: 'Wrapper template for each widget. Should contain block for rendering error messages for the widget.',
