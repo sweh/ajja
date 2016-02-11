@@ -4,18 +4,17 @@
    contain the root `toctree` directive.
 
 
-############################
+============================
 Advanced forms in JavaScript
-############################
+============================
 
 `gocept.jsform` is a JavaScript library for building forms in the browser.
 
 The latest stable version is |release| - https://github.com/gocept/gocept.jsform
 
 
-########
 Contents
-########
+========
 
 .. toctree::
     :maxdepth: 2

@@ -1,6 +1,6 @@
-***********
+===========
 Quick Start
-***********
+===========
 
 All you need to start creating forms is::
 

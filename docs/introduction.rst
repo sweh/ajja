@@ -1,16 +1,16 @@
-############
+============
 Introduction
-############
+============
 
 
 Why gocept.jsform
-#################
+=================
 
 History about jsform. Why did we write this tool?
 
 
 Installation
-############
+============
 
 `gocept.jsform` comes with files ready to be used in your browser. There is no
 need to browserify our code. However its your task to minify or bundle this
@@ -18,7 +18,7 @@ library within your deployment workflow.
 
 
 Installation via Bower (recommended)
-************************************
+------------------------------------
 
 The recommended way to install `gocept.jsform` is via bower.
 
@@ -28,7 +28,7 @@ The recommended way to install `gocept.jsform` is via bower.
 
 
 Manual installation
-*******************
+-------------------
 
 If you prefere including `gocept.jsform` by hand, please make sure to include
 the files in the correct order. You can copy & paste the following snipped.
@@ -45,7 +45,7 @@ look at the depencencies section in `bower.json` for details.
 
 
 Installation via Fanstatic
-**************************
+--------------------------
 
 There is a fanstatic integration package available for your Python backend.
 Install it via pip.
@@ -63,11 +63,11 @@ then need the resources in your View.
 
 
 Migration
-#########
+=========
 
 
 From 2.x to 3.0.0
-*****************
+-----------------
 
 ``gocept.jsform`` now only accepts *precompiled* templates generated via
 ``Handlebars.compile()``. So if you have custom templates that you used with
@@ -83,13 +83,13 @@ was removed. Have a look in the *templates* folder for the new names.
 
 
 From 1.x to 2.0.0
-*****************
+-----------------
 
 We switched the template engine from ``jsontemplate`` to ``Handlebars``. So if
 you have custom templates, make sure to rewrite them to ``Handlebars``.
 
 
 From 0.x to 1.0.0
-*****************
+-----------------
 
 Sorry, we are not providing any migration hints. :(
