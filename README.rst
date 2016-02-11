@@ -39,7 +39,7 @@ Developing and Contributing
 ===========================
 
 See `HACKING.txt <https://github.com/gocept/gocept.jsform/blob/master/HACKING.txt>`_
-and `Contribution guide <http://goceptjsform.readthedocs.org/en/stable/src/contributing/guide.html>`_
+and `Contribution <http://goceptjsform.readthedocs.org/en/stable/src/contributing.html>`_
 for guidelines on running tests, adding features and updating documentation
 when developing in or contributing to gocept.jsform.
 
