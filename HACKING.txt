@@ -26,6 +26,7 @@ needs.
 
 Build the documentation with::
 
+    $ git submodule update --init --recursive
     $ cd docs && make html
     $ open index.html
 
