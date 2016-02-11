@@ -62,8 +62,8 @@ then need the resources in your View.
     jsform.need()
 
 
-Migration guide
-###############
+Migration
+#########
 
 
 From 2.x to 3.0.0

@@ -1,6 +1,6 @@
-******************
-Contribution guide
-******************
+************
+Contribution
+************
 
 All open-source projects live through their community, so does gocept.jsform.
 You are very welcome to contribute bug fixes and feature proposals. Please
