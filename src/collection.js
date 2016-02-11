@@ -5,16 +5,6 @@
  * @module gocept.jsform.Collection
  */
 
-/**
- * @typedef {Object} WidgetOptions
- * @memberOf gocept.jsform.Collection
- * @property {string} collection_url The url to a JSON View returning the data for the collection.
- * @property {FormOptions} form_options An object containing options for the edit form.
- * @property {Array} item_actions Additional item_actions besides `edit` and `del`.
- * @property {Array} default_item_actions Set to an empty Array to hide `edit` and `del`.
- * @property {Array} form_actions Additional form_actions besides `add`.
- * @property {Array} default_form_actions Aet to an empty list to hide `add`.
- */
 (function ($) {
     "use strict";
 
@@ -25,7 +15,13 @@
      * @memberOf gocept.jsform.Collection
      * @name ListWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
-     * @param {WidgetOptions} [options] An object containing options for the widget.
+     * @param {Object} options An object containing options for the widget.
+     * @param {string} options.collection_url The url to a JSON View returning the data for the collection.
+     * @param {Object} options.form_options An object containing options for the edit :js:class:`Form` as described under :js:func:`load`.
+     * @param {Array} options.[item_actions]] Additional item_actions besides `edit` and `del`.
+     * @param {Array} options.[default_item_actions]] Set to an empty Array to hide `edit` and `del`.
+     * @param {Array} options.[form_actions]] Additional form_actions besides `add`.
+     * @param {Array} options.[default_form_actions]] Set to an empty list to hide `add`.
      * @returns {Object} The widget instance.
      * @throws {Exception} if the node_selector does not match any DOM node.
      *
@@ -70,15 +66,6 @@
             }
         ],
 
-        /**
-         * Initialize the list widget. Called upon widget initialization.
-         * @method
-         * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
-         * @param {WidgetOptions} [options] An object containing options for the widget.
-         * @returns {Object} The widget instance.
-         * @throws {Exception} if the node_selector does not match any DOM node.
-         * @memberOf gocept.jsform.Collection.ListWidget
-         */
         __init__: function (node_selector, options) {
             /* Initialize the widget. For more information see class docs. */
             var self = this,
@@ -401,7 +388,15 @@
      * @memberOf gocept.jsform.Collection
      * @name GroupListWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
-     * @param {WidgetOptions} [options] An object containing options for the widget.
+     * @param {Object} options An object containing options for the widget.
+     * @param {Array} options.group_by_key By which data-key are items grouped.
+     * @param {Array} options.group_title_key Specify what key leads to the title of the group.
+     * @param {string} options.[collection_url]] The url to a JSON View returning the data for the collection.
+     * @param {Object} options.[form_options]] An object containing options for the edit :js:class:`Form` as described under :js:func:`load`.
+     * @param {Array} options.[item_actions]] Additional item_actions besides `edit` and `del`.
+     * @param {Array} options.[default_item_actions]] Set to an empty Array to hide `edit` and `del`.
+     * @param {Array} options.[form_actions]] Additional form_actions besides `add`.
+     * @param {Array} options.[default_form_actions]] Set to an empty list to hide `add`.
      * @returns {Object} The widget instance.
      * @throws {Exception} if the node_selector does not match any DOM node or if ``group_by_key`` or ``group_title_key`` was not specified in the options.
      *
@@ -416,15 +411,6 @@
 
         base_template: 'group',
 
-        /**
-         * Initialize the group list widget. Called upon widget initialization.
-         * @method
-         * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
-         * @param {WidgetOptions} [options] An object containing options for the widget.
-         * @returns {Object} The widget instance.
-         * @throws {Exception} if the node_selector does not match any DOM node or if ``group_by_key`` or ``group_title_key`` was not specified in the options.
-         * @memberOf gocept.jsform.Collection.GroupListWidget
-         */
         __init__: function (node_selector, options) {
             var self = this;
             self.$super(node_selector, options);
@@ -476,7 +462,14 @@
      * @memberOf gocept.jsform.Collection
      * @name TableWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
-     * @param {WidgetOptions} [options] An object containing options for the widget.
+     * @param {Object} options An object containing options for the widget.
+     * @param {string} options.collection_url The url to a JSON View returning the data for the collection.
+     * @param {Object} options.form_options An object containing options for the edit :js:class:`Form` as described under :js:func:`load`.
+     * @param {Array} options.[omit]] Specifiy attributes taht should not be rendered as columns in the table.
+     * @param {Array} options.[item_actions]] Additional item_actions besides `edit` and `del`.
+     * @param {Array} options.[default_item_actions]] Set to an empty Array to hide `edit` and `del`.
+     * @param {Array} options.[form_actions]] Additional form_actions besides `add`.
+     * @param {Array} options.[default_form_actions]] Set to an empty list to hide `add`.
      * @returns {Object} The widget instance.
      * @throws {Exception} if the node_selector does not match any DOM node.
      *
@@ -491,15 +484,6 @@
 
         base_template: 'table',
 
-        /**
-         * Initialize the table widget. Called upon widget initialization.
-         * @method
-         * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
-         * @param {WidgetOptions} [options] An object containing options for the widget.
-         * @returns {Object} The widget instance.
-         * @throws {Exception} if the node_selector does not match any DOM node.
-         * @memberOf gocept.jsform.Collection.TableWidget
-         */
         __init__: function (node_selector, options) {
             var self = this;
             self.$super(node_selector, options);

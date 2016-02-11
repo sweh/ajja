@@ -6,7 +6,7 @@ Collection
 .. currentmodule:: gocept.jsform
 
 
-.. js:class:: GroupListWidget (node_selector[, options])
+.. js:class:: GroupListWidget (node_selector, options)
 
     Group items of a list by class written in data attributes.
     
@@ -17,7 +17,15 @@ Collection
 
     :extends: :js:class:`ListWidget`
     :param string node_selector: The selector of the DOM node where the widget should be rendered.
-    :param WidgetOptions options: An object containing options for the widget.
+    :param Object options: An object containing options for the widget.
+    :param Array options.group_by_key: By which data-key are items grouped.
+    :param Array options.group_title_key: Specify what key leads to the title of the group.
+    :param string options.[collection_url]: The url to a JSON View returning the data for the collection.
+    :param Object options.[form_options]: An object containing options for the edit :js:class:`Form` as described under :js:func:`load`.
+    :param Array options.[item_actions]: Additional item_actions besides `edit` and `del`.
+    :param Array options.[default_item_actions]: Set to an empty Array to hide `edit` and `del`.
+    :param Array options.[form_actions]: Additional form_actions besides `add`.
+    :param Array options.[default_form_actions]: Set to an empty list to hide `add`.
     :return: The widget instance.
     :rtype: Object
     
@@ -29,14 +37,6 @@ Collection
             {collection_url: '/list.json'}
         );
 
-    .. js:function:: __init__(node_selector[, options])
-    
-        Initialize the group list widget. Called upon widget initialization.
-    
-        :param string node_selector: The selector of the DOM node where the widget should be rendered.
-        :param WidgetOptions options: An object containing options for the widget.
-        :return: The widget instance.
-        :rtype: Object
     .. js:function:: get_collection(item)
     
         Return the container DOM node of item.
@@ -50,13 +50,19 @@ Collection
 
 
 
-.. js:class:: ListWidget (node_selector[, options])
+.. js:class:: ListWidget (node_selector, options)
 
     Turn any DOM elements matched by node_selector into ListWidgets.
 
     :extends: :js:class:`TemplateHandler`
     :param string node_selector: The selector of the DOM node where the widget should be rendered.
-    :param WidgetOptions options: An object containing options for the widget.
+    :param Object options: An object containing options for the widget.
+    :param string options.collection_url: The url to a JSON View returning the data for the collection.
+    :param Object options.form_options: An object containing options for the edit :js:class:`Form` as described under :js:func:`load`.
+    :param Array options.[item_actions]: Additional item_actions besides `edit` and `del`.
+    :param Array options.[default_item_actions]: Set to an empty Array to hide `edit` and `del`.
+    :param Array options.[form_actions]: Additional form_actions besides `add`.
+    :param Array options.[default_form_actions]: Set to an empty list to hide `add`.
     :return: The widget instance.
     :rtype: Object
     
@@ -68,14 +74,6 @@ Collection
             {collection_url: '/list.json'}
         );
 
-    .. js:function:: __init__(node_selector[, options])
-    
-        Initialize the list widget. Called upon widget initialization.
-    
-        :param string node_selector: The selector of the DOM node where the widget should be rendered.
-        :param WidgetOptions options: An object containing options for the widget.
-        :return: The widget instance.
-        :rtype: Object
     .. js:function:: add_item()
     
         Add an new item to the collection.
@@ -147,13 +145,20 @@ Collection
 
 
 
-.. js:class:: TableWidget (node_selector[, options])
+.. js:class:: TableWidget (node_selector, options)
 
     Show list of items in a table.
 
     :extends: :js:class:`ListWidget`
     :param string node_selector: The selector of the DOM node where the widget should be rendered.
-    :param WidgetOptions options: An object containing options for the widget.
+    :param Object options: An object containing options for the widget.
+    :param string options.collection_url: The url to a JSON View returning the data for the collection.
+    :param Object options.form_options: An object containing options for the edit :js:class:`Form` as described under :js:func:`load`.
+    :param Array options.[omit]: Specifiy attributes taht should not be rendered as columns in the table.
+    :param Array options.[item_actions]: Additional item_actions besides `edit` and `del`.
+    :param Array options.[default_item_actions]: Set to an empty Array to hide `edit` and `del`.
+    :param Array options.[form_actions]: Additional form_actions besides `add`.
+    :param Array options.[default_form_actions]: Set to an empty list to hide `add`.
     :return: The widget instance.
     :rtype: Object
     
@@ -165,14 +170,6 @@ Collection
             {collection_url: '/list.json'}
         );
 
-    .. js:function:: __init__(node_selector[, options])
-    
-        Initialize the table widget. Called upon widget initialization.
-    
-        :param string node_selector: The selector of the DOM node where the widget should be rendered.
-        :param WidgetOptions options: An object containing options for the widget.
-        :return: The widget instance.
-        :rtype: Object
     .. js:function:: get_collection_head()
     
         Return the rendered HTML of the widgets header.

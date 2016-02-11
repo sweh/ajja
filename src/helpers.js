@@ -45,7 +45,7 @@
      *
      * @function
      * @memberOf gocept.jsform.helpers
-     * @param {Object|string|function|number|boolean|undefined|null} value
+     * @param {*} value
      * @returns {boolean}
      *
      * @example
@@ -59,9 +59,9 @@
      *
      * @function
      * @memberOf gocept.jsform.helpers
-     * @param {Object|string|function|number|boolean|undefined|null} value1
-     * @param {Object|string|function|number|boolean|undefined|null} value2
-     * @returns {Object|string|function|number|boolean|undefined|null} value1 or value2
+     * @param {*} value1
+     * @param {*} value2
+     * @returns {*} value1 or value2
      *
      * @example
      * gocept.jsform.or(null, 'asdf');

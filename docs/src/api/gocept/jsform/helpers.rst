@@ -19,7 +19,7 @@ helpers
 
     Check whether value is undefined or null.
 
-    :param Object|string|function|number|boolean|undefined|null value:
+    :param * value:
     :rtype: boolean
     
     .. code-block:: js
@@ -29,10 +29,10 @@ helpers
 
     Simple OR function. Returns ``value1`` if its defined else ``value2``.
 
-    :param Object|string|function|number|boolean|undefined|null value1:
-    :param Object|string|function|number|boolean|undefined|null value2:
+    :param * value1:
+    :param * value2:
     :return: value1 or value2
-    :rtype: Object|string|function|number|boolean|undefined|null
+    :rtype: *
     
     .. code-block:: js
     

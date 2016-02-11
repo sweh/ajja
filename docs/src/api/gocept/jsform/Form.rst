@@ -19,7 +19,11 @@ Form
 
     :extends: :js:class:`TemplateHandler`
     :param string id: The id of the DOM node where the form should be rendered.
-    :param FormOptions options: An object containing options for the form.
+    :param Object options: An object containing options for the form.
+    :param string options.save_url: The url where data changes are propagated to. Should return a dict with either ``{"status": "success"}`` or ``{"status": "error", "msg": "Not an eMail address."}``.
+    :param string options.action: The url the form will submit to (if intended). Will become the action attribute in form.
+    :param string options.language: 2-char language code. Default is `en`.
+    :param boolean options.disabled: Only render disabled fields in the whole form if true.
     :return: The form instance.
     :rtype: Object
     
@@ -28,12 +32,6 @@ Form
         $(body).append('<div id="my_form"></div>');
         var form = new gocept.jsform.Form('my_form');
 
-    .. js:function:: __init__(id[, options])
-    
-        Initialize the form. Called upon form initialization.
-    
-        :param string id: The id of the DOM node where the form should be rendered.
-        :param FormOptions options: An object containing options for the form.
     .. js:function:: alert(msg)
     
         Show a message to the user. (Alert box)
@@ -129,7 +127,15 @@ Form
         Invokes data retrieval and form field initialization.
     
         :param string data_or_url: The url to a JSON View returning the data for the form or the data itself.
-        :param LoadOptions options: Options for each data field.
+        :param Options options: Options for each data field.
+        :param string options.<field_name>: Options for the field.
+        :param string options.<field_name>.label: The label of the field.
+        :param string options.<field_name>.template: The id of a custom template for this field.
+        :param boolean options.<field_name>.required: Whether this is a required field or not.
+        :param Array options.<field_name>.source: The source for a select field. Contains objects with 'token' and 'title'.
+        :param boolean options.<field_name>.multiple: For object selection, whether to do multi-select.
+        :param string options.<field_name>.placeholder: Placeholder to the empty dropdown option.
+        :param boolean options.<field_name>.disabled: true if field should be disabled.
         :param Object mapping: An optional mapping for the <ko.mapping> plugin.
         
     
