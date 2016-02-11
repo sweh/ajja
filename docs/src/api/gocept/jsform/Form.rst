@@ -110,7 +110,7 @@ Form
             field is found.
     .. method:: is_object_field(name)
     
-        Check weather field is an object field.
+        Check whether field is an object field.
         
         .. note ::
             Object fields are either select boxes or radio lists.
