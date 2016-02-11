@@ -32,7 +32,7 @@
 
     /**
      * @class
-     * @extends gocept.jsform.TemplateHandler
+     * @extends TemplateHandler
      * @memberOf gocept.jsform.Form
      * @name Form
      * @param {string} id The id of the DOM node where the form should be rendered.

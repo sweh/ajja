@@ -17,7 +17,7 @@ Form
 
 .. js:class:: Form (id[, options])
 
-    :extends: gocept.jsform.TemplateHandler
+    :extends: :js:class:`TemplateHandler`
     :param string id: The id of the DOM node where the form should be rendered.
     :param FormOptions options: An object containing options for the form.
     :return: The form instance.

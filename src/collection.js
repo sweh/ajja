@@ -21,7 +21,7 @@
     /**
      * Turn any DOM elements matched by node_selector into ListWidgets.
      * @class
-     * @extends gocept.jsform.TemplateHandler
+     * @extends TemplateHandler
      * @memberOf gocept.jsform.Collection
      * @name ListWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
@@ -397,7 +397,7 @@
      *     which group the item is placed and what title that group will get.
      *
      * @class
-     * @extends gocept.jsform.ListWidget
+     * @extends ListWidget
      * @memberOf gocept.jsform.Collection
      * @name GroupListWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
@@ -472,7 +472,7 @@
      * Show list of items in a table.
      *
      * @class
-     * @extends gocept.jsform.ListWidget
+     * @extends ListWidget
      * @memberOf gocept.jsform.Collection
      * @name TableWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.

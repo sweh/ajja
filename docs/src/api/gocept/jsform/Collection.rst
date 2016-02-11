@@ -15,7 +15,7 @@ Collection
         ``data-{{self.group_title_key}}``. Those are needed to decide, in
         which group the item is placed and what title that group will get.
 
-    :extends: gocept.jsform.ListWidget
+    :extends: :js:class:`ListWidget`
     :param string node_selector: The selector of the DOM node where the widget should be rendered.
     :param WidgetOptions options: An object containing options for the widget.
     :return: The widget instance.
@@ -54,7 +54,7 @@ Collection
 
     Turn any DOM elements matched by node_selector into ListWidgets.
 
-    :extends: gocept.jsform.TemplateHandler
+    :extends: :js:class:`TemplateHandler`
     :param string node_selector: The selector of the DOM node where the widget should be rendered.
     :param WidgetOptions options: An object containing options for the widget.
     :return: The widget instance.
@@ -151,7 +151,7 @@ Collection
 
     Show list of items in a table.
 
-    :extends: gocept.jsform.ListWidget
+    :extends: :js:class:`ListWidget`
     :param string node_selector: The selector of the DOM node where the widget should be rendered.
     :param WidgetOptions options: An object containing options for the widget.
     :return: The widget instance.
