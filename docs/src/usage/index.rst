@@ -1,9 +1,9 @@
-*****
+=====
 Usage
-*****
+=====
 
 .. toctree::
     :maxdepth: 1
 
-    getting_started.rst
+    quickstart.rst
     customization.rst
