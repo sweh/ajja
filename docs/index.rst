@@ -3,14 +3,35 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+=============
+gocept.jsform
+=============
 
-============================
+
 Advanced forms in JavaScript
 ============================
 
-`gocept.jsform` is a JavaScript library for building forms in the browser.
-
 The latest stable version is |release| - https://github.com/gocept/gocept.jsform
+
+gocept.jsform is a MIT licensed library, written in JavaScript, to build forms
+and collections from JSON data directly in the browser.
+
+For most developers building forms is a bothersome, boring and most of the
+time repeating task. gocept.jsform makes building forms flexible and bearable.
+It renders forms in the browser using advanced technology like
+`HandlebarsJS <https://http://handlebarsjs.com/>`_ or
+`KnockoutJS <http://knockoutjs.com`_ from a simple JSON datastructure. Field
+types are guessed from the data you provide and form fields auto save to the
+server.
+
+As a developer all you have to do is include the sources (see :ref:`installation`)
+and write some JavaScript code:
+
+.. code-block:: javascript
+
+    var form = gocept.jsform.Form('#id');
+    form.load({'firstname': 'Robert', 'is_child': true});
+
 
 
 Contents
