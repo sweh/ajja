@@ -7,3 +7,4 @@ API
 
     src/api/gocept/jsform/Form.rst
     src/api/gocept/jsform/Template.rst
+    src/api/gocept/jsform/Collection.rst

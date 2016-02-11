@@ -1,30 +1,42 @@
 /*global jQuery, gocept, confirm */
 /*jslint nomen: true, unparam: true, bitwise: true*/
+
+/**
+ * @module gocept.jsform.Collection
+ */
+
+/**
+ * @typedef {Object} WidgetOptions
+ * @memberOf gocept.jsform.Collection
+ * @property {string} collection_url The url to a JSON View returning the data for the collection.
+ * @property {Array} item_actions Additional item_actions besides `edit` and `del`.
+ * @property {Array} default_item_actions Set to an empty Array to hide `edit` and `del`.
+ * @property {Array} form_actions Additional form_actions besides `add`.
+ * @property {Array} default_form_actions Aet to an empty list to hide `add`.
+ */
 (function ($) {
     "use strict";
 
-
+    /**
+     * Turn any DOM elements matched by node_selector into ListWidgets.
+     * @class
+     * @extends gocept.jsform.TemplateHandler
+     * @memberOf gocept.jsform.Collection
+     * @name ListWidget
+     * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
+     * @param {WidgetOptions} [options] An object containing options for the widget.
+     * @returns {Object} The widget instance.
+     * @throws {Exception} if the node_selector does not match any DOM node.
+     *
+     * @example
+     * $(body).append('<div id="my_list_widget"></div>');
+     * var list_widget = new gocept.jsform.ListWidget(
+     *     '#my_list_widget',
+     *     {collection_url: '/list.json'}
+     * );
+     */
     gocept.jsform.ListWidget = gocept.jsform.TemplateHandler.$extend({
-    /*"""
-    .. js:class:: gocept.jsform.ListWidget(node_selector[, options])
 
-        Turn any DOM elements matched by node_selector into ListWidgets.
-        Extends :js:class:`gocept.jsform.TemplateHandler()`.
-
-        :param string node_selector: The selector of the DOM node where the widget should be rendered.
-        :param object options: An object containing options like:
-
-            - **item_actions**: additional item_actions besides edit and del
-            - **default_item_actions**: set to an empty list to hide edit and del
-            - **form_actions**: additional form_actions besides add
-            - **default_form_actions**: set to an empty list to hide add
-        :throws Exception: if the node_selector does not match any DOM node.
-    */
-        /*"""
-            .. js:attribute:: base_template
-
-                Change this to a template of your choise. (default: 'list')
-        */
         base_template: 'list',
 
         /* The default item actions. */
@@ -57,6 +69,15 @@
             }
         ],
 
+        /**
+         * Initialize the list widget. Called upon widget initialization.
+         * @method
+         * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
+         * @param {WidgetOptions} [options] An object containing options for the widget.
+         * @returns {Object} The widget instance.
+         * @throws {Exception} if the node_selector does not match any DOM node.
+         * @memberOf gocept.jsform.Collection.ListWidget
+         */
         __init__: function (node_selector, options) {
             /* Initialize the widget. For more information see class docs. */
             var self = this,
@@ -85,7 +106,11 @@
 
             node.append(template({}));
             self.list_collection = node.find('#collection');
-            self.collection_url = node.data('collection-url');
+            self.collection_url = gocept.jsform.or(
+                options.collection_url,
+                node.data('collection-url')
+            );
+
             self.template = gocept.jsform.or(
                 node.data('template'),
                 'list_item'
@@ -98,6 +123,12 @@
             self.render_form_actions();
         },
 
+        /**
+         * Reload the widget. Retrieve data from the server and render items in DOM.
+         * @method
+         * @returns {Object} The widget instance.
+         * @memberOf gocept.jsform.Collection.ListWidget
+         */
         reload: function () {
             /*"""
                 .. js:function:: reload()
@@ -120,11 +151,22 @@
             return self;
         },
 
+        /**
+         * Return the rendered HTML of the widgets header.
+         * @method
+         * @returns {string} HTML ready to be included into the DOM.
+         * @memberOf gocept.jsform.Collection.ListWidget
+         */
         get_collection_head: function (items) {
             // Subclasses of ListWidget return non-empty content for collection
             return '';
         },
 
+        /**
+         * Render the form actions and bind a click handler to them.
+         * @method
+         * @memberOf gocept.jsform.Collection.ListWidget
+         */
         render_form_actions: function () {
             var self = this,
                 template = self.get_template('list_item_action'),
@@ -141,6 +183,16 @@
             });
         },
 
+        /**
+         * Bind a click handler to each action of the given item.
+         *
+         * .. note ::
+         *     The callback, that was specified in `item_actions`, is binded here.
+         *
+         * @method
+         * @param {Object} node The jQuery DOM node of the item with the actions.
+         * @memberOf gocept.jsform.Collection.ListWidget
+         */
         apply_item_actions: function (node) {
             var self = this;
             node.find('.actions a').on('click', function (ev) {
@@ -152,6 +204,14 @@
             });
         },
 
+        /**
+         * Render an item into the DOM.
+         *
+         * @method
+         * @param {Object} item An item as returned by the collection JSON view.
+         * @memberOf gocept.jsform.Collection.ListWidget
+         * @returns {Object} jQuery DOM node to the rendered item.
+         */
         render_item: function (item) {
             var self = this,
                 template = self.get_template('list_item_wrapper'),
@@ -165,6 +225,14 @@
             return node;
         },
 
+        /**
+         * Return the container DOM node of item.
+         *
+         * @method
+         * @param {Object} item An item as returned by the collection JSON view.
+         * @memberOf gocept.jsform.Collection.ListWidget
+         * @returns {Object} jQuery DOM node to items container.
+         */
         get_collection: function (item) {
             var self = this;
             // item is used in subclasses of ListWidget

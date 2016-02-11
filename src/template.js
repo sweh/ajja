@@ -1,10 +1,12 @@
 /*global Class, gocept, Handlebars, ko, alert, jasmine, jQuery */
 /*jslint nomen: true, unparam: true, bitwise: true*/
-(function ($) {
-    "use strict";
+
 /**
  * @module gocept.jsform.Template
  */
+
+(function ($) {
+    "use strict";
 
     gocept.jsform.template_descriptions = {
         form: 'The base `gocept.jsform.Form` template',
