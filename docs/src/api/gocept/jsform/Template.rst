@@ -5,7 +5,7 @@ Template
 
 .. currentmodule:: gocept.jsform
 
-.. function:: gocept.jsform.register_template(id, template, description)
+.. js:function:: gocept.jsform.register_template(id, template, description)
 
     Allows you to register your templates or change the default templates.
 
@@ -23,7 +23,7 @@ Template
         var compiled = Handlebars.compile('<p>{{name}}</p>');
         gocept.jsform.register_template('my_template', compiled);
 
-.. class:: TemplateHandler ()
+.. js:class:: TemplateHandler ()
 
     Helper class for handling templates within `gocept.jsform`.
 
@@ -33,7 +33,7 @@ Template
     
         var handler = new gocept.jsform.TemplateHandler();
 
-    .. method:: get_template(id)
+    .. js:function:: get_template(id)
     
         Get the template for the given `id`.
     
@@ -46,7 +46,7 @@ Template
         
             handler.get_template('form_boolean')({name: 'asdf'})
             '<input type="checkbox" name="asdf" data-bind="checked: asdf" />'
-    .. method:: list_templates()
+    .. js:function:: list_templates()
     
         List all registered templates.
     
