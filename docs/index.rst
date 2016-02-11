@@ -4,9 +4,9 @@
    contain the root `toctree` directive.
 
 
-###########################################
-gocept.jsform: Advanced forms in JavaScript
-###########################################
+############################
+Advanced forms in JavaScript
+############################
 
 `gocept.jsform` is a JavaScript library for building forms in the browser.
 
