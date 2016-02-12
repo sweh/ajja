@@ -15,13 +15,25 @@ Template
     
     .. code-block:: js
     
-        gocept.jsform.register_template('my_template', '<p>{{name}}</p>');
-        
-        $(body).append('<script type="text/html" id="reference"><p>{{name}}</p></script>')
+        gocept.jsform.register_template('my_template', '<dl><dt>{{name}}</dt><dd>{{value}}</dd></dl>');
+        var form = new gocept.jsform.Form('my_form');
+        form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
+
+    .. code-block:: js
+    
+        $('body').append(
+            '<script type="text/html" id="reference"><b>{{value}}</b></script>'
+        );
         gocept.jsform.register_template('my_template', '#reference');
-        
-        var compiled = Handlebars.compile('<p>{{name}}</p>');
+        var form = new gocept.jsform.Form('my_form');
+        form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
+
+    .. code-block:: js
+    
+        var compiled = Handlebars.compile('<p>{{value}}</p>');
         gocept.jsform.register_template('my_template', compiled);
+        var form = new gocept.jsform.Form('my_form');
+        form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
 
 .. js:class:: TemplateHandler ()
 

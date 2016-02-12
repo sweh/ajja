@@ -1,0 +1,15 @@
+.jsform {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e1e4e5;
+    overflow-x: auto;
+    padding: 5px;
+    clear:right;
+}
+
+.jsform .help-block {
+    display: none;
+}
+
+button.coderunner {
+    float: right;
+}

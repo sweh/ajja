@@ -77,6 +77,21 @@
   {# Keep modernizr in head - http://modernizr.com/docs/#installing #}
   <script src="{{ pathto('_static/js/modernizr.min.js', 1) }}"></script>
 
+  <link rel="stylesheet" href="{{ pathto('_static/coderunner.css', 1) }}" type="text/css" />
+
+  <script type="text/javascript" src="{{ pathto('_static/jquery.min.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/handlebars.min.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/classy.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/knockout.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/knockout_mapping.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/jsform/helpers.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/jsform/templates.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/jsform/localizations/en.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/jsform/localizations/de.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/jsform/template.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/jsform/container.js', 1) }}"></script>
+  <script type="text/javascript" src="{{ pathto('_static/jsform/jsform.js', 1) }}"></script>
+
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -176,6 +191,8 @@
     {%- endfor %}
 
   {% endif %}
+
+  <script type="text/javascript" src="{{ pathto('_static/coderunner.js', 1) }}"></script>
 
   {# RTD hosts this file, so just load on non RTD builds #}
   {% if not READTHEDOCS %}
