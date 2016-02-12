@@ -42,7 +42,7 @@
      *
      * @example
      * gocept.jsform.register_template('my_template', '<dl><dt>{{name}}</dt><dd>{{value}}</dd></dl>');
-     * var form = new gocept.jsform.Form('my_form');
+     * var form = new gocept.jsform.Form('form');
      * form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
      *
      * @example
@@ -50,13 +50,13 @@
      *     '<script type="text/html" id="reference"><b>{{value}}</b></script>'
      * );
      * gocept.jsform.register_template('my_template', '#reference');
-     * var form = new gocept.jsform.Form('my_form');
+     * var form = new gocept.jsform.Form('form');
      * form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
      *
      * @example
      * var compiled = Handlebars.compile('<p>{{value}}</p>');
      * gocept.jsform.register_template('my_template', compiled);
-     * var form = new gocept.jsform.Form('my_form');
+     * var form = new gocept.jsform.Form('form');
      * form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
      */
     gocept.jsform.register_template = function (id, template, description) {

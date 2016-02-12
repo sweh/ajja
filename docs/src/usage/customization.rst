@@ -13,7 +13,7 @@ The great thing about *gocept.jsform* is, that it automatically pushes changes
 in your form fields to the server. For that to work you need to specify a url
 where *gocept.jsform* should propagate changes to::
 
-    var form = new gocept.jsform.Form('my_form', {save_url: '/save.json'});
+    var form = new gocept.jsform.Form('form', {save_url: '/save.json'});
 
 On every change, the following information is pushed to that url:
 
@@ -41,7 +41,7 @@ for all or just some of the fields::
        '</form>'].join('');
 
     var form = new gocept.jsform.Form(
-      'my_form',
+      'form',
       {form_template: Handlebars.compile(template)}
     );
     form.load({firstname: 'Max', lastname: 'Mustermann'});
@@ -63,7 +63,7 @@ You can overwrite the default templates by providing your own templates in the
 options dict passed during form initialization::
 
     var form = new gocept.jsform.Form(
-      'my_form',
+      'form',
       {
         string_template: my_precomliled_input_template,
         object_template: my_precomliled_select_template,
@@ -89,7 +89,7 @@ Imagine you want checkboxes instead of a select field::
        '{/each}',
        '</div>'].join('');
 
-    var form = new gocept.jsform.Form('my_form');
+    var form = new gocept.jsform.Form('form');
     form.load({title: [{id: 'mr', value: 'Mr.'},
                        {id: 'mrs', value: 'Mrs.'}]},
               {title: {template: Handlebars.compile(template)}});
@@ -105,7 +105,7 @@ You can also specify a label or other options for the fields::
       ['{{label}}: <input type="text" name="{{name}}" value="{{default}}"',
        '                  data-bind="value: {{name}}" {{readonly}} />'].join('');
 
-    var form = new gocept.jsform.Form('my_form');
+    var form = new gocept.jsform.Form('form');
     form.load({firstname: 'Sebastian'},
               {firstname: {template: Handlebars.compile(template),
                            label: 'First name',

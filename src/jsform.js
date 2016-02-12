@@ -22,8 +22,8 @@
      * @returns {Object} The form instance.
      *
      * @example
-     * $(body).append('<div id="my_form"></div>');
-     * var form = new gocept.jsform.Form('my_form');
+     * $(body).append('<div id="form"></div>');
+     * var form = new gocept.jsform.Form('form');
      */
     gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
 
@@ -939,7 +939,7 @@
      * @memberOf gocept.jsform.Form
      *
      * @example
-     * $('#my_form input[type=submit]').jsform_submit_button()
+     * $('#form input[type=submit]').jsform_submit_button()
      *
      */
     $.fn.jsform_submit_button = function (action) {

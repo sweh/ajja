@@ -7,10 +7,10 @@
     var run, register_click_event;
 
     run = function (event) {
-        $('#my_form').remove();
+        $('#form').remove();
         var button = $(event.currentTarget),
             code_block = button.prev();
-        button.after('<div id="my_form"></div>');
+        button.after('<div id="form"></div>');
         eval(code_block.text());
     };
 

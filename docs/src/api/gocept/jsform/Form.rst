@@ -13,7 +13,7 @@ Form
     
     .. code-block:: js
     
-        $('#my_form input[type=submit]').jsform_submit_button()
+        $('#form input[type=submit]').jsform_submit_button()
 
 .. js:class:: Form (id[, options])
 
@@ -29,8 +29,8 @@ Form
     
     .. code-block:: js
     
-        $(body).append('<div id="my_form"></div>');
-        var form = new gocept.jsform.Form('my_form');
+        $(body).append('<div id="form"></div>');
+        var form = new gocept.jsform.Form('form');
 
     .. js:function:: alert(msg)
     
