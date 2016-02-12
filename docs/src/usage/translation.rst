@@ -2,4 +2,4 @@
 Internationalization
 ====================
 
-Currently only EN and DE supported.
+Currently only EN and DE localized.
