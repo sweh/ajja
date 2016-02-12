@@ -15,7 +15,7 @@
     };
 
     register_click_event = function (node) {
-        var button = $('<button class="coderunner">Run</button>');
+        var button = $('<button class="btn btn-neutral coderunner">Run</button>');
         node.after(button);
         button.click(run);
 
