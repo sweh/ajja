@@ -110,3 +110,17 @@ You can also specify a label or other options for the fields::
               {firstname: {template: Handlebars.compile(template),
                            label: 'First name',
                            default: 'Max'}});
+
+
+Backlog of Mind
+===============
+
+Alternative: Save-URL but no Load-URL (prefill directly when calling ``load``)
+
+    form.load(
+        {firstName: '', // will result in a input field with type="text"
+         title: [{id: 'mr', value: 'Mister'},
+                 {id: 'mrs', value: 'Miss', selected: true}], // will result in a select box
+         needs_glasses: false}); // will result in a checkbox
+
+Customization: Adding custom templates (overwriting default / additional templates)
