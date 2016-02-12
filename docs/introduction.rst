@@ -17,6 +17,7 @@ Installation
 need to browserify our code. However its your task to minify or bundle this
 library within your deployment workflow.
 
+.. _installation-bower:
 
 Installation via Bower (recommended)
 ------------------------------------
@@ -27,6 +28,8 @@ The recommended way to install `gocept.jsform` is via bower.
 
     bower install gocept.jsform
 
+
+.. _installation-manual:
 
 Manual installation
 -------------------
@@ -44,6 +47,8 @@ the files in the correct order. You can copy & paste the following snipped.
 You will also need to include the libaries needed by `gocept.jsform`. Have a
 look at the depencencies section in `bower.json` for details.
 
+
+.. _installation-fanstatic:
 
 Installation via Fanstatic
 --------------------------

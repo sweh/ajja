@@ -2,26 +2,78 @@
 Quick Start
 ===========
 
-All you need to start creating forms is::
+The following examples assume that there is a ``Message`` model on the server with ``title`` and ``description``. We further assume that the model is available via a REST API, therefore ``GET`` on ``message/id`` returns the current state in JSON, while ``POST`` on ``message/id`` accepts JSON to update the model.
 
-    $('body').append('<div id="replace_this_with_my_form"></div>');
-
-    var my_form = new gocept.jsform.Form('replace_this_with_my_form');
-    my_form.load('/form_data.json');
+Side Note: Your models should have no required fields, since any user input is pushed to the server instantly for saving, i.e. some fields may be empty. This also means that `gocept.jsform` only supports editing, not creation of model objects, i.e. an empty instance must be created prior to editing.
 
 
-This will inject the form in the container with the id ``replace_this_with_my_form``, load the form data via *ajax* from the url
-``form_data.json`` and create input fields according to the content of ``form_data.json``.
+Rendering a Form
+================
 
-``form.load()`` accepts JavaScript objects as data or a url (like in the
-example above). It then guesses, which field widget to load by means of the
-datatype of your field::
+First install `gocept.jsform` via :ref:`bower <installation-bower>` (or :ref:`fanstatic <installation-fanstatic>` or :ref:`manually <installation-manual>`)
 
-    my_form.load(
-        {firstName: '', // will result in a input field with type="text"
-         title: [{id: 'mr', value: 'Mister'},
-                 {id: 'mrs', value: 'Miss', selected: true}], // will result in a select box
-         needs_glasses: false}); // will result in a checkbox
+.. code-block:: bash
 
-`gocept.jsform` comes with basic templates for these three use cases. Of cource
-you can provide your own templates for either the form or the fields itself.
+    bower install gocept.jsform
+
+Add a placeholder inside your DOM
+
+.. code-block:: html
+
+    <div id="message"></div>
+
+Initialize the form via `gocept.jsform`
+
+.. code-block:: javascript
+
+    var message = new gocept.jsform.Form("#message", {save_url: "/message/1"});
+
+And load current state from server
+
+.. code-block:: javascript
+
+    message.load("/message/1");
+
+The response from the server should look like ``{"title": "", description: ""}`` and is analysed to create an input field for each attribute. The type of the input field is based on the data type of each attribute and defaults to a simple text input for empty / ``null`` values.
+
+On ``load`` the placeholder will be replaced by the following HTML
+
+.. code-block:: html
+
+    <form method="POST" action id="message" class="jsform form-horizontal">
+        <div class="statusarea"></div>
+        <div class="field form-group" id="field-title">
+            <label for="title" class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+                <input type="text" data-bind="value: title" name="title" class="form-control" value />
+            </div>
+            <div class="col-sm-offset-3 col-sm-9">
+                <div class="help-block error"></div>
+            </div>
+        </div>
+        <div class="field form-group" id="field-desciption">
+            <label for="desciption" class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+                <input type="text" data-bind="value: desciption" name="desciption" class="form-control" value />
+            </div>
+            <div class="col-sm-offset-3 col-sm-9">
+                <div class="help-block error"></div>
+            </div>
+        </div>
+    </form>
+
+
+Each input field contains a `Knockout <http://knockoutjs.com/>`_ binding via ``data-bind="value: {{name}}"`` to track changes. Those changes are pushed to the server via ``POST`` on ``message/id`` on focus-out for saving.
+
+If server-side validations result in an error, a flash message will be rendered inside ``<div class="statusarea"></div>``. If the response contained a ``msg`` it will be displayed inside ``<div class="help-block error"></div>`` beneath the input field that was just saved.
+
+As you can see the generated HTML contains CSS classes compatible with `Bootstrap <http://getbootstrap.com/>`_, thus including the Bootstrap CSS is enough to make this form look pretty.
+
+If you want to display a label next to each input field, declare ``title`` as required and to use a textarea for ``description``, you can call ``message.load`` with an additional options dict like
+
+.. code-block:: javascript
+
+    message.load("message/1", {
+        title: {"label": "Title", "required": true},
+        description: {"label": "Body", "template": "form_text"}
+    });
