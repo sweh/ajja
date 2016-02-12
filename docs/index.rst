@@ -27,6 +27,8 @@ server.
 As a developer all you have to do is include the sources (see :ref:`installation`)
 and write some JavaScript code:
 
+.. _code-introduction:
+
 .. code-block:: javascript
 
     var form = new gocept.jsform.Form('form', {save_url: 'save'});

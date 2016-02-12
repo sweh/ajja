@@ -24,6 +24,8 @@ Add a placeholder inside your DOM
 
 Initialize the form via `gocept.jsform` and load current state from server
 
+.. _code-quickstart-without-options:
+
 .. code-block:: javascript
 
     var form = new gocept.jsform.Form("form", {save_url: "message/1"});
@@ -65,6 +67,8 @@ If server-side validations result in an error, a flash message will be rendered 
 As you can see the generated HTML contains CSS classes compatible with `Bootstrap <http://getbootstrap.com/>`_, thus including the Bootstrap CSS is enough to make this form look pretty.
 
 If you want to display a label next to each input field, declare ``title`` as required and to use a textarea for ``description``, you can call ``form.load`` with an additional options dict like
+
+.. _code-quickstart-with-options:
 
 .. code-block:: javascript
 

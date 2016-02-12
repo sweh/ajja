@@ -41,10 +41,15 @@
             return deferred_save.promise();
         };
 
+        // Add run button to each JavaScript code block
         $.each(
             $('.highlight-javascript').add($('.highlight-js')),
             function (index, node) {
-                register_click_event($(node));
+                // Skip code blocks without ID, i.e. have no reference label
+                // (This way we can define which code blocks are executable)
+                if (node.id.length) {
+                    register_click_event($(node));
+                }
             }
         );
     });

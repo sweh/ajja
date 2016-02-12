@@ -36,6 +36,19 @@ using pip::
     $ pip install -r docs/requirements.txt
 
 
+You can make a JavaScript code block executable by giving it a label, i.e.
+
+    .. _name-of-label:
+
+    .. code-block:: javascript
+
+        var foobar;
+
+If marked this way the code block will be follow by a button labelled "Run",
+which executes the JavaScript. (AJAX calls of gocept.jsform are mocked.
+Also, a #form placeholder is provided.)
+
+
 Releases
 ========
 
