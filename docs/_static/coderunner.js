@@ -15,8 +15,11 @@
     };
 
     register_click_event = function (node) {
-        var button = $('<button class="btn btn-neutral coderunner">Run</button>');
+        var button, clear;
+        button = $('<button class="btn btn-neutral coderunner">Run</button>');
+        clear = $('<span class="clearboth"></span>');
         node.after(button);
+        button.after(clear);
         button.click(run);
 
     };

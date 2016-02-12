@@ -4,6 +4,7 @@
     overflow-x: auto;
     padding: 5px;
     clear:right;
+    margin: 1px 0 24px 0;
 }
 
 .jsform .help-block {
@@ -12,4 +13,11 @@
 
 button.coderunner {
     float: right;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.clearboth {
+    clear: both;
+    display: block;
 }
