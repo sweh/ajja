@@ -1,4 +1,4 @@
-/*global jQuery, document */
+/*global jQuery, document, gocept */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 (function ($) {
@@ -25,6 +25,22 @@
     };
 
     $(document).ready(function () {
+        // Mock AJAX calls by gocept.jsform.Form
+        gocept.jsform.Form.prototype.reload = function () {
+            var self = this;
+            setTimeout(function () {
+                self.finish_load({"title": "", "description": ""});
+            }, 0);
+        };
+        gocept.jsform.Form.prototype._save = function (id, save_url, save_type, data) {
+            var deferred_save = $.Deferred(), apply_response;
+            apply_response = function () {
+                deferred_save.resolve({status: 'success'});
+            };
+            setTimeout(apply_response, 0);
+            return deferred_save.promise();
+        };
+
         $.each(
             $('.highlight-javascript').add($('.highlight-js')),
             function (index, node) {

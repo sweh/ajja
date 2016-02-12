@@ -20,19 +20,14 @@ Add a placeholder inside your DOM
 
 .. code-block:: html
 
-    <div id="message"></div>
+    <div id="form"></div>
 
-Initialize the form via `gocept.jsform`
-
-.. code-block:: javascript
-
-    var message = new gocept.jsform.Form("#message", {save_url: "/message/1"});
-
-And load current state from server
+Initialize the form via `gocept.jsform` and load current state from server
 
 .. code-block:: javascript
 
-    message.load("/message/1");
+    var form = new gocept.jsform.Form("form", {save_url: "message/1"});
+    form.load("message/1");
 
 The response from the server should look like ``{"title": "", description: ""}`` and is analysed to create an input field for each attribute. The type of the input field is based on the data type of each attribute and defaults to a simple text input for empty / ``null`` values.
 
@@ -40,7 +35,7 @@ On ``load`` the placeholder will be replaced by the following HTML
 
 .. code-block:: html
 
-    <form method="POST" action id="message" class="jsform form-horizontal">
+    <form method="POST" action id="form" class="jsform form-horizontal">
         <div class="statusarea"></div>
         <div class="field form-group" id="field-title">
             <label for="title" class="col-sm-3 control-label"></label>
@@ -69,11 +64,12 @@ If server-side validations result in an error, a flash message will be rendered 
 
 As you can see the generated HTML contains CSS classes compatible with `Bootstrap <http://getbootstrap.com/>`_, thus including the Bootstrap CSS is enough to make this form look pretty.
 
-If you want to display a label next to each input field, declare ``title`` as required and to use a textarea for ``description``, you can call ``message.load`` with an additional options dict like
+If you want to display a label next to each input field, declare ``title`` as required and to use a textarea for ``description``, you can call ``form.load`` with an additional options dict like
 
 .. code-block:: javascript
 
-    message.load("message/1", {
+    var form = new gocept.jsform.Form("form", {save_url: "message/1"})
+    form.load("message/1", {
         title: {"label": "Title", "required": true},
         description: {"label": "Body", "template": "form_text"}
     });
