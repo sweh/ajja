@@ -30,7 +30,10 @@ and write some JavaScript code:
 .. code-block:: javascript
 
     var form = new gocept.jsform.Form('my_form', {save_url: 'save'});
-    form.load({'firstname': 'Robert', 'is_child': true});
+    form.load(
+        {'firstname': 'Robert', 'is_child': true},
+        {'firstname': {'label': 'Name'}, 'is_child': {'label': 'Child?'}}
+    );
 
 
 
