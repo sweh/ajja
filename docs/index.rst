@@ -20,7 +20,7 @@ For most developers building forms is a bothersome, boring and most of the
 time repeating task. gocept.jsform makes building forms flexible and bearable.
 It renders forms in the browser using advanced technology like
 `HandlebarsJS <https://http://handlebarsjs.com/>`_ or
-`KnockoutJS <http://knockoutjs.com`_ from a simple JSON datastructure. Field
+`KnockoutJS <http://knockoutjs.com>`_ from a simple JSON datastructure. Field
 types are guessed from the data you provide and form fields auto save to the
 server.
 
