@@ -6,5 +6,5 @@ jsform
 
     Collection
     Form
-    helpers
+    Helpers
     Template

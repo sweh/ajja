@@ -1,6 +1,6 @@
 
 
-helpers
+Helpers
 =======
 
 .. currentmodule:: gocept.jsform

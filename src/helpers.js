@@ -2,7 +2,7 @@
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 /**
- * @module gocept.jsform.helpers
+ * @module gocept.jsform.Helpers
  */
 
 (function ($) {
@@ -29,7 +29,7 @@
      * Helper to declare namespaces (e.g. `gocept.jsform`).
      *
      * @function
-     * @memberOf gocept.jsform.helpers
+     * @memberOf gocept.jsform.Helpers
      * @param {string} value
      *
      * @example
@@ -44,7 +44,7 @@
      * Check whether value is undefined or null.
      *
      * @function
-     * @memberOf gocept.jsform.helpers
+     * @memberOf gocept.jsform.Helpers
      * @param {*} value
      * @returns {boolean}
      *
@@ -58,7 +58,7 @@
      * Simple OR function. Returns ``value1`` if its defined else ``value2``.
      *
      * @function
-     * @memberOf gocept.jsform.helpers
+     * @memberOf gocept.jsform.Helpers
      * @param {*} value1
      * @param {*} value2
      * @returns {*} value1 or value2

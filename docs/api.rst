@@ -8,4 +8,4 @@ API
     src/api/gocept/jsform/Form.rst
     src/api/gocept/jsform/Template.rst
     src/api/gocept/jsform/Collection.rst
-    src/api/gocept/jsform/helpers.rst
+    src/api/gocept/jsform/Helpers.rst
