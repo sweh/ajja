@@ -65,8 +65,9 @@ Form
     .. js:function:: create_model()
     
         Create a knockout model from self.data.
-        
-        .. note ::
+    
+        .. note::
+    
             Needed for bindings and oberservation.
     .. js:function:: expand_form()
     
@@ -97,20 +98,22 @@ Form
     .. js:function:: init_fields()
     
         Initialize fields from self.data.
-        
-        .. note ::
-            Guess the type of data for each field and render the correct field
-            template into the DOM. Invoke the knockout databinding via
+    
+        .. note::
+    
+            Guess the type of data for each field and render the correct
+            field template into the DOM. Invoke the knockout databinding via
             auto-mapping data into a model (thanks to ko.mapping plugin) and
             invoke observing the model for changes to propagate these to the
             server.
-            Appends fields into the form if no DOM element with id name like
-            field is found.
+            Appends fields into the form if no DOM element with id name
+            like field is found.
     .. js:function:: is_object_field(name)
     
         Check whether field is an object field.
-        
-        .. note ::
+    
+        .. note::
+    
             Object fields are either select boxes or radio lists.
     
         :param string name: The name of the field to check.
@@ -197,20 +200,24 @@ Form
     .. js:function:: save_remaining()
     
         Save all fields that were not saved before.
-        
-        .. note ::
+    
+        .. note::
+    
             Fields are saved silently.
     .. js:function:: start_load()
     
         Invokes data retrieval if needed.
-        
-        .. note ::
-            After retrieval (which may be asynchronous), self.data is initialized.
+    
+        .. note::
+    
+            After retrieval (which may be asynchronous), self.data is
+            initialized.
     .. js:function:: start_save(name, newValue[, silent])
     
         Actual work of preparing and making the ajax call.
-        
-        .. note ::
+    
+        .. note::
+    
             May be deferred in order to serialise saving subsequent
             values of each field.
     
@@ -251,11 +258,12 @@ Form
     .. js:function:: update_bindings()
     
         Add or update knockout bindings to the data.
-        
-        .. note ::
-            This is where all the magic starts. Adding bindings to our model
-            and observing model changes allows us to trigger automatic updates
-            to the server when form fields are submitted.
+    
+        .. note::
+    
+            This is where all the magic starts. Adding bindings to our
+            model and observing model changes allows us to trigger automatic
+            updates to the server when form fields are submitted.
     .. js:function:: update_sources(data)
     
         Update sources from data. Called on form reload.

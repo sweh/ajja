@@ -9,8 +9,9 @@ Collection
 .. js:class:: GroupListWidget (node_selector, options)
 
     Group items of a list by class written in data attributes.
-    
-    .. note ::
+
+    .. note::
+
         Each list item must provide ``data-{{self.group_by_key}}`` and
         ``data-{{self.group_title_key}}``. Those are needed to decide, in
         which group the item is placed and what title that group will get.
@@ -40,8 +41,9 @@ Collection
     .. js:function:: get_collection(item)
     
         Return the container DOM node of item.
-        
-        .. note ::
+    
+        .. note::
+    
             The grouping is done here on the fly.
     
         :param Object item: An item as returned by the collection JSON view.
@@ -80,9 +82,11 @@ Collection
     .. js:function:: apply_item_actions(node)
     
         Bind a click handler to each action of the given item.
-        
-        .. note ::
-            The callback, that was specified in `item_actions`, is binded here.
+    
+        .. note::
+    
+            The callback, that was specified in `item_actions`, is binded
+            here.
     
         :param Object node: The jQuery DOM node of the item with the actions.
     .. js:function:: close_object_edit_form(ev, object_form, form_dialog)
@@ -100,12 +104,16 @@ Collection
     .. js:function:: edit_item(node)
     
         Render an edit :js:class:`Form()` and provide it to the user.
-        
-        .. note ::
-            The {FormOptions} object provided on initialization of the ListWidget is used to render the form.
-        
-        .. note ::
-            Only fields with a label (provided in {FormOptions}) are rendered in this form.
+    
+        .. note::
+    
+            The {FormOptions} object provided on initialization of the
+            ListWidget is used to render the form.
+    
+        .. note::
+    
+            Only fields with a label (provided in {FormOptions}) are
+            rendered in this form.
     
         :param Object node: The jQuery DOM node pointing to the item.
     .. js:function:: get_collection(item)
@@ -173,8 +181,9 @@ Collection
     .. js:function:: get_collection_head()
     
         Return the rendered HTML of the widgets header.
-        
-        .. note ::
+    
+        .. note::
+    
             Only fields with a label (provided in {FormOptions}) are
             returned as columns of the table.
     

@@ -118,11 +118,6 @@
          * @memberOf gocept.jsform.Collection.ListWidget
          */
         reload: function () {
-            /*"""
-                .. js:function:: reload()
-
-                    Reload the widget.
-             */
             var self = this;
             $('#collection').empty();
             $.ajax({
@@ -174,8 +169,8 @@
         /**
          * Bind a click handler to each action of the given item.
          *
-         * .. note ::
-         *     The callback, that was specified in `item_actions`, is binded here.
+         * @note The callback, that was specified in `item_actions`, is binded
+         * here.
          *
          * @method
          * @param {Object} node The jQuery DOM node of the item with the actions.
@@ -283,11 +278,10 @@
         /**
          * Render an edit :js:class:`Form()` and provide it to the user.
          *
-         * .. note ::
-         *     The {FormOptions} object provided on initialization of the ListWidget is used to render the form.
-         *
-         * .. note ::
-         *     Only fields with a label (provided in {FormOptions}) are rendered in this form.
+         * @note The {FormOptions} object provided on initialization of the
+         * ListWidget is used to render the form.
+         * @note Only fields with a label (provided in {FormOptions}) are
+         * rendered in this form.
          *
          * @method
          * @param {Object} node The jQuery DOM node pointing to the item.
@@ -378,10 +372,9 @@
     /**
      * Group items of a list by class written in data attributes.
      *
-     * .. note ::
-     *     Each list item must provide ``data-{{self.group_by_key}}`` and
-     *     ``data-{{self.group_title_key}}``. Those are needed to decide, in
-     *     which group the item is placed and what title that group will get.
+     * @note Each list item must provide ``data-{{self.group_by_key}}`` and
+     * ``data-{{self.group_title_key}}``. Those are needed to decide, in
+     * which group the item is placed and what title that group will get.
      *
      * @class
      * @extends ListWidget
@@ -425,8 +418,7 @@
         /**
          * Return the container DOM node of item.
          *
-         * .. note ::
-         *     The grouping is done here on the fly.
+         * @note The grouping is done here on the fly.
          *
          * @method
          * @param {Object} item An item as returned by the collection JSON view.
@@ -493,9 +485,8 @@
         /**
          * Return the rendered HTML of the widgets header.
          *
-         * .. note ::
-         *     Only fields with a label (provided in {FormOptions}) are
-         *     returned as columns of the table.
+         * @note Only fields with a label (provided in {FormOptions}) are
+         * returned as columns of the table.
          *
          * @method
          * @returns {string} HTML ready to be included into the DOM.

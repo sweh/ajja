@@ -199,8 +199,8 @@
         /**
          * Invokes data retrieval if needed.
          *
-         * .. note ::
-         *     After retrieval (which may be asynchronous), self.data is initialized.
+         * @note After retrieval (which may be asynchronous), self.data is
+         * initialized.
          *
          * @method
          * @memberOf gocept.jsform.Form.Form
@@ -256,8 +256,7 @@
         /**
          * Check whether field is an object field.
          *
-         * .. note ::
-         *     Object fields are either select boxes or radio lists.
+         * @note Object fields are either select boxes or radio lists.
          *
          * @method
          * @param {string} name The name of the field to check.
@@ -352,14 +351,13 @@
         /**
          * Initialize fields from self.data.
          *
-         * .. note ::
-         *     Guess the type of data for each field and render the correct field
-         *     template into the DOM. Invoke the knockout databinding via
-         *     auto-mapping data into a model (thanks to ko.mapping plugin) and
-         *     invoke observing the model for changes to propagate these to the
-         *     server.
-         *     Appends fields into the form if no DOM element with id name like
-         *     field is found.
+         * @note Guess the type of data for each field and render the correct
+         * field template into the DOM. Invoke the knockout databinding via
+         * auto-mapping data into a model (thanks to ko.mapping plugin) and
+         * invoke observing the model for changes to propagate these to the
+         * server.
+         * Appends fields into the form if no DOM element with id name
+         * like field is found.
          *
          * @method
          * @memberOf gocept.jsform.Form.Form
@@ -381,10 +379,9 @@
         /**
          * Add or update knockout bindings to the data.
          *
-         * .. note ::
-         *     This is where all the magic starts. Adding bindings to our model
-         *     and observing model changes allows us to trigger automatic updates
-         *     to the server when form fields are submitted.
+         * @note This is where all the magic starts. Adding bindings to our
+         * model and observing model changes allows us to trigger automatic
+         * updates to the server when form fields are submitted.
          *
          * @method
          * @memberOf gocept.jsform.Form.Form
@@ -399,8 +396,7 @@
         /**
          * Create a knockout model from self.data.
          *
-         * .. note ::
-         *     Needed for bindings and oberservation.
+         * @note Needed for bindings and oberservation.
          *
          * @method
          * @memberOf gocept.jsform.Form.Form
@@ -531,9 +527,8 @@
         /**
          * Actual work of preparing and making the ajax call.
          *
-         * .. note ::
-         *     May be deferred in order to serialise saving subsequent
-         *     values of each field.
+         * @note May be deferred in order to serialise saving subsequent
+         * values of each field.
          *
          * @method
          * @param {string} name The name of the field.
@@ -763,8 +758,7 @@
         /**
          * Save all fields that were not saved before.
          *
-         * .. note ::
-         *     Fields are saved silently.
+         * @note Fields are saved silently.
          *
          * @method
          * @memberOf gocept.jsform.Form.Form
