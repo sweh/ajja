@@ -34,16 +34,15 @@ you would like to customize the order of your fields or just need another
 boilerplate for you form, you can use a custom form template with containers
 for all or just some of the fields::
 
-    var template =
+    gocept.jsform.register_template(
+      'form',
       ['<form method="POST" action="{{action}}" id="{{form_id}}">',
        '<table><tr><td class="firstname"><span id="firstname" /></td>',
        '<td class="lastname"><span id="lastname" /></td></tr></table>',
-       '</form>'].join('');
-
-    var form = new gocept.jsform.Form(
-      'form',
-      {form_template: Handlebars.compile(template)}
+       '</form>'].join('')
     );
+
+    var form = new gocept.jsform.Form('form');
     form.load({firstname: 'Max', lastname: 'Mustermann'});
 
 This will replace the ``span`` containers with id ``firstname`` and
@@ -62,14 +61,9 @@ Customization by field type
 You can overwrite the default templates by providing your own templates in the
 options dict passed during form initialization::
 
-    var form = new gocept.jsform.Form(
-      'form',
-      {
-        string_template: my_precomliled_input_template,
-        object_template: my_precomliled_select_template,
-        boolean_template: my_precomliled_checkbox_template
-      }
-    );
+    gocept.jsform.register_template('form_boolean', '<bool_template_html />');
+    gocept.jsform.register_template('form_string', '<string_template_html />');
+    var form = new gocept.jsform.Form('form');
 
 For every string data, your input template would be rendered instead of the
 default input text field. Same for lists and boolean values.
@@ -79,20 +73,22 @@ Customization by field name
 
 Imagine you want checkboxes instead of a select field::
 
-    var template =
-      ['<div class="title">Titel:',
-       '{#each value}',
-       '  <div>',
-       '    <input type="radio" name="{{name}}" value="{{id}}" class="{{id}}"',
-       '           data-bind="checked: {{name}}" /> {{value}}',
-       '  </div>',
-       '{/each}',
-       '</div>'].join('');
+    gocept.jsform.register_template(
+        'checkbox_template',
+        ['<div class="title">Titel:',
+         '{#each value}',
+         '  <div>',
+         '    <input type="radio" name="{{name}}" value="{{id}}" class="{{id}}"',
+         '           data-bind="checked: {{name}}" /> {{value}}',
+         '  </div>',
+         '{/each}',
+         '</div>'].join('')
+    );
 
     var form = new gocept.jsform.Form('form');
     form.load({title: [{id: 'mr', value: 'Mr.'},
                        {id: 'mrs', value: 'Mrs.'}]},
-              {title: {template: Handlebars.compile(template)}});
+              {title: {template: 'checkbox_template'}});
 
 You can pass the *load* method a JS object containing customizations for each
 field. One of these customization options is template, which results in
@@ -101,13 +97,15 @@ example.
 
 You can also specify a label or other options for the fields::
 
-    var template =
-      ['{{label}}: <input type="text" name="{{name}}" value="{{default}}"',
-       '                  data-bind="value: {{name}}" {{readonly}} />'].join('');
+    gocept.jsform.register_template(
+        'form_string_special',
+        ['{{label}}: <input type="text" name="{{name}}" value="{{default}}"',
+         '                  data-bind="value: {{name}}" {{readonly}} />'].join('')
+    );
 
     var form = new gocept.jsform.Form('form');
     form.load({firstname: 'Sebastian'},
-              {firstname: {template: Handlebars.compile(template),
+              {firstname: {template: 'form_string_special',
                            label: 'First name',
                            default: 'Max'}});
 
