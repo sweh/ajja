@@ -9,30 +9,24 @@ the behaviour of *gocept.jsform*.
 Providing a save url for the server
 ===================================
 
-The great thing about *gocept.jsform* is, that it automatically pushes changes
-in your form fields to the server. For that to work you need to specify a url
-where *gocept.jsform* should propagate changes to::
+One great feature of *gocept.jsform* is that it automatically pushes changes
+in your form fields to the server. By default, changes are sent to the same
+url that form data was loaded from. You can also specify a separate url to
+save to::
 
     var form = new gocept.jsform.Form('form', {save_url: '/save.json'});
 
-On every change, the following information is pushed to that url:
-
-* ``id``: the name of the field (e.g. *firstname*)
-* ``value``: the new value for that field (e.g. *Bob*)
-
-The server should now validate the given data. If saving went fine, it must
-return ``{status: 'success'}``, if there was a (validation-) error, it must
-return e.g. ``{status: 'error', msg: 'Not a valid email address'}``. The error
-will then be displayed next to the widget.
+The server end point at ``save_url`` is expected to implement
+:doc:`gocept.jsform's communication protocol <protocol>`.
 
 
 Customizing the form template
 =============================
 
-The default behaviour is to simply append every new field in the form tag. If
-you would like to customize the order of your fields or just need another
-boilerplate for you form, you can use a custom form template with containers
-for all or just some of the fields::
+The default behaviour is to simply append every new field as a child to the
+form tag. If you need to customize the order of your fields or just need
+different overall HTML for your form, you can use a custom form template with
+containers for all or just some of the fields::
 
     gocept.jsform.register_template(
       'form',
@@ -45,7 +39,7 @@ for all or just some of the fields::
     var form = new gocept.jsform.Form('form');
     form.load({firstname: 'Max', lastname: 'Mustermann'});
 
-This will replace the ``span`` containers with id ``firstname`` and
+This will replace the ``span`` containers with ids ``firstname`` and
 ``lastname`` with the appropriate ``input`` fields.
 
 
@@ -58,20 +52,21 @@ strings) or customize single widgets by their name.
 Customization by field type
 ---------------------------
 
-You can overwrite the default templates by providing your own templates in the
-options dict passed during form initialization::
+You can overwrite the default templates by registering your own templates
+prior to form initialization::
 
     gocept.jsform.register_template('form_boolean', '<bool_template_html />');
     gocept.jsform.register_template('form_string', '<string_template_html />');
     var form = new gocept.jsform.Form('form');
 
-For every string data, your input template would be rendered instead of the
+For every string value, your input template would be rendered instead of the
 default input text field. Same for lists and boolean values.
 
 Customization by field name
 ---------------------------
 
-Imagine you want checkboxes instead of a select field::
+Imagine you want checkboxes instead of a select field. You need to register
+the template for a name not yet used for a data type or any other template::
 
     gocept.jsform.register_template(
         'checkbox_template',
@@ -85,15 +80,15 @@ Imagine you want checkboxes instead of a select field::
          '</div>'].join('')
     );
 
+You can pass the *load* method a JS object containing customizations for each
+field. One of these customization options is the name of the registered
+template, which results in rendering two checkboxes instead of the default
+select box. To swap the ``title`` widget in the above example::
+
     var form = new gocept.jsform.Form('form');
     form.load({title: [{id: 'mr', value: 'Mr.'},
                        {id: 'mrs', value: 'Mrs.'}]},
               {title: {template: 'checkbox_template'}});
-
-You can pass the *load* method a JS object containing customizations for each
-field. One of these customization options is template, which results in
-rendering two checkboxes instead of the default select box in the above
-example.
 
 You can also specify a label or other options for the fields::
 
@@ -113,7 +108,7 @@ You can also specify a label or other options for the fields::
 Backlog of Mind
 ===============
 
-Alternative: Save-URL but no Load-URL (prefill directly when calling ``load``)
+Alternative: Save-URL but no Load-URL (prefill directly when calling ``load``)::
 
     form.load(
         {firstName: '', // will result in a input field with type="text"
