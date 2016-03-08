@@ -1,6 +1,7 @@
 dependencies:
   override:
     - npm install
+    - npm install -g codecov
     - grunt
 test:
   override:
