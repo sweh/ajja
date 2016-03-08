@@ -5,5 +5,5 @@ dependencies:
     - grunt
 test:
   override:
-    - grunt phantomjs --force
+    - grunt phantomjs
     - codecov
