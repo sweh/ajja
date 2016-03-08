@@ -10,9 +10,13 @@ The gocept.jsform distribution
    :target: https://github.com/gocept/gocept.jsform
    :alt: Bower Version
 
-.. image:: https://builds.gocept.com/buildStatus/icon?job=gocept.jsform
-   :target: https://builds.gocept.com/job/gocept.jsform
-   :alt: Jenkins
+.. image:: https://circleci.com/gh/gocept/gocept.jsform.svg?style=svg
+   :target: https://circleci.com/gh/gocept/gocept.jsform
+   :alt: CircleCi
+
+.. image:: https://codecov.io/github/gocept/gocept.jsform/coverage.svg?branch=master
+   :target: https://codecov.io/github/gocept/gocept.jsform?branch=master
+   :alt: CodeCov
 
 .. image:: https://readthedocs.org/projects/goceptjsform/badge/?version=stable
    :target: http://goceptjsform.readthedocs.org/en/stable
