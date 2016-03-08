@@ -10,7 +10,7 @@ The gocept.jsform distribution
    :target: https://github.com/gocept/gocept.jsform
    :alt: Bower Version
 
-.. image:: https://circleci.com/gh/gocept/gocept.jsform.svg?style=svg
+.. image:: https://circleci.com/gh/gocept/gocept.jsform.svg?style=shield
    :target: https://circleci.com/gh/gocept/gocept.jsform
    :alt: CircleCi
 
