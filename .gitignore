@@ -9,3 +9,4 @@ lib/
 node_modules/
 pip-selfcheck.json
 report/
+coverage.json

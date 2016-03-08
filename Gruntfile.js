@@ -45,6 +45,17 @@ module.exports = function (grunt) {
                     junit: {
                         path: 'report',
                         consolidate: true
+                    },
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        coverage: 'coverage.json',
+                        report: 'report',
+                        thresholds: {
+                            lines: 75,
+                            statements: 75,
+                            branches: 75,
+                            functions: 90
+                        }
                     }
                 },
             }

@@ -17,6 +17,8 @@ Changelog
 
 - Massively improved documentation.
 
+- Start measuring code coverage.
+
 
 3.0.0 (2016-02-03)
 ==================
