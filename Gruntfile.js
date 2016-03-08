@@ -136,8 +136,7 @@ module.exports = function (grunt) {
         'bower:dev',
         'bower_concat:all',
         'jshint:all',
-        'handlebars:compile',
-        'jasmine:jsform'
+        'handlebars:compile'
     ]);
     grunt.registerTask('test', [
         'jasmine:jsform:build',
