@@ -90,7 +90,7 @@ enough to make this form look pretty.
 
 
 Customizing form fields
-=======================
+-----------------------
 
 If you want to display a label next to each input field, declare ``title`` as
 required and to use a textarea for ``description``, you can call ``form.load``
@@ -108,7 +108,7 @@ with an additional options dict like
 
 
 Initializing form without AJAX request
-======================================
+--------------------------------------
 
 Instead of loading data from an REST endpoint you can also provide the JSON
 data directly to the ``load`` function
@@ -128,3 +128,81 @@ data directly to the ``load`` function
 
 Note, that you will need to provide a :ref:`save url <customization-save_url>`
 in order to make the automatic pushes on field change work.
+
+
+Rendering a Collection
+======================
+
+It is assumed, that you already :ref:`installed <installation>`
+`gocept.jsform`.
+
+
+Add a placeholder inside your DOM
+
+.. code-block:: html
+
+    <div id="my_collection"></div>
+
+Initialize the collection and load current state from server
+
+.. _code-quickstart-collection-initialization:
+
+.. code-block:: javascript
+
+    var collection = new gocept.jsform.ListWidget(
+        '#my_collection',
+        {collection_url: '/messages.json',
+         default_form_actions: [],
+         form_options: {'description': {label: 'Body'}}}
+    );
+    collection.reload();
+
+The response from the server should look like
+
+.. code-block:: json
+
+    [
+        {resource: 'message/1',
+         data: {'title': 'The title', 'description': 'The description'},
+        {resource: 'message/2',
+         data: {'title': 'Another title', 'description': 'Another description'}
+    ]
+
+It is used to create a HTML list of items containing the values from the data
+attribute.
+
+On ``reload`` the placeholder will be replaced by the following HTML
+
+.. code-block:: html
+
+    <ul id="collection" class="list-group list-collection nav nav-stacked">
+        <li id="item_" style="min-height: 50px;" class="list-group-item">
+            <span class="actions btn-group badge">
+                <a href="#" class="edit btn btn-default btn-xs" data-action="edit">
+                    <span class="glyphicon glyphicon-edit"></span> Edit</a>
+                <a href="#" class="del btn btn-default btn-xs" data-action="del">
+                    <span class="glyphicon glyphicon-trash"></span> Delete</a>
+            </span>
+            <span class="content">
+                <dl>
+                    <dt>title</dt>
+                    <dd>The title</dd>
+                    <dt>description</dt>
+                    <dd>The description</dd>
+                </dl>
+            </span>
+        </li>
+    </ul>
+    <div id="form-actions">
+        <a href="#" class="btn btn-default btn-sm add">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </a>
+    </div>
+
+Each item has two default actions: ``edit`` and ``delete``. The collection has
+the default action ``add``. Add and edit both create a bootstrap modal dialog
+containing a `gocept.jsform.Form` form.
+
+As you can see the generated HTML contains CSS classes compatible with
+`Bootstrap <http://getbootstrap.com/>`_, thus including the Bootstrap CSS is
+enough to make this form look pretty.

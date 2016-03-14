@@ -37,6 +37,7 @@ Form
         Show a message to the user. (Alert box)
     
         :param string msg: The message to display.
+        :rtype: void
     .. js:function:: clear_field_error(name)
     
         Clear announcement of an field error during save.
@@ -59,9 +60,13 @@ Form
     .. js:function:: collect_sources()
     
         Collect sources from options and make them ovservable.
+    
+        :rtype: void
     .. js:function:: create_form()
     
         Wires the form DOM node and object.
+    
+        :rtype: void
     .. js:function:: create_model()
     
         Create a knockout model from self.data.
@@ -72,6 +77,8 @@ Form
     .. js:function:: expand_form()
     
         Expands the form_template into the DOM.
+    
+        :rtype: void
     .. js:function:: field(name)
     
         Get the DOM node for a field.
@@ -140,6 +147,7 @@ Form
         :param string options.<field_name>.placeholder: Placeholder to the empty dropdown option.
         :param boolean options.<field_name>.disabled: true if field should be disabled.
         :param Object mapping: An optional mapping for the <ko.mapping> plugin.
+        :rtype: void
         
     
         .. code-block:: js

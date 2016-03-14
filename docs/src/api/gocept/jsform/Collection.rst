@@ -123,10 +123,11 @@ Collection
         :param Object item: An item as returned by the collection JSON view.
         :return: jQuery DOM node to items container.
         :rtype: Object
-    .. js:function:: get_collection_head()
+    .. js:function:: get_collection_head(items)
     
         Return the rendered HTML of the widgets header.
     
+        :param Array items: The items as returned by the collection JSON view.
         :return: HTML ready to be included into the DOM.
         :rtype: string
     .. js:function:: reload()
@@ -135,6 +136,12 @@ Collection
     
         :return: The widget instance.
         :rtype: Object
+    .. js:function:: render(items)
+    
+        Render items in the DOM.
+    
+        :param Array items: The items as returned by the collection JSON view.
+        :rtype: eval
     .. js:function:: render_form_actions()
     
         Render the form actions and bind a click handler to them.
@@ -178,7 +185,7 @@ Collection
             {collection_url: '/list.json'}
         );
 
-    .. js:function:: get_collection_head()
+    .. js:function:: get_collection_head(items)
     
         Return the rendered HTML of the widgets header.
     
@@ -187,6 +194,7 @@ Collection
             Only fields with a label (provided in {FormOptions}) are
             returned as columns of the table.
     
+        :param Array items: The items as returned by the collection JSON view.
         :return: HTML ready to be included into the DOM.
         :rtype: string
     .. js:function:: render_item(item)
