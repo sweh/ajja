@@ -2,13 +2,6 @@
 Introduction
 ============
 
-
-Why gocept.jsform
-=================
-
-History of `gocept.jsform`. Why did we write another form library?
-
-
 .. _installation:
 
 Installation

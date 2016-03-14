@@ -88,6 +88,10 @@ As you can see the generated HTML contains CSS classes compatible with
 `Bootstrap <http://getbootstrap.com/>`_, thus including the Bootstrap CSS is
 enough to make this form look pretty.
 
+
+Customizing form fields
+=======================
+
 If you want to display a label next to each input field, declare ``title`` as
 required and to use a textarea for ``description``, you can call ``form.load``
 with an additional options dict like
@@ -101,3 +105,26 @@ with an additional options dict like
         title: {"label": "Title", "required": true},
         description: {"label": "Body", "template": "form_text"}
     });
+
+
+Initializing form without AJAX request
+======================================
+
+Instead of loading data from an REST endpoint you can also provide the JSON
+data directly to the ``load`` function
+
+.. _code-quickstart-load-data-directly:
+
+.. code-block:: javascript
+
+    var form = new gocept.jsform.Form("form")
+    form.load(
+        {"title": "My brand new form", "description": ""},
+        {
+            title: {"label": "Title", "required": true},
+            description: {"label": "Body", "template": "form_text"
+        }
+    });
+
+Note, that you will need to provide a :ref:`save url <customization-save_url>`
+in order to make the automatic pushes on field change work.

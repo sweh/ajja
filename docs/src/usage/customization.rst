@@ -6,6 +6,8 @@ There are various options which can be passed to customize the HTML output and
 the behaviour of *gocept.jsform*.
 
 
+.. _customization-save_url:
+
 Providing a save url for the server
 ===================================
 
@@ -19,6 +21,8 @@ save to::
 The server end point at ``save_url`` is expected to implement
 :doc:`gocept.jsform's communication protocol <protocol>`.
 
+
+.. _customization-form_template:
 
 Customizing the form template
 =============================
@@ -42,6 +46,7 @@ containers for all or just some of the fields::
 This will replace the ``span`` containers with ids ``firstname`` and
 ``lastname`` with the appropriate ``input`` fields.
 
+.. _customization-field-widgets:
 
 Customizing field widgets
 =========================
@@ -103,17 +108,3 @@ You can also specify a label or other options for the fields::
               {firstname: {template: 'form_string_special',
                            label: 'First name',
                            default: 'Max'}});
-
-
-Backlog of Mind
-===============
-
-Alternative: Save-URL but no Load-URL (prefill directly when calling ``load``)::
-
-    form.load(
-        {firstName: '', // will result in a input field with type="text"
-         title: [{id: 'mr', value: 'Mister'},
-                 {id: 'mrs', value: 'Miss', selected: true}], // will result in a select box
-         needs_glasses: false}); // will result in a checkbox
-
-Customization: Adding custom templates (overwriting default / additional templates)
