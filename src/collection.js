@@ -53,7 +53,7 @@
                         widget.del_item(node);
                     }
                 }
-            },
+            }
         ],
 
         /* The default form actions. */
