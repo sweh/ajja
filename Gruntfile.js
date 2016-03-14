@@ -45,7 +45,7 @@ module.exports = function (grunt) {
                     vendor: 'lib/bower.js',
                     styles: 'bower_components/bootstrap/dist/css/bootstrap.css',
                     junit: {
-                        path: 'report',
+                        path: process.env.CIRCLE_TEST_REPORTS,
                         consolidate: true
                     },
                     template: require('grunt-template-jasmine-istanbul'),
