@@ -119,19 +119,32 @@
          */
         reload: function () {
             var self = this;
-            $('#collection').empty();
             $.ajax({
                 url: self.collection_url,
                 type: 'GET',
                 dataType: 'json'
             }).done(function (items) {
-                $('#collection').html(self.get_collection_head(items));
-                $.each(items, function (index, item) {
-                    self.render_item(item);
-                });
-                $(self).trigger('after-load');
+                self.render(items);
             });
             return self;
+        },
+
+        /**
+         * Render items in the DOM.
+         * @method
+         * @param {Array} items The items as returned by the collection JSON view.
+         * @returns {eval}
+         * @memberOf gocept.jsform.Collection.ListWidget
+         */
+        render: function (items) {
+            var self = this;
+            $('#collection').empty();
+            $('#collection').html(self.get_collection_head(items));
+            $.each(items, function (index, item) {
+                self.render_item(item);
+            });
+            $(self).trigger('after-load');
+
         },
 
         /**

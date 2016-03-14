@@ -8,9 +8,10 @@
 
     run = function (event) {
         $('#form').remove();
+        $('#my_collection').remove();
         var button = $(event.currentTarget),
             code_block = button.prev();
-        button.after('<div id="form"></div>');
+        button.after('<div id="my_collection"></div>');
         eval(code_block.text());
     };
 
@@ -25,6 +26,10 @@
     };
 
     $(document).ready(function () {
+        var messages = {
+            '0': {title: 'Schedule', 'description': 'Next week is getting important!'},
+            '1': {title: 'Meeting update', 'description': 'Things changed for tomorrow'},
+        };
         // Mock AJAX calls by gocept.jsform.Form
         gocept.jsform.Form.prototype.reload = function () {
             var self = this;
@@ -33,12 +38,28 @@
             }, 0);
         };
         gocept.jsform.Form.prototype._save = function (id, save_url, save_type, data) {
+            data = JSON.parse(data);
+            messages[save_url].description = data.description;
             var deferred_save = $.Deferred(), apply_response;
             apply_response = function () {
                 deferred_save.resolve({status: 'success'});
             };
             setTimeout(apply_response, 0);
             return deferred_save.promise();
+        };
+        gocept.jsform.ListWidget.prototype.reload = function () {
+            var self = this,
+                result = [];
+            $.each(messages, function (key, value) {
+                //id = id.toString();
+                result.push({resource: key, data: value});
+            });
+            self.render(result);
+        };
+
+        gocept.jsform.ListWidget.prototype.del_item = function (node) {
+            delete messages[node.data('resource')];
+            node.remove();
         };
 
         // Add run button to each JavaScript code block
