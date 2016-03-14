@@ -39,6 +39,7 @@
      * @param {string|function} template The template. Will be saved as a compiled Handlebars template. Can be a precompiled Handlebars template, the template as raw HTML or the id of a DOM node containing the HTML of the template.
      * @param {string} description A description for the template.
      * @throws {Exception} If no template could be handled for argument template.
+     * @returns {void}
      *
      * @example
      * gocept.jsform.register_template('my_template', '<dl><dt>{{name}}</dt><dd>{{value}}</dd></dl>');

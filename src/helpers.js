@@ -30,7 +30,7 @@
      *
      * @function
      * @memberOf gocept.jsform.Helpers
-     * @param {string} value
+     * @param {string} value The namespace to be declared.
      *
      * @example
      * gocept.jsform.declare_namespace('gocept.jsform');
@@ -45,7 +45,7 @@
      *
      * @function
      * @memberOf gocept.jsform.Helpers
-     * @param {*} value
+     * @param {*} value A value.
      * @returns {boolean}
      *
      * @example
@@ -59,8 +59,8 @@
      *
      * @function
      * @memberOf gocept.jsform.Helpers
-     * @param {*} value1
-     * @param {*} value2
+     * @param {*} value1 A value.
+     * @param {*} value2 A value.
      * @returns {*} value1 or value2
      *
      * @example

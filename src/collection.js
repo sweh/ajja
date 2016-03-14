@@ -137,6 +137,7 @@
         /**
          * Return the rendered HTML of the widgets header.
          * @method
+         * @param {Array} items The items as returned by the collection JSON view.
          * @returns {string} HTML ready to be included into the DOM.
          * @memberOf gocept.jsform.Collection.ListWidget
          */
@@ -489,6 +490,7 @@
          * returned as columns of the table.
          *
          * @method
+         * @param {Array} items The items as returned by the collection JSON view.
          * @returns {string} HTML ready to be included into the DOM.
          * @memberOf gocept.jsform.Collection.TableWidget
          */

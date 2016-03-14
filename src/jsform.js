@@ -69,6 +69,7 @@
          * @method
          * @param {string} msg The message to display.
          * @memberOf gocept.jsform.Form.Form
+         * @returns {void}
          */
         alert: function (msg) {
             alert(msg);
@@ -90,6 +91,7 @@
          * Expands the form_template into the DOM.
          * @method
          * @memberOf gocept.jsform.Form.Form
+         * @returns {void}
          */
         expand_form: function () {
             var self = this, form_template, form_options, form_code;
@@ -105,6 +107,7 @@
          * Wires the form DOM node and object.
          * @method
          * @memberOf gocept.jsform.Form.Form
+         * @returns {void}
          */
         create_form: function () {
             var self = this;
@@ -130,6 +133,7 @@
          * @param {string} [options.<field_name>.placeholder] Placeholder to the empty dropdown option.
          * @param {boolean} [options.<field_name>.disabled] true if field should be disabled.
          * @param {Object} [mapping] An optional mapping for the <ko.mapping> plugin.
+         * @returns {void}
          *
          * @example
          * form.load({'firstname': 'Robert', 'is_baby': true});
@@ -158,6 +162,7 @@
          * Collect sources from options and make them ovservable.
          * @method
          * @memberOf gocept.jsform.Form.Form
+         * @returns {void}
          */
         collect_sources: function () {
             var self = this;
