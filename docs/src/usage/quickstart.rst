@@ -287,6 +287,9 @@ The :js:class:`TableWidget` renders items in a HTML table.
 The server response is the same as for
 :ref:`ListWidgets <quickstart-server-response-list-widget>`.
 
+
+.. _quickstart-collection-tenplate-customization:
+
 Customizing the HTML output
 ---------------------------
 
@@ -294,7 +297,7 @@ It is possible to change the rendered HTML by overriding the default templates.
 Please refere to :js:func:`gocept.jsform.register_template` for information
 about how default templates are customized.
 
-The following default templates are used by :ref:`ListWidgets <quickstart-server-response-list-widget>`:
+The following default templates are used by :ref:`ListWidgets <quickstart-collection-listwidget>`:
 
     list
         The main template for the list collection.
@@ -312,16 +315,16 @@ The following default templates are used by :ref:`ListWidgets <quickstart-server
         Template for add or edit form (modal dialog) of an item.
 
 
-:ref:`GroupListWidgets <quickstart-server-response-grouplist-widget>` use these templates in addition:
+:ref:`GroupListWidgets <quickstart-collection-grouplistwidget>` use these templates in addition:
 
     group
         The main template for the group collection.
 
     group_item
-        Template for a group item. Contains one :ref:`ListWidgets <quickstart-server-response-list-widget>`.
+        Template for a group item. Contains one :ref:`ListWidgets <quickstart-collection-listwidget>`.
 
 
-:ref:`TableWidgets <quickstart-server-response-table-widget>` just use these templates:
+:ref:`TableWidgets <quickstart-collection-tablewidget>` just use these templates:
 
     table
         The main template for a table collection.
@@ -333,4 +336,4 @@ The following default templates are used by :ref:`ListWidgets <quickstart-server
         Template for a row of a table. Contains data and actions.
 
     list_item_edit
-        The same template as for :ref:`ListWidgets <quickstart-server-response-list-widget>`.
+        The same template as for :ref:`ListWidgets <quickstart-collection-listwidget>`.
