@@ -3,10 +3,11 @@ Usage
 =====
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 
     quickstart.rst
     protocol.rst
+    datatypes.rst
     customization.rst
     translation.rst
     connection.rst
