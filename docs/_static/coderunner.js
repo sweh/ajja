@@ -11,6 +11,7 @@
         $('#my_collection').remove();
         var button = $(event.currentTarget),
             code_block = button.prev();
+        button.after('<div id="form"></div>');
         button.after('<div id="my_collection"></div>');
         eval(code_block.text());
     };
@@ -27,8 +28,8 @@
 
     $(document).ready(function () {
         var messages = {
-            '0': {title: 'Schedule', 'description': 'Next week is getting important!'},
-            '1': {title: 'Meeting update', 'description': 'Things changed for tomorrow'},
+            'message/0': {title: 'Schedule', 'description': 'Next week is getting important!'},
+            'message/1': {title: 'Meeting update', 'description': 'Things changed for tomorrow'},
         };
         // Mock AJAX calls by gocept.jsform.Form
         gocept.jsform.Form.prototype.reload = function () {
