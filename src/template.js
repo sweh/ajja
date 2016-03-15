@@ -1,4 +1,4 @@
-/*global Class, gocept, Handlebars, ko, alert, jasmine, jQuery */
+/*global Class, gocept, Handlebars, ko, alert, jQuery */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 /**

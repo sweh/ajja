@@ -1,4 +1,4 @@
-/*global Class, gocept, Handlebars, ko, alert, jasmine, jQuery */
+/*global Class, gocept, Handlebars, ko, alert, jQuery */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 /**
@@ -629,13 +629,6 @@
                     } else if (data.status === 'success') {
                         validated.resolve(data);
                     } else {
-                        if ((data[0] === '<') && (jasmine === undefined)) {
-                            // HTML was returnd
-                            $('html head').remove();
-                            $('html body').remove();
-                            $('html').append($(data));
-                            return;
-                        }
                         $(self).trigger(
                             'unrecoverable-error',
                             self.t('error_could_not_parse_server_response')
