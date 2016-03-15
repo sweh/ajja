@@ -39,7 +39,12 @@
         };
         gocept.jsform.Form.prototype._save = function (id, save_url, save_type, data) {
             data = JSON.parse(data);
-            messages[save_url].description = data.description;
+            if (data.hasOwnProperty('title')) {
+                messages[save_url].title = data.title;
+            }
+            if (data.hasOwnProperty('description')) {
+                messages[save_url].description = data.description;
+            }
             var deferred_save = $.Deferred(), apply_response;
             apply_response = function () {
                 deferred_save.resolve({status: 'success'});

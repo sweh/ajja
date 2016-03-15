@@ -136,6 +136,7 @@ Rendering a Collection
 It is assumed, that you already :ref:`installed <installation>`
 `gocept.jsform`.
 
+.. _code-quickstart-collection-initialization:
 
 Add a placeholder inside your DOM
 
@@ -143,9 +144,10 @@ Add a placeholder inside your DOM
 
     <div id="my_collection"></div>
 
-Initialize the collection and load current state from server
+Initialize the collection (in this case a :js:class:`ListWidget`) and load
+current state from server
 
-.. _code-quickstart-collection-initialization:
+.. _code-quickstart-initialize-list-widget:
 
 .. code-block:: javascript
 
@@ -153,11 +155,15 @@ Initialize the collection and load current state from server
         '#my_collection',
         {collection_url: '/messages.json',
          default_form_actions: [],
-         form_options: {'description': {label: 'Body'}}}
-    );
+         form_options: {
+            'title': {label: 'Title'},
+            'description': {label: 'Body'}
+    }});
     collection.reload();
 
 The response from the server should look like
+
+.. _quickstart-server-response-list-widget:
 
 .. code-block:: json
 
@@ -206,3 +212,125 @@ containing a `gocept.jsform.Form` form.
 As you can see the generated HTML contains CSS classes compatible with
 `Bootstrap <http://getbootstrap.com/>`_, thus including the Bootstrap CSS is
 enough to make this form look pretty.
+
+The `form_options` argument can be used the same way as `options` for a
+:js:class:`Form` to customize the look and behaviour of the form that is used
+for adding and editing collection items.
+
+
+Collection types
+----------------
+
+.. _quickstart-collection-listwidget:
+
+ListWidget
+**********
+
+The :js:class:`ListWidget` renders items as HTML lists. List items are rendered
+as HTML definition lists. Please refer to the section
+:ref:`collection initialization <code-quickstart-collection-initialization>`
+for details about the default list widget.
+
+.. _quickstart-collection-grouplistwidget:
+
+GroupListWidget
+***************
+
+The :js:class:`GroupListWidget` behaves similar to the
+:ref:`ListWidget <quickstart-collection-listwidget>` except that it
+groups items by a defined attribute.
+
+.. _code-quickstart-initialize-grouplist-widget:
+
+.. code-block:: javascript
+
+    var collection = new gocept.jsform.GroupListWidget(
+        '#my_collection',
+        {group_by_key: 'title',
+         group_title_key: 'title',
+         collection_url: '/messages.json',
+         default_form_actions: [],
+         form_options: {
+            'title': {label: 'Title'},
+            'description': {label: 'Body'}
+    }});
+    collection.reload();
+
+Groups are created dynamically and items sorted into those groups by
+`group_by_key`. The title for the groups is taken from the attribute
+`group_title_key`.
+
+The server response is the same as for
+:ref:`ListWidgets <quickstart-server-response-list-widget>`.
+
+.. _quickstart-collection-tablewidget:
+
+TableWidget
+***********
+
+The :js:class:`TableWidget` renders items in a HTML table.
+
+.. _code-quickstart-initialize-table-widget:
+
+.. code-block:: javascript
+
+    var collection = new gocept.jsform.TableWidget(
+        '#my_collection',
+        {collection_url: '/messages.json',
+         default_form_actions: [],
+         form_options: {
+            'title': {label: 'Title'},
+            'description': {label: 'Body'}
+    }});
+    collection.reload();
+
+The server response is the same as for
+:ref:`ListWidgets <quickstart-server-response-list-widget>`.
+
+Customizing the HTML output
+---------------------------
+
+It is possible to change the rendered HTML by overriding the default templates.
+Please refere to :js:func:`gocept.jsform.register_template` for information
+about how default templates are customized.
+
+The following default templates are used by :ref:`ListWidgets <quickstart-server-response-list-widget>`:
+
+    list
+        The main template for the list collection.
+
+    list_item_wrapper
+        Wrapper template for each item of the collection.
+
+    list_item
+        Template for the content of an item.
+
+    list_item_action
+        Template for an item action (edit, delete).
+
+    list_item_edit
+        Template for add or edit form (modal dialog) of an item.
+
+
+:ref:`GroupListWidgets <quickstart-server-response-grouplist-widget>` use these templates in addition:
+
+    group
+        The main template for the group collection.
+
+    group_item
+        Template for a group item. Contains one :ref:`ListWidgets <quickstart-server-response-list-widget>`.
+
+
+:ref:`TableWidgets <quickstart-server-response-table-widget>` just use these templates:
+
+    table
+        The main template for a table collection.
+
+    table_head
+        Template for head part of the table.
+
+    table_row
+        Template for a row of a table. Contains data and actions.
+
+    list_item_edit
+        The same template as for :ref:`ListWidgets <quickstart-server-response-list-widget>`.
