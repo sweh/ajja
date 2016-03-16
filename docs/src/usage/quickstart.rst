@@ -4,14 +4,16 @@ Quick Start
 
 The following examples assume that there is a ``Message`` model on the server
 with ``title`` and ``description``. We further assume that the model is
-available via a REST API, therefore ``GET`` on ``message/id`` returns the
-current state in JSON, while ``POST`` on ``message/id`` accepts JSON to update
-the model.
+accessible through a REST API where an HTTP ``GET`` request for a message's
+URL, ``message/<id>``, returns JSON data representing the current values,
+while an HTTP ``POST`` request for ``message/<id>`` accepts JSON data to
+update the model.
 
-Side Note: Your models should have no required fields, since any user input is
-pushed to the server instantly for saving, i.e. some fields may be empty. This
-also means that `gocept.jsform` only supports editing, not creation of model
-objects, i.e. an empty instance must be created prior to editing.
+*Note*: Field values will be sent to the server one by one as they are edited.
+This means that if your model applies validation rules that consider multiple
+fields at the same time, you need to be careful to provide useful default
+values to make sure that any edits to form fields can be stored even if a
+model object has just been created.
 
 
 Rendering a Form
