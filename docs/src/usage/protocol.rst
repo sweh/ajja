@@ -23,7 +23,7 @@ the full response is expected to be the JSON-encoded field-value mapping:
 
 .. code-block:: javascript
 
-    {firstname: 'Jack', lastname: '', send_notifications: true, messages: 0}
+    {firstname: "Jack", lastname: "", send_notifications: true, messages: 0}
 
 
 Storing changes
@@ -39,7 +39,7 @@ resource URL by an XHR POST request:
 
 .. code-block:: javascript
 
-    {firstname: 'John'}
+    {firstname: "John"}
 
 In fact, this is an instance where the current implementation doesn't strictly
 assume a RESTful URL layout; there may be different URLs for loading and
@@ -69,14 +69,14 @@ success, the minimal body should read:
 
 .. code-block:: javascript
 
-    {status: 'success'}
+    {status: "success"}
 
 In the case of validation errors, the response is expected to convey an error
 message suitable to present to the user, e.g.
 
 .. code-block:: javascript
 
-    {status: 'error', msg: 'Not a valid email address'}
+    {status: "error", msg: "Not a valid email address"}
 
 The error message will be displayed by the widget that initiated the save
 request.
@@ -99,10 +99,10 @@ them statically through the form options <datatypes-sources>`:
 
 .. code-block:: javascript
 
-    {status: 'success',
+    {status: "success",
      sources: {subcategories: [
-         {token: 'sub-a1', title: 'Subcategory A.1'},
-         {token: 'sub-a2', title: 'Subcategory A.2'}
+         {token: "sub-a1", title: "Subcategory A.1"},
+         {token: "sub-a2", title: "Subcategory A.2"}
      ]}
     }
 
