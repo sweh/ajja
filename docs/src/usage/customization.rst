@@ -46,6 +46,13 @@ containers for all or just some of the fields::
 This will replace the ``span`` containers with ids ``firstname`` and
 ``lastname`` with the appropriate ``input`` fields.
 
+
+CSRF token
+==========
+
+XXX to be done, reference from protocol spec
+
+
 .. _customization-field-widgets:
 
 Customizing field widgets

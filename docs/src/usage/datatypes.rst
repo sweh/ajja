@@ -68,6 +68,16 @@ Its also possible to define a multiselect field. Just pass the attribute
                      {token: 'mrs', title: 'Mrs.'}],
             multiple: true}});
 
+If the possible values of a selection depend on the value of another field
+(subcategories of a category that can be selected from a choice, or a list of
+search results for a free-text search box), updated source lists can be
+returned with the server response to the respective save requests, e.g. the
+requests to save a new supercategory or a new search term. See also :ref:`the
+specification of the server protocol <protocol-updating-sources>`. This is a
+generic way to avoid preloading a huge amount of possible source data (which
+may not even be possible, as in the search-box example) as well as complex
+update logic inside client code.
+
 
 Rendering a Yes/No template for boolean fields
 ==============================================
