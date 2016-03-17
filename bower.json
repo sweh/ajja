@@ -8,7 +8,7 @@
     "src/templates.js",
     "src/template.js",
     "src/collection.js",
-    "src/jsform.js"
+    "src/form.js"
   ],
   "dependencies": {
     "knockout": "3.3.0",
