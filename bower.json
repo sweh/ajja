@@ -1,6 +1,6 @@
 {
   "name": "gocept.jsform",
-  "version": "3.0.1-dev.0",
+  "version": "3.0.1",
   "main": [
     "src/helpers.js",
     "src/localizations/en.js",
