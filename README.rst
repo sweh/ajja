@@ -19,11 +19,11 @@ The ajja distribution
    :alt: CodeCov
 
 .. image:: https://api.codacy.com/project/badge/grade/4f4968d89bda4e86af2c5d6a55fac31c
-   :target: https://www.codacy.com/app/sebastian-wehrmann/gocept-jsform
+   :target: https://www.codacy.com/app/sebastian-wehrmann/ajja
    :alt: Codacy
 
-.. image:: https://readthedocs.org/projects/ajja/badge/?version=stable
-   :target: http://ajja.readthedocs.org/en/stable
+.. image:: https://readthedocs.org/projects/ajja/badge/?version=latest
+   :target: http://ajja.readthedocs.org/en/latest
    :alt: Documentation
 
 ajja is a JavaScript library for simple creation of forms in your
