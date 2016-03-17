@@ -3,19 +3,19 @@
 Helpers
 =======
 
-.. currentmodule:: gocept.jsform
+.. currentmodule:: ajja
 
-.. js:function:: gocept.jsform.declare_namespace(value)
+.. js:function:: ajja.declare_namespace(value)
 
-    Helper to declare namespaces (e.g. `gocept.jsform`).
+    Helper to declare namespaces (e.g. `ajja`).
 
     :param string value: The namespace to be declared.
     
     .. code-block:: js
     
-        gocept.jsform.declare_namespace('gocept.jsform');
-        gocept.jsform.foo = 'bar';
-.. js:function:: gocept.jsform.isUndefinedOrNull(value)
+        ajja.declare_namespace('ajja');
+        ajja.foo = 'bar';
+.. js:function:: ajja.isUndefinedOrNull(value)
 
     Check whether value is undefined or null.
 
@@ -24,8 +24,8 @@ Helpers
     
     .. code-block:: js
     
-        gocept.jsform.isUndefinedOrNull('foo');
-.. js:function:: gocept.jsform.or(value1, value2)
+        ajja.isUndefinedOrNull('foo');
+.. js:function:: ajja.or(value1, value2)
 
     Simple OR function. Returns ``value1`` if its defined else ``value2``.
 
@@ -36,6 +36,6 @@ Helpers
     
     .. code-block:: js
     
-        gocept.jsform.or(null, 'asdf');
+        ajja.or(null, 'asdf');
 
 

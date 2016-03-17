@@ -2,11 +2,11 @@
 Contributing
 ============
 
-All open-source projects live through their community, so does `gocept.jsform`.
+All open-source projects live through their community, so does `ajja`.
 You are very welcome to contribute bug fixes and feature proposals. Please
 note the following guidelines:
 
-* `gocept.jsform` is hosted on github: http://github.com/gocept/gocept.jsform
+* `ajja` is hosted on github: http://github.com/gocept/ajja
 
 * Use github's issue tracker to submit bug fixes or feature proposals.
 

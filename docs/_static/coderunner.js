@@ -31,14 +31,14 @@
             'message/0': {title: 'Schedule', 'description': 'Next week is getting important!'},
             'message/1': {title: 'Meeting update', 'description': 'Things changed for tomorrow'},
         };
-        // Mock AJAX calls by gocept.jsform.Form
-        gocept.jsform.Form.prototype.reload = function () {
+        // Mock AJAX calls by ajja.Form
+        ajja.Form.prototype.reload = function () {
             var self = this;
             setTimeout(function () {
                 self.finish_load({"title": "", "description": ""});
             }, 0);
         };
-        gocept.jsform.Form.prototype._save = function (id, save_url, save_type, data) {
+        ajja.Form.prototype._save = function (id, save_url, save_type, data) {
             data = JSON.parse(data);
             if (data.hasOwnProperty('title')) {
                 messages[save_url].title = data.title;
@@ -53,7 +53,7 @@
             setTimeout(apply_response, 0);
             return deferred_save.promise();
         };
-        gocept.jsform.ListWidget.prototype.reload = function () {
+        ajja.ListWidget.prototype.reload = function () {
             var self = this,
                 result = [];
             $.each(messages, function (key, value) {
@@ -63,7 +63,7 @@
             self.render(result);
         };
 
-        gocept.jsform.ListWidget.prototype.del_item = function (node) {
+        ajja.ListWidget.prototype.del_item = function (node) {
             delete messages[node.data('resource')];
             node.remove();
         };

@@ -1,8 +1,8 @@
-/*global jQuery, gocept, confirm */
+/*global jQuery, ajja, confirm */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 /**
- * @module gocept.jsform.Collection
+ * @module ajja.Collection
  */
 
 (function ($) {
@@ -12,7 +12,7 @@
      * Turn any DOM elements matched by node_selector into ListWidgets.
      * @class
      * @extends TemplateHandler
-     * @memberOf gocept.jsform.Collection
+     * @memberOf ajja.Collection
      * @name ListWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
      * @param {Object} options An object containing options for the widget.
@@ -27,12 +27,12 @@
      *
      * @example
      * $(body).append('<div id="my_list_widget"></div>');
-     * var list_widget = new gocept.jsform.ListWidget(
+     * var list_widget = new ajja.ListWidget(
      *     '#my_list_widget',
      *     {collection_url: '/list.json'}
      * );
      */
-    gocept.jsform.ListWidget = gocept.jsform.TemplateHandler.$extend({
+    ajja.ListWidget = ajja.TemplateHandler.$extend({
 
         base_template: 'list',
 
@@ -94,19 +94,19 @@
 
             node.append(template({}));
             self.list_collection = node.find('#collection');
-            self.collection_url = gocept.jsform.or(
+            self.collection_url = ajja.or(
                 options.collection_url,
                 node.data('collection-url')
             );
 
-            self.template = gocept.jsform.or(
+            self.template = ajja.or(
                 node.data('template'),
                 'list_item'
             );
-            self.jsform_template = node.data('form-template');
-            self.jsform_options = gocept.jsform.or(
+            self.form_template = node.data('form-template');
+            self.form_options = ajja.or(
                 node.data('form-options'),
-                gocept.jsform.or(options.form_options, {})
+                ajja.or(options.form_options, {})
             );
             self.render_form_actions();
         },
@@ -115,7 +115,7 @@
          * Reload the widget. Retrieve data from the server and render items in DOM.
          * @method
          * @returns {Object} The widget instance.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         reload: function () {
             var self = this;
@@ -134,7 +134,7 @@
          * @method
          * @param {Array} items The items as returned by the collection JSON view.
          * @returns {eval}
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         render: function (items) {
             var self = this;
@@ -152,7 +152,7 @@
          * @method
          * @param {Array} items The items as returned by the collection JSON view.
          * @returns {string} HTML ready to be included into the DOM.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         get_collection_head: function (items) {
             // Subclasses of ListWidget return non-empty content for collection
@@ -162,7 +162,7 @@
         /**
          * Render the form actions and bind a click handler to them.
          * @method
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         render_form_actions: function () {
             var self = this,
@@ -188,7 +188,7 @@
          *
          * @method
          * @param {Object} node The jQuery DOM node of the item with the actions.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         apply_item_actions: function (node) {
             var self = this;
@@ -206,7 +206,7 @@
          *
          * @method
          * @param {Object} item An item as returned by the collection JSON view.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          * @returns {Object} jQuery DOM node to the rendered item.
          */
         render_item: function (item) {
@@ -227,7 +227,7 @@
          *
          * @method
          * @param {Object} item An item as returned by the collection JSON view.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          * @returns {Object} jQuery DOM node to items container.
          */
         get_collection: function (item) {
@@ -241,7 +241,7 @@
          *
          * @method
          * @param {Object} node The jQuery DOM node pointing to the item.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         render_item_content: function (node) {
             var self = this,
@@ -271,7 +271,7 @@
          *
          * @method
          * @throws {Exception} if server does not return either a url from where to fetch the data of the item or the data directly.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         add_item: function () {
             var self = this;
@@ -299,7 +299,7 @@
          *
          * @method
          * @param {Object} node The jQuery DOM node pointing to the item.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         edit_item: function (node) {
             var self = this,
@@ -314,9 +314,9 @@
                                    'Speichern und Schließen'
             }));
             form_dialog = $('body').children().last();
-            object_form = new gocept.jsform.Form('object-jsform', {
+            object_form = new ajja.Form('object-form', {
                 save_url: node.data('resource'),
-                form_template: self.jsform_template,
+                form_template: self.form_template,
                 language: 'de'
             });
             self.closing = false;
@@ -329,11 +329,11 @@
             });
             $.each(node.data('data'), function (key, value) {
                 // Only display data in form where a label exists.
-                if (self.jsform_options[key]) {
+                if (self.form_options[key]) {
                     data[key] = value;
                 }
             });
-            object_form.load(data, self.jsform_options);
+            object_form.load(data, self.form_options);
             $(self).trigger('before-edit', [object_form.node, node]);
             form_dialog.bind('shown.bs.modal', function () {
                 $(self.node).trigger('item-edit-form-loaded');
@@ -348,7 +348,7 @@
          * @param {Object} ev The close event.
          * @param {Object} object_form The :js:class:`Form` instance.
          * @param {Object} form_dialog The jQuery DOM node of the form.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         close_object_edit_form: function (ev, object_form, form_dialog) {
             var self = this;
@@ -370,7 +370,7 @@
          *
          * @method
          * @param {Object} node The jQuery DOM node of the item     to be deleted.
-         * @memberOf gocept.jsform.Collection.ListWidget
+         * @memberOf ajja.Collection.ListWidget
          */
         del_item: function (node) {
             // XXX Error handling!
@@ -392,7 +392,7 @@
      *
      * @class
      * @extends ListWidget
-     * @memberOf gocept.jsform.Collection
+     * @memberOf ajja.Collection
      * @name GroupListWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
      * @param {Object} options An object containing options for the widget.
@@ -409,12 +409,12 @@
      *
      * @example
      * $(body).append('<div id="my_list_widget"></div>');
-     * var list_widget = new gocept.jsform.GroupListWidget(
+     * var list_widget = new ajja.GroupListWidget(
      *     '#my_list_widget',
      *     {collection_url: '/list.json'}
      * );
      */
-    gocept.jsform.GroupListWidget = gocept.jsform.ListWidget.$extend({
+    ajja.GroupListWidget = ajja.ListWidget.$extend({
 
         base_template: 'group',
 
@@ -436,7 +436,7 @@
          *
          * @method
          * @param {Object} item An item as returned by the collection JSON view.
-         * @memberOf gocept.jsform.Collection.GroupListWidget
+         * @memberOf ajja.Collection.GroupListWidget
          * @returns {Object} jQuery DOM node to items container.
          */
         get_collection: function (item) {
@@ -465,7 +465,7 @@
      *
      * @class
      * @extends ListWidget
-     * @memberOf gocept.jsform.Collection
+     * @memberOf ajja.Collection
      * @name TableWidget
      * @param {string} node_selector The selector of the DOM node where the widget should be rendered.
      * @param {Object} options An object containing options for the widget.
@@ -481,12 +481,12 @@
      *
      * @example
      * $(body).append('<div id="my_list_widget"></div>');
-     * var list_widget = new gocept.jsform.TableWidget(
+     * var list_widget = new ajja.TableWidget(
      *     '#my_list_widget',
      *     {collection_url: '/list.json'}
      * );
      */
-    gocept.jsform.TableWidget = gocept.jsform.ListWidget.$extend({
+    ajja.TableWidget = ajja.ListWidget.$extend({
 
         base_template: 'table',
 
@@ -505,7 +505,7 @@
          * @method
          * @param {Array} items The items as returned by the collection JSON view.
          * @returns {string} HTML ready to be included into the DOM.
-         * @memberOf gocept.jsform.Collection.TableWidget
+         * @memberOf ajja.Collection.TableWidget
          */
         get_collection_head: function (items) {
             var self = this,
@@ -516,7 +516,7 @@
             $.each(items[0].data, function (key, value) {
                 // Gather columns (that are not omitted) for table head
                 if (self.omit.indexOf(key) === -1) {
-                    columns[key] = self.jsform_options[key].label || key;
+                    columns[key] = self.form_options[key].label || key;
                 }
             });
             return self.get_template('table_head')(columns);
@@ -527,7 +527,7 @@
          *
          * @method
          * @param {Object} item An item as returned by the collection JSON view.
-         * @memberOf gocept.jsform.Collection.TableWidget
+         * @memberOf ajja.Collection.TableWidget
          * @returns {Object} jQuery DOM node to the rendered item.
          */
         render_item: function (item) {
@@ -555,7 +555,7 @@
          *
          * @method
          * @param {Object} node The jQuery DOM node pointing to the table row.
-         * @memberOf gocept.jsform.Collection.TableWidget
+         * @memberOf ajja.Collection.TableWidget
          */
         translate_boolean_cells: function (node) {
             // Translate the contents of boolean cells to icons

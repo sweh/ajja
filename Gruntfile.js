@@ -31,13 +31,13 @@ module.exports = function (grunt) {
             }
         },
         jasmine : {
-            jsform: {
+            ajja: {
                 src : [
                     'src/helpers.js',
                     'src/localizations/*.js',
                     'src/templates.js',
                     'src/template.js',
-                    'src/jsform.js',
+                    'src/form.js',
                     'src/collection.js'
                 ],
                 options : {
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                 'src/localization/*.js',
                 'src/template.js',
                 'src/collection.js',
-                'src/jsform.js',
+                'src/form.js',
                 'tests/*.js'
             ],
         },
@@ -110,7 +110,7 @@ module.exports = function (grunt) {
         handlebars: {
             compile: {
                 options: {
-                    namespace: "gocept.jsform.templates",
+                    namespace: "ajja.templates",
                     processName: function (filePath) {
                         return filePath.split('/')[1].replace('.hbs', '');
                     }
@@ -141,10 +141,10 @@ module.exports = function (grunt) {
         'handlebars:compile'
     ]);
     grunt.registerTask('test', [
-        'jasmine:jsform:build',
+        'jasmine:ajja:build',
         'connect',
     ]);
     grunt.registerTask('phantomjs', [
-        'jasmine:jsform'
+        'jasmine:ajja'
     ]);
 };

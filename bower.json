@@ -1,5 +1,5 @@
 {
-  "name": "gocept.jsform",
+  "name": "ajja",
   "version": "3.0.2-dev.0",
   "main": [
     "src/helpers.js",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/gocept/gocept.jsform.git"
+    "url": "git://github.com/gocept/ajja.git"
   },
   "authors": [
     {"name": "Sebastian Wehrmann", "email": "sw@gocept.com"},

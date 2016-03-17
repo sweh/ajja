@@ -1,11 +1,11 @@
-/*global describe, document, $, gocept, jasmine, beforeEach, it, expect */
+/*global describe, document, $, ajja, jasmine, beforeEach, it, expect */
 /*global waits, runs, waitsFor, afterEach, spyOn, Handlebars */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 describe("Form Plugin", function () {
     "use strict";
     var form, alert, set_save_response, set_load_response,
-        default_templates = $.extend({}, gocept.jsform.templates);
+        default_templates = $.extend({}, ajja.templates);
 
     set_save_response = function (response, trigger) {
         /*
@@ -19,7 +19,7 @@ describe("Form Plugin", function () {
             apply_response = function () {
                 response(deferred_save, id, $.parseJSON(data)[id]);
             };
-            if (gocept.jsform.isUndefinedOrNull(trigger)) {
+            if (ajja.isUndefinedOrNull(trigger)) {
                 setTimeout(apply_response, 1);
             } else {
                 trigger.always(apply_response);
@@ -38,17 +38,17 @@ describe("Form Plugin", function () {
 
     beforeEach(function () {
         $('body').append($('<div id="my_form"></div>'));
-        form = new gocept.jsform.Form('my_form', {});
+        form = new ajja.Form('my_form', {});
         alert = spyOn(form, 'alert');
     });
 
     afterEach(function () {
         $('#my_form').remove();
-        $.extend(gocept.jsform.templates, default_templates);
+        $.extend(ajja.templates, default_templates);
     });
 
     it("should throw an error when ID was not found", function () {
-        expect(function () { new gocept.jsform.Form('foobar',  {}); }).toThrow();
+        expect(function () { new ajja.Form('foobar',  {}); }).toThrow();
     });
 
     it("should inject a form tag into html", function () {
@@ -60,7 +60,7 @@ describe("Form Plugin", function () {
 
     it("can get a cusomized action url", function () {
         var options = {action: 'http://foo'};
-        form = new gocept.jsform.Form('my_form', options);
+        form = new ajja.Form('my_form', options);
         form.load();
         expect(form.node.attr('action')).toEqual('http://foo');
     });
@@ -174,7 +174,7 @@ describe("Form Plugin", function () {
             done();
         });
         form.load(
-            '/fanstatic/gocept.jsform.tests/testdata.json',
+            '/fanstatic/ajja.tests/testdata.json',
             {title: {source: [
                 {token: 'mr', title: 'Mr.'},
                 {token: 'mrs', title: 'Mrs.'}
@@ -220,7 +220,7 @@ describe("Form Plugin", function () {
     describe("Disabled field for", function () {
 
         it("all fields", function () {
-            form = new gocept.jsform.Form('my_form', {disabled: true});
+            form = new ajja.Form('my_form', {disabled: true});
             form.load({firstname: 'Sebastian', text: 'asdf'},
                       {text: {template: 'form_text'}});
             expect($('#my_form input').attr('disabled')).toEqual('disabled');
@@ -364,8 +364,8 @@ describe("Form Plugin", function () {
                 '  </td><td class="lastname">',
                 '    <span id="field-lastname" />',
                 '</td></tr></table></form>'].join(''));
-            gocept.jsform.register_template('form', template);
-            form = new gocept.jsform.Form('my_form');
+            ajja.register_template('form', template);
+            form = new ajja.Form('my_form');
             form.load({firstname: 'Max', lastname: 'Mustermann'});
             expect($('#my_form .firstname input').val()).toEqual('Max');
             expect($('#my_form .lastname input').val()).toEqual('Mustermann');
@@ -379,7 +379,7 @@ describe("Form Plugin", function () {
                 '  <input type="radio" name="{{name}}" data-bind="checked: {{name}}" />',
                 '</div>'].join(''));
 
-            form = new gocept.jsform.Form('my_form');
+            form = new ajja.Form('my_form');
             form.register_template('form_boolean', template);
             form.load({needs_glasses: false});
             expect($('#my_form input[type=checkbox]').length).toEqual(0);
@@ -914,12 +914,12 @@ describe("Form Plugin", function () {
                 '  <button id="mybutton"/>',
                 '</form>'].join(''));
 
-            gocept.jsform.register_template('form', template);
-            form = new gocept.jsform.Form('my_form');
+            ajja.register_template('form', template);
+            form = new ajja.Form('my_form');
             form.load({name: 'Max'});
 
             submitted = false;
-            $('#mybutton').jsform_submit_button(function () {
+            $('#mybutton').form_submit_button(function () {
                 submitted = true;
             });
 

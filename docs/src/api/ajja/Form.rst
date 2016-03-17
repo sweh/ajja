@@ -3,9 +3,9 @@
 Form
 ====
 
-.. currentmodule:: gocept.jsform
+.. currentmodule:: ajja
 
-.. js:function:: $.fn.jsform_submit_button()
+.. js:function:: $.fn.form_submit_button()
 
     Make a form submit button an ajax submit button. This makes sure that when clicking submit, all fields are saved via ajax.
 
@@ -13,7 +13,7 @@ Form
     
     .. code-block:: js
     
-        $('#form input[type=submit]').jsform_submit_button()
+        $('#form input[type=submit]').form_submit_button()
 
 .. js:class:: Form (id[, options])
 
@@ -30,7 +30,7 @@ Form
     .. code-block:: js
     
         $(body).append('<div id="form"></div>');
-        var form = new gocept.jsform.Form('form');
+        var form = new ajja.Form('form');
 
     .. js:function:: alert(msg)
     

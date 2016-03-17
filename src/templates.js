@@ -1,18 +1,17 @@
-this["gocept"] = this["gocept"] || {};
-this["gocept"]["jsform"] = this["gocept"]["jsform"] || {};
-this["gocept"]["jsform"]["templates"] = this["gocept"]["jsform"]["templates"] || {};
+this["ajja"] = this["ajja"] || {};
+this["ajja"]["templates"] = this["ajja"]["templates"] || {};
 
-this["gocept"]["jsform"]["templates"]["form"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<form method=\"POST\" action=\""
     + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data}) : helper)))
     + "\" id=\""
     + alias4(((helper = (helper = helpers.form_id || (depth0 != null ? depth0.form_id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"form_id","hash":{},"data":data}) : helper)))
-    + "\"\n      class=\"jsform form-horizontal\">\n<div class=\"statusarea\"></div>\n</form>\n";
+    + "\"\n      class=\"ajja form-horizontal\">\n<div class=\"statusarea\"></div>\n</form>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["form_boolean"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_boolean"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -26,7 +25,7 @@ this["gocept"]["jsform"]["templates"]["form_boolean"] = Handlebars.template({"1"
     + "\" />\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["form_field_wrapper"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_field_wrapper"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div class=\"field form-group\" id=\"field-"
@@ -40,7 +39,7 @@ this["gocept"]["jsform"]["templates"]["form_field_wrapper"] = Handlebars.templat
     + "\n    </div>\n    <div class=\"col-sm-offset-3 col-sm-9\">\n        <div class=\"help-block error\"></div>\n    </div>\n</div>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["form_multiselect"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_multiselect"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -60,7 +59,7 @@ this["gocept"]["jsform"]["templates"]["form_multiselect"] = Handlebars.template(
     + ") {\n                       option.disabled = true;\n                     } else if (item) {\n                       option.value = item.token;\n                     }\n                   }\">\n</select>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["form_number"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_number"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -74,7 +73,7 @@ this["gocept"]["jsform"]["templates"]["form_number"] = Handlebars.template({"1":
     + " class=\"form-control\" value=\"\" />\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["form_object"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_object"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -94,7 +93,7 @@ this["gocept"]["jsform"]["templates"]["form_object"] = Handlebars.template({"1":
     + ") {\n                       option.disabled = true;\n                     } else if (item) {\n                       option.value = item.token;\n                     }\n                   },\n                   allowValueUnset: true\">\n</select>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["form_radio_list"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
+this["ajja"]["templates"]["form_radio_list"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : {}, alias4=helpers.helperMissing, alias5="function";
 
   return "    <div class=\"checkbox\">\n        <input type=\"radio\" id=\""
@@ -124,7 +123,7 @@ this["gocept"]["jsform"]["templates"]["form_radio_list"] = Handlebars.template({
   return ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.source : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"useData":true,"useDepths":true});
 
-this["gocept"]["jsform"]["templates"]["form_string"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_string"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -138,7 +137,7 @@ this["gocept"]["jsform"]["templates"]["form_string"] = Handlebars.template({"1":
     + " class=\"form-control\" value=\"\" />\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["form_text"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_text"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -154,11 +153,11 @@ this["gocept"]["jsform"]["templates"]["form_text"] = Handlebars.template({"1":fu
     + "\"></textarea>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["group"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["group"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"panel-group\" id=\"collection\" role=\"tablist\" aria-multiselectable=\"true\">\n</div>\n<div id=\"form-actions\"></div>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["group_item"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["group_item"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div class=\"panel panel-default group-item "
@@ -180,11 +179,11 @@ this["gocept"]["jsform"]["templates"]["group_item"] = Handlebars.template({"comp
     + "\"></ul>\n  </div>\n</div>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["list"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["list"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div><ul class=\"list-group list-collection nav nav-stacked\" id=\"collection\"></ul></div>\n<div id=\"form-actions\"></div>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["list_item"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["list_item"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
   return "  <dt>"
@@ -200,7 +199,7 @@ this["gocept"]["jsform"]["templates"]["list_item"] = Handlebars.template({"1":fu
     + "</dl>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["list_item_action"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["list_item_action"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<a class=\"btn btn-default btn-sm "
@@ -212,17 +211,17 @@ this["gocept"]["jsform"]["templates"]["list_item_action"] = Handlebars.template(
     + "\n</a>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["list_item_edit"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["list_item_edit"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div id=\"object-edit-form\" class=\"modal fade\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-lg\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Schlie&szlig;en</span></button>\n        <h4 class=\"modal-title\">"
     + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
-    + "</h4>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"object-edit\">\n          <form id=\"object-jsform\"></form>\n          <button type=\"button\" data-dismiss=\"modal\"\n                  id=\"close-object-edit-form\" class=\"btn btn-primary\"\n            >"
+    + "</h4>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"object-edit\">\n          <form id=\"object-form\"></form>\n          <button type=\"button\" data-dismiss=\"modal\"\n                  id=\"close-object-edit-form\" class=\"btn btn-primary\"\n            >"
     + alias4(((helper = (helper = helpers.save_button_title || (depth0 != null ? depth0.save_button_title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"save_button_title","hash":{},"data":data}) : helper)))
     + "</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["list_item_wrapper"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["list_item_wrapper"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "    <a data-action=\""
@@ -244,11 +243,11 @@ this["gocept"]["jsform"]["templates"]["list_item_wrapper"] = Handlebars.template
     + "  </span>\n  <span class=\"content\" />\n</li>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["table"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["table"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div>\n    <table id=\"collection\"></table>\n</div>\n<div id=\"form-actions\"></div>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["table_head"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["table_head"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.escapeExpression;
 
   return "      <th class=\""
@@ -264,7 +263,7 @@ this["gocept"]["jsform"]["templates"]["table_head"] = Handlebars.template({"1":f
     + "    <th></th>\n    <th></th>\n  </tr>\n</thead>\n";
 },"useData":true});
 
-this["gocept"]["jsform"]["templates"]["table_row"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["table_row"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.escapeExpression;
 
   return "    <td class=\""

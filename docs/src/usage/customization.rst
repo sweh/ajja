@@ -3,7 +3,7 @@ Customization
 =============
 
 There are various options which can be passed to customize the HTML output and
-the behaviour of *gocept.jsform*.
+the behaviour of *ajja*.
 
 
 .. _customization-save_url:
@@ -11,15 +11,15 @@ the behaviour of *gocept.jsform*.
 Providing a save url for the server
 ===================================
 
-One great feature of *gocept.jsform* is that it automatically pushes changes
+One great feature of *ajja* is that it automatically pushes changes
 in your form fields to the server. By default, changes are sent to the same
 url that form data was loaded from. You can also specify a separate url to
 save to::
 
-    var form = new gocept.jsform.Form('form', {save_url: '/save.json'});
+    var form = new ajja.Form('form', {save_url: '/save.json'});
 
 The server end point at ``save_url`` is expected to implement
-:doc:`gocept.jsform's communication protocol <protocol>`.
+:doc:`ajja's communication protocol <protocol>`.
 
 
 .. _customization-form_template:
@@ -36,16 +36,16 @@ containers for all or just some of the fields:
 
 .. code-block:: javascript
 
-    gocept.jsform.register_template(
+    ajja.register_template(
       'form',
-      ['<form method="POST" action="{{action}}" id="{{form_id}}" class="jsform form-horizontal">',
+      ['<form method="POST" action="{{action}}" id="{{form_id}}" class="ajja form-horizontal">',
        '  <div class="statusarea"></div>',
        '  <table><tr><td><span id="field-firstname" /></td>',
        '  <td><span id="field-lastname" /></td></tr></table>',
        '</form>'].join('')
     );
 
-    var form = new gocept.jsform.Form('form');
+    var form = new ajja.Form('form');
     form.load({firstname: 'Max', lastname: 'Mustermann'});
 
 This will replace the ``span`` containers with ids ``firstname`` and
@@ -58,7 +58,7 @@ CSRF token
 ==========
 
 In order to prevent `Cross-site request forgery (CSRF) <https://en.wikipedia.org/wiki/Cross-site_request_forgery>`_,
-`gocept.jsform` can handle CSRF tokens and always submit them with every save
+`ajja` can handle CSRF tokens and always submit them with every save
 request. The token needs to be generated on the server and injected into the
 DOM in a hidden input field with the id ``csrf_token``.
 
@@ -87,9 +87,9 @@ prior to form initialization:
 
 .. code-block:: javascript
 
-    gocept.jsform.register_template('form_boolean', '<bool_template_html />');
-    gocept.jsform.register_template('form_string', '<string_template_html />');
-    var form = new gocept.jsform.Form('form');
+    ajja.register_template('form_boolean', '<bool_template_html />');
+    ajja.register_template('form_string', '<string_template_html />');
+    var form = new ajja.Form('form');
 
 For every string value, your input template would be rendered instead of the
 default input text field. Same for lists and boolean values.
@@ -105,7 +105,7 @@ Imagine you want checkboxes instead of a select field. You can use the
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form('form');
+    var form = new ajja.Form('form');
     form.load({kind: ''},
               {kind: {source: [
                           {token: 'dog', title: 'Dog'},
@@ -130,7 +130,7 @@ flag in the options:
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form('form');
+    var form = new ajja.Form('form');
     form.load({kind: 'Immutable'},
               {kind: {label: 'Immutable text',
                       disabled: true}});
@@ -142,7 +142,7 @@ Its possible to render the whole form with immutable fields, too:
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form('form', {disabled: true});
+    var form = new ajja.Form('form', {disabled: true});
     form.load({name: 'John Doe', gender: 'male'},
               {name: {label: 'Name'},
               gender: {label: 'Gender',

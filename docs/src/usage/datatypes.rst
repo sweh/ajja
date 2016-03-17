@@ -42,7 +42,7 @@ values accordingly for multiselect. An example will demonstrate the behaviour.
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form("form");
+    var form = new ajja.Form("form");
     form.load(
         {title: []},
         {save_url: 'message/1',
@@ -58,7 +58,7 @@ Its also possible to define a multiselect field. Just pass the attribute
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form("form");
+    var form = new ajja.Form("form");
     form.load(
         {title: []},
         {save_url: 'message/1',
@@ -91,7 +91,7 @@ Yes and No (or whatever you want to expess with the field).
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form("form"),
+    var form = new ajja.Form("form"),
         source = [{token: 'true', title: 'Yes'},
                   {token: 'false', title: 'No'}];
     form.load(

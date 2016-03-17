@@ -1,4 +1,4 @@
-/*global describe, beforeEach, afterEach, gocept, it, spyOn, expect, $*/
+/*global describe, beforeEach, afterEach, ajja, it, spyOn, expect, $*/
 /*jslint nomen: true, unparam: true, bitwise: true*/
 describe("List Widget", function () {
     "use strict";
@@ -7,7 +7,7 @@ describe("List Widget", function () {
 
     beforeEach(function () {
         $('body').append($('<div id="my_form"></div>'));
-        list = new gocept.jsform.ListWidget('#my_form');
+        list = new ajja.ListWidget('#my_form');
     });
 
     afterEach(function () {
@@ -38,7 +38,7 @@ describe("List Widget", function () {
     });
 
     it("should throw an error when selector was not found", function () {
-        expect(function () { new gocept.jsform.ListWidget('#foobar',  {}); }).toThrow();
+        expect(function () { new ajja.ListWidget('#foobar',  {}); }).toThrow();
     });
 
     it("should throw an error when malformed response is returned on add", function () {

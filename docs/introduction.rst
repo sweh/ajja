@@ -7,7 +7,7 @@ Introduction
 Installation
 ============
 
-`gocept.jsform` comes with files ready to be delivered to the browser. There
+`ajja` comes with files ready to be delivered to the browser. There
 is no need to browserify our code. It is, however, up to you to minify or
 bundle the library in the course of your deployment workflow.
 
@@ -17,11 +17,11 @@ bundle the library in the course of your deployment workflow.
 Installation via Bower (recommended)
 ------------------------------------
 
-The recommended way to install `gocept.jsform` is via bower.
+The recommended way to install `ajja` is via bower.
 
 .. code-block:: bash
 
-    bower install gocept.jsform
+    bower install ajja
 
 
 .. _installation-manual:
@@ -29,7 +29,7 @@ The recommended way to install `gocept.jsform` is via bower.
 Manual installation
 -------------------
 
-If you prefer to include `gocept.jsform` by hand, please make sure to include
+If you prefer to include `ajja` by hand, please make sure to include
 the files in the correct order. For the Javascript code, you can copy & paste
 the following snipped.
 
@@ -38,9 +38,9 @@ the following snipped.
     <script type="text/javascript" src="src/helpers.js"></script>
     <script type="text/javascript" src="src/templates.js"></script>
     <script type="text/javascript" src="src/collection.js"></script>
-    <script type="text/javascript" src="src/jsform.js"></script>
+    <script type="text/javascript" src="src/form.js"></script>
 
-You will also need to include the libaries needed by `gocept.jsform`. They are
+You will also need to include the libaries needed by `ajja`. They are
 listed in the depencencies section in `bower.json`.
 
 
@@ -54,14 +54,14 @@ Install it via pip.
 
 .. code-block:: bash
 
-    pip install gocept.jsform
+    pip install ajja
 
 Then, include the resources in your View.
 
 .. code-block:: python
 
-    from gocept.jsform import jsform
-    jsform.need()
+    from ajja import form
+    form.need()
 
 
 Migration
@@ -71,13 +71,13 @@ Migration
 From 2.x to 3.0.0
 -----------------
 
-``gocept.jsform`` now only accepts *precompiled* templates generated via
+``ajja`` now only accepts *precompiled* templates generated via
 ``Handlebars.compile()``. So if you have custom templates that you used with
-``gocept.jsform``, you now must wrap them into a ``Handlbars.compile()`` call.
+``ajja``, you now must wrap them into a ``Handlbars.compile()`` call.
 
 Furthermore, to overwrite the standard templates, just add your compiled
-templates to ``gocept.jsform.templates['<name_of_the_template>']`` or register
-them with ``gocept.jsform.register_template('<name_of_the_template>', '<your_html')``
+templates to ``ajja.templates['<name_of_the_template>']`` or register
+them with ``ajja.register_template('<name_of_the_template>', '<your_html')``
 (available from version 3.0.1).
 
 The built-in templates were renamed and the ``gocept_jsform_templates``

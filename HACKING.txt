@@ -1,6 +1,6 @@
-============================
-Developing for gocept.jsform
-============================
+===================
+Developing for ajja
+===================
 
 Installation::
 
@@ -45,7 +45,7 @@ You can make a JavaScript code block executable by giving it a label, i.e.
         var foobar;
 
 If marked this way the code block will be follow by a button labelled "Run",
-which executes the JavaScript. (AJAX calls of gocept.jsform are mocked.
+which executes the JavaScript. (AJAX calls of ajja are mocked.
 Also, a #form placeholder is provided.)
 
 

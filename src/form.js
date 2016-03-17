@@ -1,8 +1,8 @@
-/*global Class, gocept, Handlebars, ko, alert, jQuery */
+/*global Class, ajja, Handlebars, ko, alert, jQuery */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 /**
- * @module gocept.jsform.Form
+ * @module ajja.Form
  */
 
 (function ($) {
@@ -11,7 +11,7 @@
     /**
      * @class
      * @extends TemplateHandler
-     * @memberOf gocept.jsform.Form
+     * @memberOf ajja.Form
      * @name Form
      * @param {string} id The id of the DOM node where the form should be rendered.
      * @param {Object} [options] An object containing options for the form.
@@ -23,9 +23,9 @@
      *
      * @example
      * $(body).append('<div id="form"></div>');
-     * var form = new gocept.jsform.Form('form');
+     * var form = new ajja.Form('form');
      */
-    gocept.jsform.Form = gocept.jsform.TemplateHandler.$extend({
+    ajja.Form = ajja.TemplateHandler.$extend({
 
         status_message_fade_out_time: 3000,
 
@@ -45,7 +45,7 @@
             $.extend(self.options, options);
             self.csrf_token_id = 'csrf_token';
             self.mapping = {};
-            self.texts = gocept.jsform.locales[self.options.language];
+            self.texts = ajja.locales[self.options.language];
             self.create_form();
             $(self).on('server-responded', self.retry);
             self.unrecoverable_error = false;
@@ -68,7 +68,7 @@
          * Show a message to the user. (Alert box)
          * @method
          * @param {string} msg The message to display.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {void}
          */
         alert: function (msg) {
@@ -79,7 +79,7 @@
          * Translate a message into the language selected upon form initialization.
          * @method
          * @param {string} msgid The message id from the localization dict.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {string} The translated message.
          */
         t: function (msgid) {
@@ -90,7 +90,7 @@
         /**
          * Expands the form_template into the DOM.
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {void}
          */
         expand_form: function () {
@@ -106,7 +106,7 @@
         /**
          * Wires the form DOM node and object.
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {void}
          */
         create_form: function () {
@@ -120,7 +120,7 @@
         /**
          * Invokes data retrieval and form field initialization.
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @name load
          * @param {string} data_or_url The url to a JSON View returning the data for the form or the data itself.
          * @param {Options} [options] Options for each data field.
@@ -147,12 +147,12 @@
             } else {
                 self.initial_data = data_or_url;
             }
-            if (gocept.jsform.isUndefinedOrNull(options)) {
+            if (ajja.isUndefinedOrNull(options)) {
                 options = {};
             }
             $.extend(self.options, options);
             self.collect_sources();
-            if (!gocept.jsform.isUndefinedOrNull(mapping)) {
+            if (!ajja.isUndefinedOrNull(mapping)) {
                 self.mapping = mapping;
             }
             self.start_load();
@@ -161,7 +161,7 @@
         /**
          * Collect sources from options and make them ovservable.
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {void}
          */
         collect_sources: function () {
@@ -185,7 +185,7 @@
          * Update sources from data. Called on form reload.
          * @method
          * @param {Object} data The data returned from the ajax server request.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         update_sources: function (data) {
             /* Update sources from data. Called on form reload. */
@@ -208,7 +208,7 @@
          * initialized.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         start_load: function () {
             var self = this;
@@ -223,7 +223,7 @@
         /**
          * Invokes data retrieval from server and reloads the form.
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         reload: function () {
             var self = this;
@@ -241,7 +241,7 @@
          * After load handler. Save data retrieved from server on model.
          * @method
          * @param {Object} tokenized The data returned from the ajax server request.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         finish_load: function (tokenized) {
             var self = this,
@@ -265,13 +265,13 @@
          *
          * @method
          * @param {string} name The name of the field to check.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {boolean}
          */
         is_object_field: function (name) {
             var self = this;
-            if (gocept.jsform.isUndefinedOrNull(self.options[name]) ||
-                    gocept.jsform.isUndefinedOrNull(self.options[name].source)) {
+            if (ajja.isUndefinedOrNull(self.options[name]) ||
+                    ajja.isUndefinedOrNull(self.options[name].source)) {
                 return false;
             }
             if (self.options[name].template === 'form_radio_list') {
@@ -286,7 +286,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {Array|string} value Tokens from object field if multiple of one token.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {Array|Object} Returns either an array of source objects if field is multiple or exactly one source object.
          */
         resolve_object_field: function (name, value) {
@@ -310,7 +310,7 @@
          *
          * @method
          * @param {string} id The name of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         render_widget: function (id) {
             var self = this, widget, widget_options, widget_code,
@@ -324,8 +324,8 @@
             if (self.options.disabled) {
                 widget_options.disabled = true;
             }
-            if (!gocept.jsform.isUndefinedOrNull(widget_options.source) &&
-                    gocept.jsform.isUndefinedOrNull(widget_options.placeholder)) {
+            if (!ajja.isUndefinedOrNull(widget_options.source) &&
+                    ajja.isUndefinedOrNull(widget_options.placeholder)) {
                 if (widget_options.multiple) {
                     widget_options.placeholder = self.t(
                         'object_widget_placeholder_multiple'
@@ -365,11 +365,11 @@
          * like field is found.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         init_fields: function () {
             var self = this;
-            if (gocept.jsform.isUndefinedOrNull(self.data)) {
+            if (ajja.isUndefinedOrNull(self.data)) {
                 return;
             }
             $.each(self.data, function (id, value) {
@@ -389,7 +389,7 @@
          * updates to the server when form fields are submitted.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         update_bindings: function () {
             var self = this;
@@ -404,7 +404,7 @@
          * @note Needed for bindings and oberservation.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         create_model: function () {
             var self = this;
@@ -423,7 +423,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {Object} The DOM node of the field as a jQuery object.
          */
         field: function (name) {
@@ -436,13 +436,13 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {string} The label of the field.
          */
         label: function (name) {
             var self = this,
                 label = self.options[name].label;
-            if (gocept.jsform.isUndefinedOrNull(label)) {
+            if (ajja.isUndefinedOrNull(label)) {
                 label = '';
             }
             return label;
@@ -453,11 +453,11 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         subscribe: function (name) {
             var self = this;
-            if (!gocept.jsform.isUndefinedOrNull(self.subscriptions[name])) {
+            if (!ajja.isUndefinedOrNull(self.subscriptions[name])) {
                 self.subscriptions[name].dispose();
             }
             self.subscriptions[name] = self.model[name].subscribe(
@@ -471,7 +471,7 @@
          * Observe changes on all fields on model.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         observe_model_changes: function () {
             /* Observe changes on all fields on model. */
@@ -486,24 +486,24 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         get_widget: function (name) {
             var self = this,
                 type,
                 value = self.data[name];
-            if (!gocept.jsform.isUndefinedOrNull(self.options[name]) &&
-                    !gocept.jsform.isUndefinedOrNull(self.options[name].template)) {
+            if (!ajja.isUndefinedOrNull(self.options[name]) &&
+                    !ajja.isUndefinedOrNull(self.options[name].template)) {
                 return self.options[name].template;
             }
-            if (!gocept.jsform.isUndefinedOrNull(self.sources[name])) {
+            if (!ajja.isUndefinedOrNull(self.sources[name])) {
                 type = self.options[name].multiple ? 'multiselect' : 'object';
             } else if (value === null) {
                 type = 'string';
             } else {
                 type = typeof value;
             }
-            return gocept.jsform.or(
+            return ajja.or(
                 self.options[type + '_template'],
                 'form_' + type
             );
@@ -516,7 +516,7 @@
          * @param {string} name The name of the field.
          * @param {string} newValue The new value of the field.
          * @param {boolean} [silent] Do not notify the user about saving field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         save: function (name, newValue, silent) {
             var self = this, deferred_save;
@@ -539,7 +539,7 @@
          * @param {string} name The name of the field.
          * @param {string} newValue The new value of the field.
          * @param {boolean} [silent] Do not notify the user about saving field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {Object} A jQuery promise.
          */
         start_save: function (name, newValue, silent) {
@@ -584,7 +584,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} newValue The new value of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {Object} A jQuery promise.
          */
         save_and_validate: function (name, newValue) {
@@ -639,9 +639,9 @@
                 })
                 .fail(function (jqxhr, text_status, error_thrown) {
                     if (text_status === 'error' && error_thrown) {
-                        if (gocept.jsform.isUndefinedOrNull(jqxhr) ||
-                                gocept.jsform.isUndefinedOrNull(jqxhr.responseJSON) ||
-                                gocept.jsform.isUndefinedOrNull(jqxhr.responseJSON.message)) {
+                        if (ajja.isUndefinedOrNull(jqxhr) ||
+                                ajja.isUndefinedOrNull(jqxhr.responseJSON) ||
+                                ajja.isUndefinedOrNull(jqxhr.responseJSON.message)) {
                             $(self).trigger('unrecoverable-error', error_thrown);
                         } else {
                             $(self).trigger('unrecoverable-error', jqxhr.responseJSON.message);
@@ -676,7 +676,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {Array|string} value The selected values if field is multiple else the selected value.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {Array|string} The selected tokens if field is multiple else the selected token.
          */
         tokenize_object_fields: function (name, value) {
@@ -691,7 +691,7 @@
                 });
                 return tokens;
             }
-            if (gocept.jsform.isUndefinedOrNull(value)) {
+            if (ajja.isUndefinedOrNull(value)) {
                 return null;
             }
             return value.token;
@@ -702,7 +702,7 @@
          *
          * @method
          * @param {boolean} retry Chain retries? (default: true)
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {Object} A jQuery promise.
          */
         when_saved: function (retry) {
@@ -746,7 +746,7 @@
          * Retry saving the form.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         retry: function () {
             var self = this;
@@ -759,12 +759,12 @@
          * @note Fields are saved silently.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         save_remaining: function () {
             var self = this;
             $.each(self.data, function (id, value) {
-                if (gocept.jsform.isUndefinedOrNull(self.field(id).data('save'))) {
+                if (ajja.isUndefinedOrNull(self.field(id).data('save'))) {
                     self.save(id, value, true);
                 }
             });
@@ -776,7 +776,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} msg The message to announce.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         notify_field_error: function (name, msg) {
             var self = this, error_node, label;
@@ -799,7 +799,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         clear_field_error: function (name) {
             var self = this,
@@ -813,7 +813,7 @@
          * Announce HTTP faults during ajax calls.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         notify_server_error: function () {
             var self = this;
@@ -828,7 +828,7 @@
          * Clear any announcement of an HTTP fault during an ajax call.
          *
          * @method
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         clear_server_error: function () {
             var self = this;
@@ -841,7 +841,7 @@
          *
          * @method
          * @param {string} name The name of the field.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         notify_saving: function (name) {
             var self = this;
@@ -858,7 +858,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} msg_node The node where a saving progess message is displayed.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         clear_saving: function (name, msg_node) {
             var self = this;
@@ -872,7 +872,7 @@
          * @method
          * @param {string} name The name of the field.
          * @param {string} status The status to display. Should be one of 'success', 'info', 'warning' or 'danger'.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         highlight_field: function (name, status) {
             /* Highlight field with status. */
@@ -892,14 +892,14 @@
          * @param {string} message The message to display.
          * @param {string} status The status to display. Should be one of 'success', 'info', 'warning' or 'danger'.
          * @param {number} duration How long should the message be displayed (in milliseconds)
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          * @returns {Object} The created message as jQuery DOM node.
          */
         status_message: function (message, status, duration) {
             var self = this,
                 msg_node = $('<div class="alert"></div>').text(message);
             msg_node.addClass('alert-' + status);
-            if (!gocept.jsform.isUndefinedOrNull(duration)) {
+            if (!ajja.isUndefinedOrNull(duration)) {
                 msg_node.delay(duration).fadeOut(
                     self.status_message_fade_out_time,
                     function () { msg_node.remove(); }
@@ -915,10 +915,10 @@
          *
          * @method
          * @param {Object} msg_node DOM Node as returned by `status.message`.
-         * @memberOf gocept.jsform.Form.Form
+         * @memberOf ajja.Form.Form
          */
         clear_status_message: function (msg_node) {
-            if (!gocept.jsform.isUndefinedOrNull(msg_node)) {
+            if (!ajja.isUndefinedOrNull(msg_node)) {
                 msg_node.remove();
             }
         }
@@ -928,24 +928,24 @@
      * Make a form submit button an ajax submit button. This makes sure that when clicking submit, all fields are saved via ajax.
      *
      * @function
-     * @memberOf gocept.jsform.Form
+     * @memberOf ajja.Form
      *
      * @example
-     * $('#form input[type=submit]').jsform_submit_button()
+     * $('#form input[type=submit]').form_submit_button()
      *
      */
-    $.fn.jsform_submit_button = function (action) {
+    $.fn.form_submit_button = function (action) {
         return this.each(function () {
             $(this).on('click', function (event) {
-                var button = this, jsform;
+                var button = this, form;
                 button.disabled = true;
-                jsform = $(this).closest('form').data('form');
-                jsform.save_remaining();
-                jsform.when_saved().done(function () {
+                form = $(this).closest('form').data('form');
+                form.save_remaining();
+                form.when_saved().done(function () {
                     action.call(button);
                 }).fail(function (reason) {
-                    var msg = jsform.t('submit_fail');
-                    jsform.status_message(msg, 'danger', 5000);
+                    var msg = form.t('submit_fail');
+                    form.status_message(msg, 'danger', 5000);
                     button.disabled = false;
                 });
                 event.preventDefault();

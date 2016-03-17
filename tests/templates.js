@@ -1,17 +1,17 @@
-/*global describe, document, $, gocept, jasmine, beforeEach, it, expect */
+/*global describe, document, $, ajja, jasmine, beforeEach, it, expect */
 /*global waits, runs, waitsFor, afterEach, spyOn, Handlebars */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 describe("Template handler", function () {
     "use strict";
-    var handler, default_templates = $.extend({}, gocept.jsform.templates);
+    var handler, default_templates = $.extend({}, ajja.templates);
 
     beforeEach(function () {
-        handler = new gocept.jsform.TemplateHandler();
+        handler = new ajja.TemplateHandler();
     });
 
     afterEach(function () {
-        $.extend(gocept.jsform.templates, default_templates);
+        $.extend(ajja.templates, default_templates);
     });
 
     describe("has a function called `list_templates`, which", function () {
@@ -19,8 +19,8 @@ describe("Template handler", function () {
         it("lists registered templates with description.", function () {
             expect(handler.list_templates()).toContain({
                 id: 'form',
-                description: 'The base `gocept.jsform.Form` template',
-                template: gocept.jsform.templates.form
+                description: 'The base `ajja.Form` template',
+                template: ajja.templates.form
             });
         });
     });
@@ -29,7 +29,7 @@ describe("Template handler", function () {
 
         it("returns the compiled template for a given identifier.", function () {
             expect(handler.get_template('form')).toEqual(
-                gocept.jsform.templates.form
+                ajja.templates.form
             );
         });
 
@@ -50,7 +50,7 @@ describe("Template handler", function () {
             expect(handler.list_templates()).toContain({
                 id: 'my_template',
                 description: 'Dummy template',
-                template: gocept.jsform.templates.my_template
+                template: ajja.templates.my_template
             });
         });
 

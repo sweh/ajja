@@ -1,8 +1,8 @@
 {
-  "name": "gocept.jsform",
+  "name": "ajja",
   "version": "3.0.2-dev.0",
   "description": "Next generation forms in javascript",
-  "main": "src/jsform.js",
+  "main": "src/form.js",
   "directories": {
     "test": "tests"
   },
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gocept/gocept.jsform.git"
+    "url": "git+https://github.com/gocept/ajja.git"
   },
   "keywords": [
     "form",
@@ -22,9 +22,9 @@
   "author": "gocept gmbh & co. kg",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gocept/gocept.jsform/issues"
+    "url": "https://github.com/gocept/ajja/issues"
   },
-  "homepage": "https://github.com/gocept/gocept.jsform#readme",
+  "homepage": "https://github.com/gocept/ajja#readme",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-bower": "^0.20.0",

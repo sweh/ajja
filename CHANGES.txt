@@ -2,10 +2,18 @@
 Changelog
 =========
 
-3.0.2 (unreleased)
+4.0.0 (unreleased)
 ==================
 
-- Nothing changed yet.
+- `gocept.jsform` has a new name: `ajja`
+
+- There are also some API renamings that are incompatible to older versions:
+
+  - The base CSS class name for ajja forms is now `ajja` and not `jsform`.
+  - The jQuery function to initialize a submit button was renamed from
+    `jsform_submit_button()` to `form_submit_button`.
+  - If you include `ajja`s sources manually (which is not recommended), make
+    sure to now include `form.js` instead of `jsform.js`.
 
 
 3.0.1 (2016-03-17)

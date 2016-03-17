@@ -2,7 +2,7 @@
 Behaviour on Connection Issues
 ==============================
 
-If for any reason the server does not save requests made by `gocept.jsform`
+If for any reason the server does not save requests made by `ajja`
 (e.g. because there was a connection issue), those saves are retried once the
 server is handling saves again. This happens as soon as the first save was
 successful.

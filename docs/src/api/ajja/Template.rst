@@ -3,9 +3,9 @@
 Template
 ========
 
-.. currentmodule:: gocept.jsform
+.. currentmodule:: ajja
 
-.. js:function:: gocept.jsform.register_template(id, template, description)
+.. js:function:: ajja.register_template(id, template, description)
 
     Allows you to register your templates or change the default templates.
 
@@ -16,8 +16,8 @@ Template
     
     .. code-block:: js
     
-        gocept.jsform.register_template('my_template', '<dl><dt>{{name}}</dt><dd>{{value}}</dd></dl>');
-        var form = new gocept.jsform.Form('form');
+        ajja.register_template('my_template', '<dl><dt>{{name}}</dt><dd>{{value}}</dd></dl>');
+        var form = new ajja.Form('form');
         form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
 
     .. code-block:: js
@@ -25,26 +25,26 @@ Template
         $('body').append(
             '<script type="text/html" id="reference"><b>{{value}}</b></script>'
         );
-        gocept.jsform.register_template('my_template', '#reference');
-        var form = new gocept.jsform.Form('form');
+        ajja.register_template('my_template', '#reference');
+        var form = new ajja.Form('form');
         form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
 
     .. code-block:: js
     
         var compiled = Handlebars.compile('<p>{{value}}</p>');
-        gocept.jsform.register_template('my_template', compiled);
-        var form = new gocept.jsform.Form('form');
+        ajja.register_template('my_template', compiled);
+        var form = new ajja.Form('form');
         form.load({title: 'Sebastian'}, {title: {template: 'my_template'}});
 
 .. js:class:: TemplateHandler ()
 
-    Helper class for handling templates within `gocept.jsform`.
+    Helper class for handling templates within `ajja`.
 
     
     
     .. code-block:: js
     
-        var handler = new gocept.jsform.TemplateHandler();
+        var handler = new ajja.TemplateHandler();
 
     .. js:function:: get_template(id)
     
@@ -70,7 +70,7 @@ Template
         .. code-block:: js
         
             handler.list_template()[0]
-            {id: 'form', description: 'The base `gocept.jsform.Form` template', template: function}
+            {id: 'form', description: 'The base `ajja.Form` template', template: function}
 
 
 

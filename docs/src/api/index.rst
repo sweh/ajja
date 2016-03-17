@@ -4,4 +4,4 @@ API
 .. toctree::
     :maxdepth: 2
 
-    gocept/__index__
+    ajja/__index__

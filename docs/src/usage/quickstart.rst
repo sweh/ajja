@@ -19,13 +19,13 @@ model object has just been created.
 Rendering a Form
 ================
 
-First install `gocept.jsform` via :ref:`bower <installation-bower>` (or
+First install `ajja` via :ref:`bower <installation-bower>` (or
 :ref:`fanstatic <installation-fanstatic>` or :ref:`manually
 <installation-manual>`)
 
 .. code-block:: bash
 
-    bower install gocept.jsform
+    bower install ajja
 
 Add a placeholder inside your DOM
 
@@ -33,13 +33,13 @@ Add a placeholder inside your DOM
 
     <div id="form"></div>
 
-Initialize the form via `gocept.jsform` and load current state from server
+Initialize the form via `ajja` and load current state from server
 
 .. _code-quickstart-without-options:
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form("form");
+    var form = new ajja.Form("form");
     form.load("message/1");
 
 The response from the server should look like ``{"title": "", description:
@@ -51,7 +51,7 @@ On ``load`` the placeholder will be replaced by the following HTML
 
 .. code-block:: html
 
-    <form method="POST" action id="form" class="jsform form-horizontal">
+    <form method="POST" action id="form" class="ajja form-horizontal">
         <div class="statusarea"></div>
         <div class="field form-group" id="field-title">
             <label for="title" class="col-sm-3 control-label"></label>
@@ -102,7 +102,7 @@ with an additional options dict like
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form("form")
+    var form = new ajja.Form("form")
     form.load("message/1", {
         title: {"label": "Title", "required": true},
         description: {"label": "Body", "template": "form_text"}
@@ -119,7 +119,7 @@ data directly to the ``load`` function
 
 .. code-block:: javascript
 
-    var form = new gocept.jsform.Form("form")
+    var form = new ajja.Form("form")
     form.load(
         {"title": "My brand new form", "description": ""},
         {
@@ -136,7 +136,7 @@ Rendering a Collection
 ======================
 
 It is assumed, that you already :ref:`installed <installation>`
-`gocept.jsform`.
+`ajja`.
 
 .. _code-quickstart-collection-initialization:
 
@@ -153,7 +153,7 @@ current state from server
 
 .. code-block:: javascript
 
-    var collection = new gocept.jsform.ListWidget(
+    var collection = new ajja.ListWidget(
         '#my_collection',
         {collection_url: '/messages.json',
          default_form_actions: [],
@@ -196,7 +196,7 @@ On ``reload`` the placeholder will be replaced by the following HTML
 
 Each item has two default actions: ``edit`` and ``delete``. The collection has
 the default action ``add``. Add and edit both create a bootstrap modal dialog
-containing a `gocept.jsform.Form` form.
+containing a `ajja.Form` form.
 
 As you can see the generated HTML contains CSS classes compatible with
 `Bootstrap <http://getbootstrap.com/>`_, thus including the Bootstrap CSS is
@@ -233,7 +233,7 @@ groups items by a defined attribute.
 
 .. code-block:: javascript
 
-    var collection = new gocept.jsform.GroupListWidget(
+    var collection = new ajja.GroupListWidget(
         '#my_collection',
         {group_by_key: 'title',
          group_title_key: 'title',
@@ -260,7 +260,7 @@ The :js:class:`TableWidget` renders items in a HTML table.
 
 .. code-block:: javascript
 
-    var collection = new gocept.jsform.TableWidget(
+    var collection = new ajja.TableWidget(
         '#my_collection',
         {collection_url: '/messages.json',
          default_form_actions: [],
@@ -276,7 +276,7 @@ Customizing the HTML output
 ---------------------------
 
 It is possible to change the rendered HTML by overriding the default templates.
-Please refere to :js:func:`gocept.jsform.register_template` for information
+Please refere to :js:func:`ajja.register_template` for information
 about how default templates are customized.
 
 The following default templates are used by :ref:`ListWidgets <quickstart-collection-listwidget>`:

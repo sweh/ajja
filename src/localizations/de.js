@@ -1,6 +1,6 @@
-/*global gocept */
+/*global ajja */
 
-gocept.jsform.locales.de = {
+ajja.locales.de = {
     successfully_saved_value: 'Feld wurde gespeichert.',
     field_contains_unsaved_changes: 'Dieses Feld enthält nicht gespeicherte Änderungen.',
     communication_error: 'Es gab einen Fehler bei der Kommunikation mit dem Server.',

@@ -3,7 +3,7 @@
 Collection
 ==========
 
-.. currentmodule:: gocept.jsform
+.. currentmodule:: ajja
 
 
 .. js:class:: GroupListWidget (node_selector, options)
@@ -33,7 +33,7 @@ Collection
     .. code-block:: js
     
         $(body).append('<div id="my_list_widget"></div>');
-        var list_widget = new gocept.jsform.GroupListWidget(
+        var list_widget = new ajja.GroupListWidget(
             '#my_list_widget',
             {collection_url: '/list.json'}
         );
@@ -71,7 +71,7 @@ Collection
     .. code-block:: js
     
         $(body).append('<div id="my_list_widget"></div>');
-        var list_widget = new gocept.jsform.ListWidget(
+        var list_widget = new ajja.ListWidget(
             '#my_list_widget',
             {collection_url: '/list.json'}
         );
@@ -180,7 +180,7 @@ Collection
     .. code-block:: js
     
         $(body).append('<div id="my_list_widget"></div>');
-        var list_widget = new gocept.jsform.TableWidget(
+        var list_widget = new ajja.TableWidget(
             '#my_list_widget',
             {collection_url: '/list.json'}
         );

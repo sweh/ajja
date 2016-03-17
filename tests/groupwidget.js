@@ -1,4 +1,4 @@
-/*global describe, beforeEach, afterEach, gocept, it, spyOn, expect, $*/
+/*global describe, beforeEach, afterEach, ajja, it, spyOn, expect, $*/
 /*jslint nomen: true, unparam: true, bitwise: true*/
 describe("Group List Widget", function () {
     "use strict";
@@ -7,7 +7,7 @@ describe("Group List Widget", function () {
 
     beforeEach(function () {
         $('body').append($('<div id="my_form"></div>'));
-        list = new gocept.jsform.GroupListWidget(
+        list = new ajja.GroupListWidget(
             '#my_form',
             {group_by_key: 'foo', group_title_key: 'foo'}
         );
@@ -42,10 +42,10 @@ describe("Group List Widget", function () {
 
     it("throws an error if required options are missing", function () {
         expect(function () {
-            new gocept.jsform.GroupListWidget('#my_form');
+            new ajja.GroupListWidget('#my_form');
         }).toThrow("Required option group_by_key was not given!");
         expect(function () {
-            new gocept.jsform.GroupListWidget(
+            new ajja.GroupListWidget(
                 '#my_form',
                 {group_by_key: 'foo'}
             );
