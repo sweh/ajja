@@ -30,13 +30,18 @@ Customizing the form template
 The default behaviour is to simply append every new field as a child to the
 form tag. If you need to customize the order of your fields or just need
 different overall HTML for your form, you can use a custom form template with
-containers for all or just some of the fields::
+containers for all or just some of the fields:
+
+.. _code-customization-form-template:
+
+.. code-block:: javascript
 
     gocept.jsform.register_template(
       'form',
-      ['<form method="POST" action="{{action}}" id="{{form_id}}">',
-       '<table><tr><td class="firstname"><span id="firstname" /></td>',
-       '<td class="lastname"><span id="lastname" /></td></tr></table>',
+      ['<form method="POST" action="{{action}}" id="{{form_id}}" class="jsform form-horizontal">',
+       '  <div class="statusarea"></div>',
+       '  <table><tr><td><span id="field-firstname" /></td>',
+       '  <td><span id="field-lastname" /></td></tr></table>',
        '</form>'].join('')
     );
 
@@ -78,7 +83,9 @@ Customization by field type
 ---------------------------
 
 You can overwrite the default templates by registering your own templates
-prior to form initialization::
+prior to form initialization:
+
+.. code-block:: javascript
 
     gocept.jsform.register_template('form_boolean', '<bool_template_html />');
     gocept.jsform.register_template('form_string', '<string_template_html />');
@@ -87,44 +94,58 @@ prior to form initialization::
 For every string value, your input template would be rendered instead of the
 default input text field. Same for lists and boolean values.
 
+
 Customization by field name
 ---------------------------
 
-Imagine you want checkboxes instead of a select field. You need to register
-the template for a name not yet used for a data type or any other template::
+Imagine you want checkboxes instead of a select field. You can use the
+`form_radio_list` template for that purpose:
 
-    gocept.jsform.register_template(
-        'checkbox_template',
-        ['<div class="title">Titel:',
-         '{#each value}',
-         '  <div>',
-         '    <input type="radio" name="{{name}}" value="{{id}}" class="{{id}}"',
-         '           data-bind="checked: {{name}}" /> {{value}}',
-         '  </div>',
-         '{/each}',
-         '</div>'].join('')
-    );
+.. _code-customization-checkbox-select:
+
+.. code-block:: javascript
+
+    var form = new gocept.jsform.Form('form');
+    form.load({kind: ''},
+              {kind: {source: [
+                          {token: 'dog', title: 'Dog'},
+                          {token: 'cat', title: 'Cat'},
+                          {token: 'mouse', title: 'Mouse'}],
+                      label: 'What kind of animal do you love?',
+                      template: 'form_radio_list'}});
 
 You can pass the *load* method a JS object containing customizations for each
 field. One of these customization options is the name of the registered
 template, which results in rendering two checkboxes instead of the default
-select box. To swap the ``title`` widget in the above example::
+select box.
+
+
+Rendering readonly widgets
+--------------------------
+
+If you need to make a field widget immutable, you can pass it the `disabled`
+flag in the options:
+
+.. _code-customization-readonly:
+
+.. code-block:: javascript
 
     var form = new gocept.jsform.Form('form');
-    form.load({title: [{id: 'mr', value: 'Mr.'},
-                       {id: 'mrs', value: 'Mrs.'}]},
-              {title: {template: 'checkbox_template'}});
+    form.load({kind: 'Immutable'},
+              {kind: {label: 'Immutable text',
+                      disabled: true}});
 
-You can also specify a label or other options for the fields::
+Its possible to render the whole form with immutable fields, too:
 
-    gocept.jsform.register_template(
-        'form_string_special',
-        ['{{label}}: <input type="text" name="{{name}}" value="{{default}}"',
-         '                  data-bind="value: {{name}}" {{readonly}} />'].join('')
-    );
 
-    var form = new gocept.jsform.Form('form');
-    form.load({firstname: 'Sebastian'},
-              {firstname: {template: 'form_string_special',
-                           label: 'First name',
-                           default: 'Max'}});
+.. _code-customization-readonly-form:
+
+.. code-block:: javascript
+
+    var form = new gocept.jsform.Form('form', {disabled: true});
+    form.load({name: 'John Doe', gender: 'male'},
+              {name: {label: 'Name'},
+              gender: {label: 'Gender',
+                        'source': [{token: 'unknown', title: 'Not specified'},
+                                   {token: 'male', title: 'Male'},
+                                   {token: 'female', title: 'Female'}]}});
