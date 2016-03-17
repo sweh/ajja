@@ -1,6 +1,6 @@
 {
   "name": "gocept.jsform",
-  "version": "3.0.1",
+  "version": "3.0.2-dev.0",
   "description": "Next generation forms in javascript",
   "main": "src/jsform.js",
   "directories": {
