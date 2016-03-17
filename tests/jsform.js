@@ -278,13 +278,23 @@ describe("Form Plugin", function () {
             spyOn(form, "_save").and.returnValue($.Deferred());
         });
 
-        afterEach(function () {
+        it("textbox", function () {
+            form.load({'title': ''});
+            $('#my_form input').val('Test');
+            $('#my_form input').change();
             expect(form._save).toHaveBeenCalled();
+        });
+
+        it("textbox with no change", function () {
+            form.load({'title': 'Test'});
+            $('#my_form input').change();
+            expect(form._save).not.toHaveBeenCalled();
         });
 
         it("checkboxes", function () {
             form.load({needs_glasses: false});
             $('#my_form input').click();
+            expect(form._save).toHaveBeenCalled();
         });
 
         it("select box saves token", function (done) {
