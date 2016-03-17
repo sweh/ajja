@@ -1,6 +1,6 @@
 {
   "name": "ajja",
-  "version": "3.0.2-dev.0",
+  "version": "4.0.0",
   "description": "Next generation forms in javascript",
   "main": "src/form.js",
   "directories": {
