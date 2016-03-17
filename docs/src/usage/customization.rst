@@ -47,10 +47,23 @@ This will replace the ``span`` containers with ids ``firstname`` and
 ``lastname`` with the appropriate ``input`` fields.
 
 
+.. _customization-csrf-token:
+
 CSRF token
 ==========
 
-XXX to be done, reference from protocol spec
+In order to prevent `Cross-site request forgery (CSRF) <https://en.wikipedia.org/wiki/Cross-site_request_forgery>`_,
+`gocept.jsform` can handle CSRF tokens and always submit them with every save
+request. The token needs to be generated on the server and injected into the
+DOM in a hidden input field with the id ``csrf_token``.
+
+.. code-block:: html
+
+    <input type="hidden" id="csrf_token" value="secure-random" />
+    <div id="form"></div>
+
+
+The token will be sent with every request under the key ``csrf_token``.
 
 
 .. _customization-field-widgets:

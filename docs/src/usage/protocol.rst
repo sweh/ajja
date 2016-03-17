@@ -51,9 +51,10 @@ The latter special case of a single resource URL does imply a RESTful server.
 Since the request body contains a mapping from field name to value, this
 allows for more than one field value to be stored at the same time. While the
 stock implementation doesn't store the value of more than one field through
-the same request, custom widgets may do so; also, a CSRF token may be sent
-along under a configurable name. A server implementation must assume any
-number of fields to be sent within one save request.
+the same request, custom widgets may do so; also, a
+:ref:`CSRF token <customization-csrf-token>` may be sent along under a
+configurable name. A server implementation must assume any number of fields to
+be sent within one save request.
 
 Response
 --------
