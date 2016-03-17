@@ -163,21 +163,8 @@ current state from server
     }});
     collection.reload();
 
-The response from the server should look like
-
-.. _quickstart-server-response-list-widget:
-
-.. code-block:: json
-
-    [
-        {resource: 'message/1',
-         data: {'title': 'The title', 'description': 'The description'},
-        {resource: 'message/2',
-         data: {'title': 'Another title', 'description': 'Another description'}
-    ]
-
-It is used to create a HTML list of items containing the values from the data
-attribute.
+The response from the server is described in the
+:ref:`protocol section <protocol-collections>`.
 
 On ``reload`` the placeholder will be replaced by the following HTML
 
@@ -262,9 +249,6 @@ Groups are created dynamically and items sorted into those groups by
 `group_by_key`. The title for the groups is taken from the attribute
 `group_title_key`.
 
-The server response is the same as for
-:ref:`ListWidgets <quickstart-server-response-list-widget>`.
-
 .. _quickstart-collection-tablewidget:
 
 TableWidget
@@ -285,10 +269,6 @@ The :js:class:`TableWidget` renders items in a HTML table.
             'description': {label: 'Body'}
     }});
     collection.reload();
-
-The server response is the same as for
-:ref:`ListWidgets <quickstart-server-response-list-widget>`.
-
 
 .. _quickstart-collection-tenplate-customization:
 

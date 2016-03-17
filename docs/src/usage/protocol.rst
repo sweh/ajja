@@ -21,7 +21,7 @@ can be JSON-encoded, see :ref:`the explanation of datatypes
 instead of a field-value mapping, an XHR GET request is sent to the URL and
 the full response is expected to be the JSON-encoded field-value mapping:
 
-.. code-block:: javascript
+.. code-block:: json
 
     {firstname: "Jack", lastname: "", send_notifications: true, messages: 0}
 
@@ -37,7 +37,7 @@ the server separately after it lost focus. To do so, a JSON-encoded mapping of
 field name to value (or an appropriate representation thereof) is sent to the
 resource URL by an XHR POST request:
 
-.. code-block:: javascript
+.. code-block:: json
 
     {firstname: "John"}
 
@@ -68,14 +68,14 @@ The body of a response with status 200 must be a JSON-encoded mapping that
 contains at least a status flag, signifying whether validation succeeded. Upon
 success, the minimal body should read:
 
-.. code-block:: javascript
+.. code-block:: json
 
     {status: "success"}
 
 In the case of validation errors, the response is expected to convey an error
 message suitable to present to the user, e.g.
 
-.. code-block:: javascript
+.. code-block:: json
 
     {status: "error", msg: "Not a valid email address"}
 
@@ -98,7 +98,7 @@ mapping from field names to new source values. Source values have the same
 format (lists of objects having a token and title) as when :ref:`configuring
 them statically through the form options <datatypes-sources>`:
 
-.. code-block:: javascript
+.. code-block:: json
 
     {status: "success",
      sources: {subcategories: [
@@ -107,8 +107,22 @@ them statically through the form options <datatypes-sources>`:
      ]}
     }
 
+.. _protocol-collections:
 
 Collections
 ===========
 
-XXX to be done
+The data format to load a collection is a list of items. Items are objects
+containing a resource url, which points to the RESTful interface of that item,
+and an object with item data, that will be displayed inside the collection:
+
+.. code-block:: json
+
+    [
+        {resource: 'message/1',
+         data: {'title': 'The title', 'description': 'The description'},
+        {resource: 'message/2',
+         data: {'title': 'Another title', 'description': 'Another description'}
+    ]
+
+The collection protocol is identical for all collection widgets.
