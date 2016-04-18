@@ -186,7 +186,7 @@ Changelog
 
 - Package the browser resources as a bower package.
 
-- Switch from json-template.js to Handbars.js for templating. (#13804)
+- Switch from json-template.js to Handlebars.js for templating. (#13804)
 
 - Fixed a bug where using select fields with dynamic options (sources) triggered
   a save request with empty value upon creation in the UI.
