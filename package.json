@@ -43,6 +43,7 @@
     "load-grunt-tasks": "^3.5.2"
   },
   "dependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "^1.0.1",
+    "codecov": "2.1.0"
   }
 }
