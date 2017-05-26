@@ -7,6 +7,8 @@ Changelog
 
 - Pin npm versions to make dev deployments more stable.
 
+- Fix failing codecov upload due to an imcompatability with old node version.
+
 - Fix failing tests.
   Two tests did not have any expectations, five had some async problems that
   were now fixed, one was not fixed and is skipped for now.
