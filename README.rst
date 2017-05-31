@@ -62,3 +62,8 @@ Authors
 =======
 
 ajja is made available by `gocept gmbh & co. kg <https://gocept.com/>`_.
+
+
+.. image:: https://badges.greenkeeper.io/gocept/ajja.svg
+   :alt: Greenkeeper badge
+   :target: https://greenkeeper.io/
