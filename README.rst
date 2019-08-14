@@ -10,9 +10,9 @@ The ajja distribution
    :target: https://github.com/gocept/ajja
    :alt: Bower Version
 
-.. image:: https://circleci.com/gh/gocept/ajja.svg?style=shield
-   :target: https://circleci.com/gh/gocept/ajja
-   :alt: CircleCi
+.. image:: https://api.travis-ci.com/gocept/ajja.svg
+   :target: https://travis-ci.com/gocept/ajja
+   :alt: Travis-CI
 
 .. image:: https://codecov.io/github/gocept/ajja/coverage.svg?branch=master
    :target: https://codecov.io/github/gocept/ajja?branch=master
