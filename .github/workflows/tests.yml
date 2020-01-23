@@ -1,0 +1,25 @@
+name: ajja tests
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 3 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout ajja
+      uses: actions/checkout@v1
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '13.3'
+    - name: Install dependencies
+      run: |
+        npm install
+        grunt
+    - name: Run phantomjs tests
+      run: grunt phantomjs
