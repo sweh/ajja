@@ -20,6 +20,6 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        grunt
+        grunt --force
     - name: Run phantomjs tests
       run: grunt phantomjs
