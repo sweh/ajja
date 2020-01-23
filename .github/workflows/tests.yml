@@ -16,10 +16,11 @@ jobs:
     - name: Setup node
       uses: actions/setup-node@v1
       with:
-        node-version: '13.3'
+        node-version: '7'
     - name: Install dependencies
       run: |
         npm install
-        grunt --force
+        npm install -g codecov
+        grunt
     - name: Run phantomjs tests
       run: grunt phantomjs
