@@ -26,6 +26,10 @@ The ajja distribution
    :target: http://ajja.readthedocs.org/en/latest
    :alt: Documentation
 
+.. image:: https://badges.greenkeeper.io/sweh/ajja.svg
+   :alt: Greenkeeper badge
+   :target: https://greenkeeper.io/
+
 ajja is a JavaScript library for simple creation of forms in your
 clients browser. It just needs a JSON datastructure and creates a form with
 auto saving fields from it.
