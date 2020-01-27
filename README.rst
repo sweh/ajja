@@ -3,11 +3,11 @@ The ajja distribution
 =====================
 
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
-   :target: https://github.com/gocept/ajja/blob/master/LICENSE.txt
+   :target: https://github.com/sweh/ajja/blob/master/LICENSE.txt
    :alt: License
 
 .. image:: https://img.shields.io/bower/v/ajja.svg
-   :target: https://github.com/gocept/ajja
+   :target: https://github.com/sweh/ajja
    :alt: Bower Version
 
 .. image:: https://github.com/sweh/ajja/workflows/ajja%20tests/badge.svg?event=schedule
@@ -41,24 +41,24 @@ library: *aj*ax and *ja*vascript.
 Support and Documentation
 =========================
 
-Documentation is available on `readthedocs <http://goceptjsform.readthedocs.org/en/stable>`_.
-Bugs and Feature Requests are tracked in the `GitHub Issue Tracker <https://github.com/gocept/ajja/issues>`_.
-To obtain support, please write an email to `mail@gocept.com <mailto:mail@gocept.com>`_.
+Documentation is available on `readthedocs <http://ajja.readthedocs.org/en/stable>`_.
+Bugs and Feature Requests are tracked in the `GitHub Issue Tracker <https://github.com/sweh/ajja/issues>`_.
+To obtain support, please write an email to `Sebastian Wehrmann <mailto:sebastian@wehrmann.it>`_.
 
 Developing and Contributing
 ===========================
 
-See `HACKING.txt <https://github.com/gocept/ajja/blob/master/HACKING.txt>`_
-and `Contribution <http://goceptjsform.readthedocs.org/en/stable/src/contributing.html>`_
+See `HACKING.txt <https://github.com/sweh/ajja/blob/master/HACKING.txt>`_
+and `Contribution <http://ajja.readthedocs.org/en/stable/src/contributing.html>`_
 for guidelines on running tests, adding features and updating documentation
 when developing in or contributing to ajja.
 
 License
 =======
 
-ajja is offered under the `MIT license <https://github.com/gocept/ajja/blob/master/LICENSE.txt>`_.
+ajja is offered under the `MIT license <https://github.com/sweh/ajja/blob/master/LICENSE.txt>`_.
 
 Authors
 =======
 
-ajja is made available by `gocept gmbh & co. kg <https://gocept.com/>`_.
+ajja is made available by `Sebastian Wehrmann <https://wehrmann.it/>`_.
