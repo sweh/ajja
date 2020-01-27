@@ -10,9 +10,7 @@ The ajja distribution
    :target: https://github.com/gocept/ajja
    :alt: Bower Version
 
-![ajja tests](https://github.com/sweh/ajja/workflows/ajja%20tests/badge.svg)
-
-.. image:: https://github.com/sweh/ajja/workflows/ajja%20tests/badge.svg
+.. image:: https://github.com/sweh/ajja/workflows/ajja%20tests/badge.svg?event=schedule
    :target: https://github.com/sweh/ajja/actions
    :alt: Ajja tests
 
