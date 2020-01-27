@@ -10,12 +10,14 @@ The ajja distribution
    :target: https://github.com/gocept/ajja
    :alt: Bower Version
 
-.. image:: https://api.travis-ci.com/gocept/ajja.svg
-   :target: https://travis-ci.com/gocept/ajja
-   :alt: Travis-CI
+![ajja tests](https://github.com/sweh/ajja/workflows/ajja%20tests/badge.svg)
 
-.. image:: https://codecov.io/github/gocept/ajja/coverage.svg?branch=master
-   :target: https://codecov.io/github/gocept/ajja?branch=master
+.. image:: https://github.com/sweh/ajja/workflows/ajja%20tests/badge.svg
+   :target: https://github.com/sweh/ajja/actions
+   :alt: Ajja tests
+
+.. image:: https://codecov.io/github/sweh/ajja/coverage.svg?branch=master
+   :target: https://codecov.io/github/sweh/ajja?branch=master
    :alt: CodeCov
 
 .. image:: https://api.codacy.com/project/badge/grade/4f4968d89bda4e86af2c5d6a55fac31c
