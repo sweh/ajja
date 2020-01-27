@@ -23,4 +23,8 @@ jobs:
         npm install -g codecov
         grunt
     - name: Run phantomjs tests
-      run: grunt phantomjs
+      run: |
+        grunt phantomjs
+        codecov
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
