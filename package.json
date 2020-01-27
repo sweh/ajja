@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gocept/ajja.git"
+    "url": "git+https://github.com/sweh/ajja.git"
   },
   "keywords": [
     "form",
@@ -19,12 +19,12 @@
     "jquery",
     "client"
   ],
-  "author": "gocept gmbh & co. kg",
+  "author": "Sebastian Wehrmann <sebastian@wehrmann.it>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gocept/ajja/issues"
+    "url": "https://github.com/sweh/ajja/issues"
   },
-  "homepage": "https://github.com/gocept/ajja#readme",
+  "homepage": "https://github.com/sweh/ajja#readme",
   "devDependencies": {
     "grunt-bower": "^0.21.4",
     "grunt-bower-concat": "^1.0.0",

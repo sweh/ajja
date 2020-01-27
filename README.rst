@@ -3,19 +3,19 @@ The ajja distribution
 =====================
 
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
-   :target: https://github.com/gocept/ajja/blob/master/LICENSE.txt
+   :target: https://github.com/sweh/ajja/blob/master/LICENSE.txt
    :alt: License
 
 .. image:: https://img.shields.io/bower/v/ajja.svg
-   :target: https://github.com/gocept/ajja
+   :target: https://github.com/sweh/ajja
    :alt: Bower Version
 
-.. image:: https://circleci.com/gh/gocept/ajja.svg?style=shield
-   :target: https://circleci.com/gh/gocept/ajja
-   :alt: CircleCi
+.. image:: https://github.com/sweh/ajja/workflows/ajja%20tests/badge.svg?event=schedule
+   :target: https://github.com/sweh/ajja/actions
+   :alt: Ajja tests
 
-.. image:: https://codecov.io/github/gocept/ajja/coverage.svg?branch=master
-   :target: https://codecov.io/github/gocept/ajja?branch=master
+.. image:: https://codecov.io/github/sweh/ajja/coverage.svg?branch=master
+   :target: https://codecov.io/github/sweh/ajja?branch=master
    :alt: CodeCov
 
 .. image:: https://api.codacy.com/project/badge/grade/4f4968d89bda4e86af2c5d6a55fac31c
@@ -25,6 +25,10 @@ The ajja distribution
 .. image:: https://readthedocs.org/projects/ajja/badge/?version=latest
    :target: http://ajja.readthedocs.org/en/latest
    :alt: Documentation
+
+.. image:: https://badges.greenkeeper.io/sweh/ajja.svg
+   :alt: Greenkeeper badge
+   :target: https://greenkeeper.io/
 
 ajja is a JavaScript library for simple creation of forms in your
 clients browser. It just needs a JSON datastructure and creates a form with
@@ -41,29 +45,24 @@ library: *aj*ax and *ja*vascript.
 Support and Documentation
 =========================
 
-Documentation is available on `readthedocs <http://goceptjsform.readthedocs.org/en/stable>`_.
-Bugs and Feature Requests are tracked in the `GitHub Issue Tracker <https://github.com/gocept/ajja/issues>`_.
-To obtain support, please write an email to `mail@gocept.com <mailto:mail@gocept.com>`_.
+Documentation is available on `readthedocs <http://ajja.readthedocs.org/en/stable>`_.
+Bugs and Feature Requests are tracked in the `GitHub Issue Tracker <https://github.com/sweh/ajja/issues>`_.
+To obtain support, please write an email to `Sebastian Wehrmann <mailto:sebastian@wehrmann.it>`_.
 
 Developing and Contributing
 ===========================
 
-See `HACKING.txt <https://github.com/gocept/ajja/blob/master/HACKING.txt>`_
-and `Contribution <http://goceptjsform.readthedocs.org/en/stable/src/contributing.html>`_
+See `HACKING.txt <https://github.com/sweh/ajja/blob/master/HACKING.txt>`_
+and `Contribution <http://ajja.readthedocs.org/en/stable/src/contributing.html>`_
 for guidelines on running tests, adding features and updating documentation
 when developing in or contributing to ajja.
 
 License
 =======
 
-ajja is offered under the `MIT license <https://github.com/gocept/ajja/blob/master/LICENSE.txt>`_.
+ajja is offered under the `MIT license <https://github.com/sweh/ajja/blob/master/LICENSE.txt>`_.
 
 Authors
 =======
 
-ajja is made available by `gocept gmbh & co. kg <https://gocept.com/>`_.
-
-
-.. image:: https://badges.greenkeeper.io/gocept/ajja.svg
-   :alt: Greenkeeper badge
-   :target: https://greenkeeper.io/
+ajja is made available by `Sebastian Wehrmann <https://wehrmann.it/>`_.

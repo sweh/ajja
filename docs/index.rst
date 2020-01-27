@@ -12,7 +12,7 @@ Advanced forms in JavaScript
 ============================
 
 The latest stable version is |release|; you will find it at
-`github <https://github.com/gocept/ajja>`_.
+`github <https://github.com/sweh/ajja>`_.
 
 `ajja` is a MIT licensed library, written in JavaScript, to build
 forms and collections from JSON data directly in the browser.

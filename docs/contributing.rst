@@ -6,7 +6,7 @@ All open-source projects live through their community, so does `ajja`.
 You are very welcome to contribute bug fixes and feature proposals. Please
 note the following guidelines:
 
-* `ajja` is hosted on github: http://github.com/gocept/ajja
+* `ajja` is hosted on github: http://github.com/sweh/ajja
 
 * Use github's issue tracker to submit bug fixes or feature proposals.
 

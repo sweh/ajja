@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'ajja'
-copyright = u'2014-2016, gocept gmbh & co. kg'
+copyright = u'2014-2019 gocept gmbh & co. kg, 2020 Sebastian Wehrmann'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -187,7 +187,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'ajja.tex', u'ajja Documentation',
-   u'gocept gmbh & co. kg', 'manual'),
+   'Sebastian Wehrmann', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -217,7 +217,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'ajja', u'ajja Documentation',
-     [u'gocept gmbh &  co. kg'], 1)
+     ['Sebastian Wehrmann'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -231,7 +231,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'ajja', u'ajja Documentation',
-   u'gocept gmbh & co. ks', 'ajja', 'Advanced forms in javascript.',
+   'Sebastian Wehrmann', 'ajja', 'Advanced forms in javascript.',
    'Miscellaneous'),
 ]
 

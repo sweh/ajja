@@ -13,6 +13,8 @@ Changelog
   Two tests did not have any expectations, five had some async problems that
   were now fixed, one was not fixed and is skipped for now.
 
+- Fix disabled flag for radio list widget.
+
 
 4.0.1 (2016-03-17)
 ==================

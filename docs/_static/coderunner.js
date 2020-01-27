@@ -1,4 +1,4 @@
-/*global jQuery, document, gocept */
+/*global jQuery, document */
 /*jslint nomen: true, unparam: true, bitwise: true*/
 
 (function ($) {
