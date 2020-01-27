@@ -31,19 +31,19 @@
     "grunt-bower-task": "^0.5.0",
     "grunt-bump": "0.8.0",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-handlebars": "^1.0.0",
-    "grunt-contrib-jasmine": "^1.1.0",
-    "jasmine-core": "2.6.2",
-    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-connect": "^2.1.0",
+    "grunt-contrib-handlebars": "^2.0.0",
+    "grunt-contrib-jasmine": "^2.1.0",
+    "jasmine-core": "3.5.0",
+    "grunt-contrib-jshint": "^2.1.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-run": "^0.6.0",
+    "grunt-run": "^0.8.1",
     "grunt-template-jasmine-istanbul": "^0.5.0",
     "jsdoc": "^3.4.3",
-    "load-grunt-tasks": "^3.5.2"
+    "load-grunt-tasks": "^5.1.0"
   },
   "dependencies": {
     "grunt": "^1.0.1",
-    "codecov": "2.2.0"
+    "codecov": "3.6.2"
   }
 }
