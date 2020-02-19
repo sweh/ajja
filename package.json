@@ -44,7 +44,7 @@
     "load-grunt-tasks": "5.1.0"
   },
   "dependencies": {
-    "codecov": "3.6.3",
+    "codecov": "3.6.5",
     "grunt": "1.0.3"
   }
 }
