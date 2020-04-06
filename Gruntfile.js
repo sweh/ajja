@@ -56,7 +56,7 @@ module.exports = function (grunt) {
                             lines: 63,
                             statements: 75,
                             branches: 58,
-                            functions: 80
+                            functions: 75
                         }
                     }
                 },
