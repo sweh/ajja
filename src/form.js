@@ -41,7 +41,7 @@
             self.initial_data = null;
             self.data = {};
             self.subscriptions = {};
-            self.options = {action: '', language: 'en', disabled: false};
+            self.options = {action: '', language: 'en', disabled: false, success_status_duration: 1000, fade_out_time: 3000};
             $.extend(self.options, options);
             self.csrf_token_id = 'csrf_token';
             self.mapping = {};
@@ -54,7 +54,11 @@
                 self.unrecoverable_error_msg = msg;
                 self.alert(self.t('unrecoverable_error_intro') + msg);
             });
-            self.field_wrapper_template = self.get_template('form_field_wrapper');
+            if (ajja.isUndefinedOrNull(self.options.field_wrapper_template)) {
+                self.field_wrapper_template = self.get_template('form_field_wrapper');
+            } else {
+                self.field_wrapper_template = self.get_template(self.options.field_wrapper_template);
+            }
             self.loaded = $.Deferred();
             $(self).bind('after-load', function () {
                 self.loaded.resolve();
@@ -95,7 +99,10 @@
          */
         expand_form: function () {
             var self = this, form_template, form_options, form_code;
-            form_template = self.get_template('form');
+            form_template = self.get_template(ajja.or(
+                self.options.form_template,
+                'form'
+            ));
             form_options = $.extend({'form_id': self.id}, self.options);
             form_code = $(
                 form_template(form_options).replace(/^\s+|\s+$/g, '')
@@ -111,10 +118,18 @@
          */
         create_form: function () {
             var self = this;
-            self.expand_form();
+            if (self.options.form_template !== '') {
+                self.expand_form();
+            }
             self.node = $('#' + self.id);
             self.node.closest('form').data('form', self);
             self.statusarea = self.node.find('.statusarea');
+        },
+
+        reload: function () {
+            var self = this;
+            self.create_form();
+            self.start_load();
         },
 
         /**
@@ -214,7 +229,7 @@
             var self = this;
             self.loaded = $.Deferred();  // replace to represent a new load cycle
             if (self.url !== null) {
-                self.reload();
+                self.reload_data(function (data) { self.finish_load(data); });
             } else {
                 self.finish_load(self.initial_data);
             }
@@ -225,13 +240,17 @@
          * @method
          * @memberOf ajja.Form.Form
          */
-        reload: function () {
+        reload_data: function (cb) {
             var self = this;
             $.ajax({
                 dataType: "json",
                 url: self.url,
                 success: function (tokenized) {
-                    self.finish_load(tokenized);
+                    if (cb) {
+                        cb(tokenized);
+                    } else {
+                        self.finish_load(tokenized);
+                    }
                 },
                 error: function (e) { self.notify_server_error(e); }
             });
@@ -298,7 +317,11 @@
             if (self.options[name].multiple) {
                 resolved = [];
                 $.each(value, function (index, token) {
-                    resolved.push(item_map[token]);
+                    if (self.options[name].template == 'template_checkbox_list') {
+                        resolved.push(token);
+                    } else {
+                        resolved.push(item_map[token]);
+                    }
                 });
                 return resolved;
             }
@@ -413,8 +436,9 @@
             $.each(self.sources, function (name, values) {
                 if (self.options[name].multiple) {
                     self.model[name] = ko.observableArray(self.data[name]);
+                } else {
+                    self.model[name] = ko.observable(self.data[name]);
                 }
-                self.model[name] = ko.observable(self.data[name]);
             });
         },
 
@@ -455,14 +479,14 @@
          * @param {string} name The name of the field.
          * @memberOf ajja.Form.Form
          */
-        subscribe: function (name) {
+        subscribe: function (name, real_name) {
             var self = this;
             if (!ajja.isUndefinedOrNull(self.subscriptions[name])) {
                 self.subscriptions[name].dispose();
             }
             self.subscriptions[name] = self.model[name].subscribe(
                 function (newValue) {
-                    self.save(name, newValue);
+                    self.save(ajja.or(real_name, name), newValue);
                 }
             );
         },
@@ -546,6 +570,10 @@
             var self = this, saving_msg_node;
 
             if (self.unrecoverable_error) {
+                self.status_message(
+                    self.t('unrecoverable_error_intro') + self.unrecoverable_error_msg,
+                    'danger'
+                );
                 return;
             }
             if (!silent) {
@@ -559,11 +587,13 @@
                 .done(function () {
                     if (!silent) {
                         self.highlight_field(name, 'success');
-                        self.status_message(
-                            self.t('successfully_saved_value'),
-                            'success',
-                            1000
-                        );
+                        if (self.options.success_status_duration < 500) {
+                            self.status_message(
+                                self.t('successfully_saved_value'),
+                                'success',
+                                self.options.success_status_duration
+                            );
+                        }
                     }
                 })
                 .progress(function () {
@@ -593,13 +623,15 @@
                 result = validated.promise(),
                 save_url,
                 save_type,
-                data;
+                data,
+                oldValue;
 
             if (self.options[name].required && !newValue) {
                 validated.reject({msg: self.t('required_field_left_blank')});
                 return result;
             }
 
+            oldValue = self.data[name];
             self.data[name] = newValue;
 
             save_url = self.options.save_url;
@@ -625,10 +657,22 @@
                 })
                 .done(function (data) {
                     if (data.status === 'error') {
+                        if (self.options[name]['template'] === "bool-template") {
+                            $('#' + name + oldValue)[0].checked = true;
+                            $('#' + name + oldValue).click();
+                            setTimeout(function(){ self.notify_field_error(name, data.msg); }, 1000);
+                        }
                         validated.reject(data);
                     } else if (data.status === 'success') {
                         validated.resolve(data);
                     } else {
+                        if ((data[0] === '<') && (jasmine === undefined)) {
+                            // HTML was returnd
+                            $('html head').remove();
+                            $('html body').remove();
+                            $('html').append($(data));
+                            return;
+                        }
                         $(self).trigger(
                             'unrecoverable-error',
                             self.t('error_could_not_parse_server_response')
@@ -687,7 +731,10 @@
             if (self.options[name].multiple) {
                 tokens = [];
                 $.each(value, function (index, item) {
-                    tokens.push(item.token);
+                    if (typeof item == 'string')
+                        tokens.push(item)
+                    else
+                        tokens.push(item.token);
                 });
                 return tokens;
             }
@@ -780,14 +827,13 @@
          */
         notify_field_error: function (name, msg) {
             var self = this, error_node, label;
-            self.clear_field_error(name);
-            error_node = self.field(name).find('.error');
-            error_node.text(msg);
             self.highlight_field(name, 'danger');
+            error_node = self.field(name).find('.error');
             label = self.label(name);
             if (label !== '') {
                 label = label + ': ';
             }
+            error_node.text(label + msg);
             error_node.data(
                 'status_message',
                 self.status_message(label + msg, 'danger')
@@ -844,12 +890,24 @@
          * @memberOf ajja.Form.Form
          */
         notify_saving: function (name) {
-            var self = this;
-            self.field(name).addClass('alert-saving');
-            return self.status_message(
-                self.t('saving') + ' ' + self.label(name),
-                'info'
+            var self = this,
+                field = self.clear_field(name);
+            field.addClass('is-loading');
+            field.parents('.form-group').find('.invalid-feedback').text(
+                self.t('saving') + ' ' + self.label(name)
             );
+            field.parents('.form-group').find('.invalid-feedback').show();
+        },
+
+        clear_field: function (name) {
+            var self = this,
+                field = self.node.find('[name='+name+']');
+            field.removeClass('is-invalid');
+            field.removeClass('is-valid');
+            field.removeClass('is-loading');
+            field.parents('.form-group').find('.invalid-feedback').hide();
+            field.parents('.form-group').find('.invalid-feedback').text('');
+            return field;
         },
 
         /**
@@ -861,9 +919,8 @@
          * @memberOf ajja.Form.Form
          */
         clear_saving: function (name, msg_node) {
-            var self = this;
-            self.field(name).removeClass('alert-saving');
-            self.clear_status_message(msg_node);
+            var self = this,
+                field = self.clear_field(name);
         },
 
         /**
@@ -877,12 +934,13 @@
         highlight_field: function (name, status) {
             /* Highlight field with status. */
             var self = this,
-                field = self.field(name);
-            field.addClass('alert-' + status);
-            field.delay(300);
-            field.queue(function () {
-                $(this).removeClass('alert-' + status).dequeue();
-            });
+                field = self.clear_field(name);
+            if (status == 'success') {
+                field.addClass('is-valid');
+            } else {
+                field.addClass('is-invalid');
+                field.parents('.form-group').find('.invalid-feedback').show();
+            }
         },
 
         /**

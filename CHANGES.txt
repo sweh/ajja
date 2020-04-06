@@ -15,6 +15,8 @@ Changelog
 
 - Fix disabled flag for radio list widget.
 
+- Reintegrate features from other projects.
+
 
 4.0.1 (2016-03-17)
 ==================

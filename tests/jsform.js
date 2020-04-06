@@ -29,7 +29,7 @@ describe("Form Plugin", function () {
     };
 
     set_load_response = function (response, trigger) {
-        form.reload = function () {
+        form.reload_data = function () {
             form.finish_load({"firstname": "Sebastian",
                 "title": [],
                 "needs_glasses": false});
