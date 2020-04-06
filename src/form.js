@@ -657,7 +657,7 @@
                 })
                 .done(function (data) {
                     if (data.status === 'error') {
-                        if (self.options[name]['template'] === "bool-template") {
+                        if (self.options[name].template === "bool-template") {
                             $('#' + name + oldValue)[0].checked = true;
                             $('#' + name + oldValue).click();
                             setTimeout(function(){ self.notify_field_error(name, data.msg); }, 1000);
@@ -732,7 +732,7 @@
                 tokens = [];
                 $.each(value, function (index, item) {
                     if (typeof item == 'string')
-                        tokens.push(item)
+                        tokens.push(item);
                     else
                         tokens.push(item.token);
                 });
