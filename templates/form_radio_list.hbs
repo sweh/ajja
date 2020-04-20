@@ -2,6 +2,7 @@
     <div class="checkbox">
         <input type="radio" id="{{../name}}_{{token}}" name="{{../name}}" value="{{token}}"
                {{#if ../disabled}} disabled="disabled" {{/if}}
+               {{#if ../hidden}} hidden {{/if}}
                data-bind="checked: {{../name}}" />
         <label class="control-label" for="{{../name}}_{{token}}">{{title}}</label>
     </div>

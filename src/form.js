@@ -65,6 +65,7 @@
             });
             $(self).bind('after-save', function (ev, data) {
                 self.update_sources(data);
+                self.update_hidden(data);
             });
         },
 
@@ -147,6 +148,7 @@
          * @param {boolean} [options.<field_name>.multiple] For object selection, whether to do multi-select.
          * @param {string} [options.<field_name>.placeholder] Placeholder to the empty dropdown option.
          * @param {boolean} [options.<field_name>.disabled] true if field should be disabled.
+         * @param {boolean} [options.<field_name>.hidden] true if field should be hidden.
          * @param {Object} [mapping] An optional mapping for the <ko.mapping> plugin.
          * @returns {void}
          *
@@ -213,6 +215,79 @@
                 $.each(source, function (id, elem) {
                     self.sources[name].push(elem);
                 });
+                self.replace_select_with_buttons(name);
+            });
+        },
+
+        /**
+         * Update visibility from data. Called on form reload.
+         * @method
+         * @param {Object} data The data returned from the ajax server request.
+         * @memberOf ajja.Form.Form
+         */
+        update_hidden: function (data) {
+            var self = this,
+                node = null;
+            if (!data || !data.hidden) {
+                return;
+            }
+            $.each(data.hidden, function (name, hide) {
+                self.node.find('[name='+name+']').attr('hidden', hide);
+                self.node.find('[for='+name+']').attr('hidden', hide);
+                self.update_panel(name);
+            });
+        },
+
+        update_panel: function (name) {
+            var self = this,
+                field = self.node.find('[name='+name+']'),
+                panel = field.parents('.panel'),
+                hide = true;
+            $.each(panel.find('input, select'), function(idx, control) {
+                if (!$(control).attr('hidden')) {
+                    hide = false;
+                    return false;
+                }
+            });
+            panel.attr('hidden', hide);
+        },
+
+        replace_select_with_buttons: function (name) {
+            var self = this,
+                field = self.node.find('[name='+name+']'),
+                selectValue = field.val();
+
+            if (self.options[name].template !== 'form_object_as_buttons') {
+                return;
+            }
+
+            field.parent().find('.selectbtn').remove();
+            field.find('option').each(function(i, obj) {
+                var value= $(obj).val(),
+                    text = $(obj).text();
+                if (value) {
+                    var btn = $(
+                        '<div data-value="' + value + '"' +
+                        '     data-target="' + name + '"' +
+                        '     class="selectbtn btn btn-lg btn-outline-default waves-effect waves-themed">' + text + '</div>'
+                    );
+                if (value == selectValue) {
+                    btn.addClass('selected');
+                }
+                btn.insertBefore(field);
+            }
+            });
+            field.hide();
+
+            field.parent().find('.selectbtn').click(function (ev) {
+                var button = $(ev.currentTarget),
+                    name = button.data('target');
+                button.parent().find('.selectbtn').removeClass('selected');
+                button.addClass('selected');
+
+                var option = $('[name='+name+'] option[value='+button.data('value')+']');
+                option.prop('selected', true);
+                option.change();
             });
         },
 
@@ -374,6 +449,7 @@
             if (self.options[id].required) {
                 $('#field-' + id, self.node).addClass('required');
             }
+            self.update_panel(id);
         },
 
         /**
@@ -489,6 +565,7 @@
                     self.save(ajja.or(real_name, name), newValue);
                 }
             );
+            self.replace_select_with_buttons(name);
         },
 
         /**

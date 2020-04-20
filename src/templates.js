@@ -2,6 +2,8 @@ this["ajja"] = this["ajja"] || {};
 this["ajja"]["templates"] = this["ajja"]["templates"] || {};
 
 this["ajja"]["templates"]["form_boolean"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
+},"3":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -9,7 +11,9 @@ this["ajja"]["templates"]["form_boolean"] = Handlebars.template({"1":function(co
   return "<input type=\"checkbox\" name=\""
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\" "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hidden : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " data-bind=\"checked: "
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\" />\n";
@@ -31,6 +35,8 @@ this["ajja"]["templates"]["form_field_wrapper"] = Handlebars.template({"compiler
 
 this["ajja"]["templates"]["form_multiselect"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
+},"3":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -38,6 +44,8 @@ this["ajja"]["templates"]["form_multiselect"] = Handlebars.template({"1":functio
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\"\n        multiple=\"multiple\"\n        "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n        "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hidden : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n        data-bind=\"selectedOptions: "
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + ",\n                   options: __sources__."
@@ -50,6 +58,8 @@ this["ajja"]["templates"]["form_multiselect"] = Handlebars.template({"1":functio
 },"useData":true});
 
 this["ajja"]["templates"]["form_number"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
+},"3":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -59,12 +69,16 @@ this["ajja"]["templates"]["form_number"] = Handlebars.template({"1":function(con
     + "\" name=\""
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\" "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hidden : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " class=\"form-control\" value=\"\" />\n";
 },"useData":true});
 
-this["ajja"]["templates"]["form_object"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+this["ajja"]["templates"]["form_object_as_buttons"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
+},"3":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -72,6 +86,32 @@ this["ajja"]["templates"]["form_object"] = Handlebars.template({"1":function(con
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\"\n        "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n        "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hidden : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n        data-bind=\"value: "
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + ",\n                   options: __sources__."
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + ",\n                   optionsText: 'title',\n                   optionsCaption: '"
+    + alias4(((helper = (helper = helpers.placeholder || (depth0 != null ? depth0.placeholder : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"placeholder","hash":{},"data":data}) : helper)))
+    + "',\n                   optionsAfterRender: function(option, item) {\n                     if (!item && "
+    + alias4(((helper = (helper = helpers.required || (depth0 != null ? depth0.required : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"required","hash":{},"data":data}) : helper)))
+    + ") {\n                       option.disabled = true;\n                     } else if (item) {\n                       option.value = item.token;\n                     }\n                   },\n                   allowValueUnset: true\">\n</select>\n";
+},"useData":true});
+
+this["ajja"]["templates"]["form_object"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " disabled=\"disabled\" ";
+},"3":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<select name=\""
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "\"\n        "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n        "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hidden : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n        data-bind=\"value: "
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + ",\n                   options: __sources__."
@@ -96,6 +136,8 @@ this["ajja"]["templates"]["form_radio_list"] = Handlebars.template({"1":function
     + alias2(((helper = (helper = helpers.token || (depth0 != null ? depth0.token : depth0)) != null ? helper : alias4),(typeof helper === alias5 ? helper.call(alias3,{"name":"token","hash":{},"data":data}) : helper)))
     + "\"\n               "
     + ((stack1 = helpers["if"].call(alias3,(depths[1] != null ? depths[1].disabled : depths[1]),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n               "
+    + ((stack1 = helpers["if"].call(alias3,(depths[1] != null ? depths[1].hidden : depths[1]),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n               data-bind=\"checked: "
     + alias2(alias1((depths[1] != null ? depths[1].name : depths[1]), depth0))
     + "\" />\n        <label class=\"control-label\" for=\""
@@ -107,6 +149,8 @@ this["ajja"]["templates"]["form_radio_list"] = Handlebars.template({"1":function
     + "</label>\n    </div>\n";
 },"2":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
+},"4":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
@@ -114,6 +158,8 @@ this["ajja"]["templates"]["form_radio_list"] = Handlebars.template({"1":function
 },"useData":true,"useDepths":true});
 
 this["ajja"]["templates"]["form_string"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
+},"3":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -123,11 +169,15 @@ this["ajja"]["templates"]["form_string"] = Handlebars.template({"1":function(con
     + "\" name=\""
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\" "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hidden : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " class=\"form-control\" value=\"\" />\n";
 },"useData":true});
 
 this["ajja"]["templates"]["form_text"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return " hidden ";
+},"3":function(container,depth0,helpers,partials,data) {
     return " disabled=\"disabled\" ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
@@ -137,7 +187,9 @@ this["ajja"]["templates"]["form_text"] = Handlebars.template({"1":function(conta
     + "\" data-bind=\"value: "
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\" "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hidden : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.disabled : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " name=\""
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\"></textarea>\n";
