@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        npm install -g codecov
+        npm install -g codecov@3.6.3
         grunt
     - name: Run phantomjs tests
       run: |
