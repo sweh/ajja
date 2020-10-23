@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "codecov": "3.6.3",
+    "teeny-request": "3.11.3",
     "grunt": "1.0.3"
   }
 }
