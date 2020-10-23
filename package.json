@@ -45,6 +45,11 @@
   },
   "dependencies": {
     "codecov": "3.7.1",
-    "grunt": "1.0.3"
+    "grunt": "1.0.3",
+    "lodash": ">=4.17.19",
+    "minimist": ">=1.2.3",
+    "handlebars": ">=4.5.3",
+    "bower": ">=1.8.8",
+    "deep-extend": ">=0.5.1"
   }
 }
